@@ -1,3 +1,5 @@
+create database bdfarmacia;
+use bdfarmacia;
 CREATE TABLE Farmacia (
 	id_farmacia INT primary key not null,
     nome_farmacia VARCHAR(45),
