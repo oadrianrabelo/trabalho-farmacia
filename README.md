@@ -8,8 +8,26 @@ Para a criação do software será utilizada a linguagem Java com a biblioteca S
 Será usado todas as operações CRUD no software com a adição de um sistema de login de funcionário, reserva e venda de produto.
 ### Etapas
 1. [ ] - Diagramação;
-1. [ ] - Modelagem do banco de dados;
-1. [ ] - Criar o projeto no NetBeans IDE;
-1. [ ] - Construir a interface base;
-1. [ ] - Fazer a conexão com o banco de dados local;
+
+1. [x] - Modelagem do banco de dados;
+
+1. [x] - Criar o projeto no NetBeans IDE;
+
+1. [x] - Construir a interface base;
+
+1. [x] - Fazer a conexão com o banco de dados local;
+
+1. [x] - Construir classes Javabeans;
+
+1. [ ] - Construir classes DAO;
+
+1. [ ] - CRUD:
+  * Construir o método para cadastro de produto;
+  * Construir o método para cadastro de funcionário;
+  * Construir o método para exclusão de produto;
+  * Construir o método para exclusão de funcionário;
+  * Construir o método para a alteração de produto;
+  * Construir o método para a alteração de funcionário;
+  * Construir o método para a consulta de produto;
+  * Construir o método para a consulta de funcionário;
 
