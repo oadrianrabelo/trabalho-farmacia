@@ -6,18 +6,19 @@
 package com.projetofarmacia.interfaces;
 
 
+
 /**
  *
  * @author Calendoscopio
  */
-public class telafarmaceutico extends javax.swing.JFrame {
+public class TelaFarmaceutico extends javax.swing.JFrame {
 
     /**
      * Creates new form telaprincipalAdm
      */
-    public telafarmaceutico() {
+    public TelaFarmaceutico() {
         initComponents();
-        telafarmaceutico.this.setExtendedState(telafarmaceutico.MAXIMIZED_BOTH);
+        TelaFarmaceutico.this.setExtendedState(TelaFarmaceutico.MAXIMIZED_BOTH);
         //this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("logocerto (2).png")).getImage());
        // ImageIcon icon = new ImageIcon("src/recursos/logo_barra.png");
         //barra.setIcon(icon);
@@ -113,7 +114,6 @@ public class telafarmaceutico extends javax.swing.JFrame {
             }
         });
         table.setGridColor(new java.awt.Color(51, 102, 255));
-        table.setShowGrid(true);
         table.setSurrendersFocusOnKeystroke(true);
         table.getTableHeader().setResizingAllowed(false);
         table.getTableHeader().setReorderingAllowed(false);
@@ -168,8 +168,6 @@ public class telafarmaceutico extends javax.swing.JFrame {
                 .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        pane.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout paneLayout = new javax.swing.GroupLayout(pane);
         pane.setLayout(paneLayout);
         paneLayout.setHorizontalGroup(
@@ -180,6 +178,7 @@ public class telafarmaceutico extends javax.swing.JFrame {
             paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+        pane.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenuBar2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -222,13 +221,13 @@ public class telafarmaceutico extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-        consultaReservados cr1 = new consultaReservados();
+        ConsultarReservados cr1 = new ConsultarReservados();
         pane.add(cr1);
         cr1.setVisible(true);
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        reservarProduto rp1 = new reservarProduto();
+        ReservarProduto rp1 = new ReservarProduto();
         pane.add(rp1);
         rp1.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -250,7 +249,7 @@ public class telafarmaceutico extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(telafarmaceutico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaFarmaceutico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -261,7 +260,7 @@ public class telafarmaceutico extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new telafarmaceutico().setVisible(true);
+            new TelaFarmaceutico().setVisible(true);
         });
     }
 

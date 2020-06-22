@@ -6,17 +6,19 @@
 package com.projetofarmacia.interfaces;
 
 import java.awt.Color;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author Calendoscopio
  */
-public class consultarFuncionario extends javax.swing.JInternalFrame {
+public class ConsultarProduto extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form consutarProduto
      */
-    public consultarFuncionario() {
+    public ConsultarProduto() {
         initComponents();
        //  -----------------------------------------------------
             ScrollPane.setOpaque(false);
@@ -65,13 +67,13 @@ public class consultarFuncionario extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(52, 152, 219));
 
         jButton1.setBackground(new java.awt.Color(52, 152, 219));
-        jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/user_edit.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/product-edit.png"))); // NOI18N
         jButton1.setText("Editar");
 
         jButton2.setBackground(new java.awt.Color(52, 152, 219));
-        jButton2.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Folder Search-certo.png"))); // NOI18N
         jButton2.setText("Procurar");
@@ -90,13 +92,12 @@ public class consultarFuncionario extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Consultar Funcionário");
+        jLabel2.setText("Consultar Produto");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Nome");
 
-        table.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -105,7 +106,7 @@ public class consultarFuncionario extends javax.swing.JInternalFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nome", "Função", "Departamento", "Login", "Data de Nascimento", "RG", "CPF", "Endereço"
+                "Nome", "Fornecedor", "Qtd", "Tarja", "Preço", "Data de Validade", "Data de Fabricação", "Farmacia"
             }
         ) {
             Class[] types = new Class [] {
@@ -124,8 +125,8 @@ public class consultarFuncionario extends javax.swing.JInternalFrame {
             }
         });
         table.setGridColor(new java.awt.Color(51, 102, 255));
-        table.setShowGrid(true);
         table.setSurrendersFocusOnKeystroke(true);
+        table.getTableHeader().setResizingAllowed(false);
         table.getTableHeader().setReorderingAllowed(false);
         ScrollPane.setViewportView(table);
 
@@ -133,7 +134,7 @@ public class consultarFuncionario extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 877, Short.MAX_VALUE)
+            .addComponent(ScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 836, Short.MAX_VALUE)
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -143,18 +144,18 @@ public class consultarFuncionario extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
-                        .addGap(9, 9, 9))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

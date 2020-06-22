@@ -12,21 +12,21 @@ import javax.swing.ImageIcon;
  *
  * @author Calendoscopio
  */
-public class telaLogin extends javax.swing.JFrame {
+public class TelaLogin extends javax.swing.JFrame {
 
     /**
      * Creates new form telaLogin
      */
-    public telaLogin() {
+    public TelaLogin() {
         initComponents();
-        telaLogin.this.setExtendedState(telaLogin.MAXIMIZED_BOTH);
+        this.setExtendedState(TelaLogin.MAXIMIZED_BOTH);
          //imagem login ------------------------------------
-        ImageIcon icon = new ImageIcon("src/recursos/login.png");
+        ImageIcon icon = new ImageIcon("/login.png");
         logo.setIcon(icon);
         icon.setImage(icon.getImage().getScaledInstance(logo.getWidth(), logo.getHeight(), Image.SCALE_DEFAULT));
         logo.setIcon(icon);
         //----------------------------------------------
-        ImageIcon icon1 = new ImageIcon("src/recursos/logo_inicial.png");
+        ImageIcon icon1 = new ImageIcon("/logo_inicial.png");
         logo2.setIcon(icon1);
         icon1.setImage(icon1.getImage().getScaledInstance(logo2.getWidth(), logo2.getHeight(), Image.SCALE_DEFAULT));
         logo2.setIcon(icon1);
@@ -45,12 +45,12 @@ public class telaLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        campoUsuário = new javax.swing.JTextField();
+        campoSenha = new javax.swing.JPasswordField();
         logo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnEntrar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         logo2 = new javax.swing.JLabel();
 
@@ -58,32 +58,32 @@ public class telaLogin extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        campoUsuário.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        campoUsuário.setForeground(new java.awt.Color(52, 152, 219));
+        campoUsuário.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(52, 152, 219)));
+
+        campoSenha.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        campoSenha.setForeground(new java.awt.Color(52, 152, 219));
+        campoSenha.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(52, 152, 219)));
+        campoSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoSenhaActionPerformed(evt);
+            }
+        });
+
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(52, 152, 219));
         jLabel1.setText("Usuário");
-
-        jPasswordField1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(52, 152, 219));
-        jPasswordField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(52, 152, 219)));
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
-            }
-        });
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(52, 152, 219));
         jLabel2.setText("Senha");
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(52, 152, 219));
-        jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(52, 152, 219)));
-
-        jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Entrar");
+        btnEntrar.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEntrar.setText("Entrar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -97,15 +97,15 @@ public class telaLogin extends javax.swing.JFrame {
                 .addGap(245, 245, 245))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(140, 140, 140))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1)))
+                            .addComponent(campoUsuário, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                            .addComponent(campoSenha)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(120, 120, 120)
                         .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -118,15 +118,15 @@ public class telaLogin extends javax.swing.JFrame {
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(114, 114, 114)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoUsuário, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(39, 39, 39)
                         .addComponent(jLabel2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -163,9 +163,9 @@ public class telaLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void campoSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoSenhaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_campoSenhaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,7 +184,7 @@ public class telaLogin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(telaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -193,18 +193,18 @@ public class telaLogin extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new telaLogin().setVisible(true);
+            new TelaLogin().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnEntrar;
+    private javax.swing.JPasswordField campoSenha;
+    private javax.swing.JTextField campoUsuário;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel logo;
     private javax.swing.JLabel logo2;
     // End of variables declaration//GEN-END:variables

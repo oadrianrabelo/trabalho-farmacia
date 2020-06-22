@@ -3,21 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.projetofarmacia.interfaces;
+package telas;
+
+import com.projetofarmacia.interfaces.CadastroFuncionario;
+import com.projetofarmacia.interfaces.ConsultarProduto;
+import com.projetofarmacia.interfaces.TelaCaixa;
 
 
 /**
  *
  * @author Calendoscopio
  */
-public class telaprincipalAdm extends javax.swing.JFrame {
+public class TelaPrincipalAdm extends javax.swing.JFrame {
 
     /**
      * Creates new form telaprincipalAdm
      */
-    public telaprincipalAdm() {
+    public TelaPrincipalAdm() {
         initComponents();
-        telaprincipalAdm.this.setExtendedState(telaprincipalAdm.MAXIMIZED_BOTH);
+        TelaPrincipalAdm.this.setExtendedState(TelaPrincipalAdm.MAXIMIZED_BOTH);
         //this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("logocerto (2).png")).getImage());
        // ImageIcon icon = new ImageIcon("src/recursos/logo_barra.png");
         //barra.setIcon(icon);
@@ -135,7 +139,7 @@ public class telaprincipalAdm extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        consultarProduto cp1 = new consultarProduto();
+        ConsultarProduto cp1 = new ConsultarProduto();
         pane.add(cp1);
         cp1.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
@@ -155,7 +159,7 @@ public class telaprincipalAdm extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-        telacaixa tc1 = new telacaixa();
+        TelaCaixa tc1 = new TelaCaixa();
         tc1.setVisible(true);
     }//GEN-LAST:event_jMenu1MouseClicked
 
@@ -176,8 +180,10 @@ public class telaprincipalAdm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(telaprincipalAdm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPrincipalAdm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         
@@ -185,7 +191,7 @@ public class telaprincipalAdm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new telaprincipalAdm().setVisible(true);
+            new TelaPrincipalAdm().setVisible(true);
         });
     }
 
