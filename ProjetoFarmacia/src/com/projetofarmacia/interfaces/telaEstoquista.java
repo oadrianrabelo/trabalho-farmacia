@@ -34,83 +34,83 @@ public class telaEstoquista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pane = new javax.swing.JDesktopPane();
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu1 = new javax.swing.JMenu();
+        painel = new javax.swing.JDesktopPane();
+        menu = new javax.swing.JMenuBar();
+        menuConsutaProduto = new javax.swing.JMenu();
+        menuCadastraProduto = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Farmacia");
         setBackground(new java.awt.Color(255, 255, 255));
         setLocationByPlatform(true);
 
-        javax.swing.GroupLayout paneLayout = new javax.swing.GroupLayout(pane);
-        pane.setLayout(paneLayout);
-        paneLayout.setHorizontalGroup(
-            paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout painelLayout = new javax.swing.GroupLayout(painel);
+        painel.setLayout(painelLayout);
+        painelLayout.setHorizontalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1054, Short.MAX_VALUE)
         );
-        paneLayout.setVerticalGroup(
-            paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        painelLayout.setVerticalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 712, Short.MAX_VALUE)
         );
 
-        jMenuBar2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        menu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Folder Search-certo.png"))); // NOI18N
-        jMenu2.setText("Consultar Produto");
-        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+        menuConsutaProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Folder Search-certo.png"))); // NOI18N
+        menuConsutaProduto.setText("Consultar Produto");
+        menuConsutaProduto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu2MouseClicked(evt);
+                menuConsutaProdutoMouseClicked(evt);
             }
         });
-        jMenuBar2.add(jMenu2);
+        menu.add(menuConsutaProduto);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/product-add.png"))); // NOI18N
-        jMenu1.setText("Cadastrar Produto");
-        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+        menuCadastraProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/product-add.png"))); // NOI18N
+        menuCadastraProduto.setText("Cadastrar Produto");
+        menuCadastraProduto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu1MouseClicked(evt);
+                menuCadastraProdutoMouseClicked(evt);
             }
         });
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+        menuCadastraProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
+                menuCadastraProdutoActionPerformed(evt);
             }
         });
-        jMenuBar2.add(jMenu1);
+        menu.add(menuCadastraProduto);
 
-        setJMenuBar(jMenuBar2);
+        setJMenuBar(menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pane)
+            .addComponent(painel)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pane)
+            .addComponent(painel)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+    private void menuCadastraProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastraProdutoActionPerformed
         
-    }//GEN-LAST:event_jMenu1ActionPerformed
+    }//GEN-LAST:event_menuCadastraProdutoActionPerformed
 
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-       cadastroProduto cp2 = new cadastroProduto();
-       pane.add(cp2);
+    private void menuCadastraProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCadastraProdutoMouseClicked
+       CadastroProduto cp2 = new CadastroProduto();
+       painel.add(cp2);
        cp2.setVisible(true);
-    }//GEN-LAST:event_jMenu1MouseClicked
+    }//GEN-LAST:event_menuCadastraProdutoMouseClicked
 
-    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+    private void menuConsutaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuConsutaProdutoMouseClicked
         consultarProduto cp1 = new consultarProduto();
-        pane.add(cp1);
+        painel.add(cp1);
         cp1.setVisible(true);
-    }//GEN-LAST:event_jMenu2MouseClicked
+    }//GEN-LAST:event_menuConsutaProdutoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -149,10 +149,10 @@ public class telaEstoquista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JDesktopPane pane;
+    private javax.swing.JMenuBar menu;
+    private javax.swing.JMenu menuCadastraProduto;
+    private javax.swing.JMenu menuConsutaProduto;
+    private javax.swing.JDesktopPane painel;
     // End of variables declaration//GEN-END:variables
 
    
