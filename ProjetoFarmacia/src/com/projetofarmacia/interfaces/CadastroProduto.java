@@ -5,6 +5,13 @@
  */
 package com.projetofarmacia.interfaces;
 
+import com.projetofarmacia.DAO.ProdutoDAO;
+import com.projetofarmacia.javabeans.Farmacia;
+import com.projetofarmacia.javabeans.Produto;
+import com.projetofarmacia.javabeans.TipoProduto;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author Calendoscopio
@@ -18,6 +25,36 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         initComponents();
     }
 
+    private void Cadastrar() {
+        try {
+            Produto obj = new Produto();
+            Farmacia f = new Farmacia();
+            ProdutoDAO dao = new ProdutoDAO();
+            TipoProduto tipo = new TipoProduto();
+            
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+            Date data_aq = (Date) new SimpleDateFormat("dd/MM/yyyy").parse(campoValidade.getText());
+            
+            obj.setNomeProduto(campoNome.getText());
+            obj.setFornecedor(campoFornecedor.getText());
+            obj.setLote(campoLote.getText());
+            obj.setPreco(Double.parseDouble(campoPreco.getText()));
+            obj.setQuantidade(5);
+            obj.setCodigoBarras(Long.parseLong(campoCodBar.getText()));
+            obj.setDataValidade(new SimpleDateFormat("dd/MM/yyyy").parse(campoValidade.getText()));
+            obj.setDataFabricacao(new SimpleDateFormat("dd/MM/yyyy").parse(campoFabricacao.getText()));
+            obj.setTarja(campoTarja.getSelectedItem().toString());
+            tipo.setTipoProduto(campoTipo.getSelectedItem().toString());
+            f.setIdFarmacia(1);
+            obj.setFarmacia(f);
+            
+            dao.cadastrarProduto(obj);
+            
+            
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -170,8 +207,13 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         btnSalvar.setBackground(new java.awt.Color(52, 152, 219));
         btnSalvar.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save icon.png"))); // NOI18N
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/save icon.png"))); // NOI18N
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painel01Layout = new javax.swing.GroupLayout(painel01);
         painel01.setLayout(painel01Layout);
@@ -301,6 +343,11 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private void campoValidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoValidadeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoValidadeActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        Cadastrar();
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

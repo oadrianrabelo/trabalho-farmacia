@@ -14,7 +14,7 @@
         <Menu class="javax.swing.JMenu" name="menuConsutaProduto">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/recursos/Folder Search-certo.png"/>
+              <Image iconType="3" name="/com/projetofarmacia/resources/Folder Search-certo.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Consultar Produto"/>
           </Properties>
@@ -25,7 +25,7 @@
         <Menu class="javax.swing.JMenu" name="menuCadastraProduto">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/recursos/product-add.png"/>
+              <Image iconType="3" name="/com/projetofarmacia/resources/product-add.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cadastrar Produto"/>
           </Properties>

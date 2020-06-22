@@ -57,7 +57,7 @@ public class TelaEstoquista extends javax.swing.JFrame {
 
         menu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        menuConsutaProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Folder Search-certo.png"))); // NOI18N
+        menuConsutaProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/Folder Search-certo.png"))); // NOI18N
         menuConsutaProduto.setText("Consultar Produto");
         menuConsutaProduto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -66,7 +66,7 @@ public class TelaEstoquista extends javax.swing.JFrame {
         });
         menu.add(menuConsutaProduto);
 
-        menuCadastraProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/product-add.png"))); // NOI18N
+        menuCadastraProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/product-add.png"))); // NOI18N
         menuCadastraProduto.setText("Cadastrar Produto");
         menuCadastraProduto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

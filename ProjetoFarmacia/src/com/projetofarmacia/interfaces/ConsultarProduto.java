@@ -69,13 +69,13 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
         jButton1.setBackground(new java.awt.Color(52, 152, 219));
         jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/product-edit.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/product-edit.png"))); // NOI18N
         jButton1.setText("Editar");
 
         jButton2.setBackground(new java.awt.Color(52, 152, 219));
         jButton2.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Folder Search-certo.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/Folder Search-certo.png"))); // NOI18N
         jButton2.setText("Procurar");
 
         jTextField1.setBackground(new java.awt.Color(52, 152, 219));

@@ -43,7 +43,7 @@ CREATE TABLE Produto (
     quantidade INT,
     tarja VARCHAR(45) NOT NULL,
     preco DECIMAL(5 , 2 ) NOT NULL,
-    status ENUM('Livre', 'Reservado'),
+    statusProduto ENUM('Livre', 'Reservado'),
     fk_id_tipo_produto INT NOT NULL REFERENCES Tipo_Produto (id_tipo_produto)
     ON DELETE CASCADE ON UPDATE CASCADE,
     fk_id_farmacia INT NOT NULL,
