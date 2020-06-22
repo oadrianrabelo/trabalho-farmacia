@@ -29,8 +29,8 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
         painel01 = new javax.swing.JPanel();
         campoNome = new javax.swing.JTextField();
-        cbTipo = new javax.swing.JComboBox<String>();
-        cbTarja = new javax.swing.JComboBox<String>();
+        campoTipo = new javax.swing.JComboBox<String>();
+        campoTarja = new javax.swing.JComboBox<String>();
         campoFabricacao = new javax.swing.JFormattedTextField();
         campoValidade = new javax.swing.JFormattedTextField();
         campoPreco = new javax.swing.JFormattedTextField();
@@ -38,7 +38,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         campoFornecedor = new javax.swing.JTextField();
         campoLote = new javax.swing.JTextField();
         campoCodBar = new javax.swing.JTextField();
-        btnSalvar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -49,6 +48,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel9 = new javax.swing.JLabel();
+        btnSalvar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(52, 152, 219));
         setClosable(true);
@@ -65,9 +65,9 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         campoNome.setCaretColor(new java.awt.Color(255, 0, 51));
         campoNome.setOpaque(false);
 
-        cbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Medicamento", "Higiene", "Alimentação", "Cosméticos" }));
+        campoTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Medicamento", "Higiene", "Alimentação", "Cosméticos" }));
 
-        cbTarja.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Sem tarja", "Tarja amarela", "Tarja vermelha (sem retenção da receita)", "Tarja vermelha (com retenção da receita)", "Tarja preta" }));
+        campoTarja.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Sem tarja", "Tarja amarela", "Tarja vermelha (sem retenção da receita)", "Tarja vermelha (com retenção da receita)", "Tarja preta" }));
 
         campoFabricacao.setBackground(new java.awt.Color(52, 152, 219));
         campoFabricacao.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
@@ -127,12 +127,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         campoCodBar.setCaretColor(new java.awt.Color(255, 0, 51));
         campoCodBar.setOpaque(false);
 
-        btnSalvar.setBackground(new java.awt.Color(52, 152, 219));
-        btnSalvar.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save icon.png"))); // NOI18N
-        btnSalvar.setText("Salvar");
-
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -173,6 +167,12 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Preço");
 
+        btnSalvar.setBackground(new java.awt.Color(52, 152, 219));
+        btnSalvar.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save icon.png"))); // NOI18N
+        btnSalvar.setText("Salvar");
+
         javax.swing.GroupLayout painel01Layout = new javax.swing.GroupLayout(painel01);
         painel01.setLayout(painel01Layout);
         painel01Layout.setHorizontalGroup(
@@ -203,9 +203,9 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                         .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(campoNome, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painel01Layout.createSequentialGroup()
-                                .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbTarja, 0, 264, Short.MAX_VALUE)))
+                                .addComponent(campoTarja, 0, 264, Short.MAX_VALUE)))
                         .addGap(50, 50, 50)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58)
@@ -233,7 +233,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                         .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painel01Layout.createSequentialGroup()
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                                 .addComponent(btnSalvar)
                                 .addGap(21, 21, 21))
                             .addGroup(painel01Layout.createSequentialGroup()
@@ -248,8 +248,8 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cbTarja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(campoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(campoTarja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(12, 12, 12)
                                         .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLabel6)
@@ -312,9 +312,9 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField campoNome;
     private javax.swing.JFormattedTextField campoPreco;
     private javax.swing.JComboBox<String> campoReserva;
+    private javax.swing.JComboBox<String> campoTarja;
+    private javax.swing.JComboBox<String> campoTipo;
     private javax.swing.JFormattedTextField campoValidade;
-    private javax.swing.JComboBox<String> cbTarja;
-    private javax.swing.JComboBox<String> cbTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.projetofarmacia.interfaces;
+package telas;
+
+import com.projetofarmacia.interfaces.CadastroFuncionario;
+import com.projetofarmacia.interfaces.ConsultarProduto;
+import com.projetofarmacia.interfaces.TelaCaixa;
 
 
 /**
@@ -17,7 +21,7 @@ public class TelaPrincipalAdm extends javax.swing.JFrame {
      */
     public TelaPrincipalAdm() {
         initComponents();
-        this.setExtendedState(TelaPrincipalAdm.MAXIMIZED_BOTH);
+        TelaPrincipalAdm.this.setExtendedState(TelaPrincipalAdm.MAXIMIZED_BOTH);
         //this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("logocerto (2).png")).getImage());
        // ImageIcon icon = new ImageIcon("src/recursos/logo_barra.png");
         //barra.setIcon(icon);
@@ -178,6 +182,8 @@ public class TelaPrincipalAdm extends javax.swing.JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaPrincipalAdm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         

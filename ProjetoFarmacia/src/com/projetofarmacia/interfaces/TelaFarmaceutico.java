@@ -6,6 +6,7 @@
 package com.projetofarmacia.interfaces;
 
 
+
 /**
  *
  * @author Calendoscopio
@@ -17,7 +18,7 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
      */
     public TelaFarmaceutico() {
         initComponents();
-        this.setExtendedState(TelaFarmaceutico.MAXIMIZED_BOTH);
+        TelaFarmaceutico.this.setExtendedState(TelaFarmaceutico.MAXIMIZED_BOTH);
         //this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("logocerto (2).png")).getImage());
        // ImageIcon icon = new ImageIcon("src/recursos/logo_barra.png");
         //barra.setIcon(icon);
@@ -113,7 +114,6 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
             }
         });
         table.setGridColor(new java.awt.Color(51, 102, 255));
-        table.setShowGrid(true);
         table.setSurrendersFocusOnKeystroke(true);
         table.getTableHeader().setResizingAllowed(false);
         table.getTableHeader().setReorderingAllowed(false);
@@ -168,8 +168,6 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
                 .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        pane.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout paneLayout = new javax.swing.GroupLayout(pane);
         pane.setLayout(paneLayout);
         paneLayout.setHorizontalGroup(
@@ -180,6 +178,7 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
             paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+        pane.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenuBar2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 

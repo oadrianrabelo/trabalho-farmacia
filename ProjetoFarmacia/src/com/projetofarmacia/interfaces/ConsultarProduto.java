@@ -13,12 +13,12 @@ import javax.swing.ImageIcon;
  *
  * @author Calendoscopio
  */
-public class consultarProduto extends javax.swing.JInternalFrame {
+public class ConsultarProduto extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form consutarProduto
      */
-    public consultarProduto() {
+    public ConsultarProduto() {
         initComponents();
        //  -----------------------------------------------------
             ScrollPane.setOpaque(false);
@@ -125,7 +125,6 @@ public class consultarProduto extends javax.swing.JInternalFrame {
             }
         });
         table.setGridColor(new java.awt.Color(51, 102, 255));
-        table.setShowGrid(true);
         table.setSurrendersFocusOnKeystroke(true);
         table.getTableHeader().setResizingAllowed(false);
         table.getTableHeader().setReorderingAllowed(false);
