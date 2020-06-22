@@ -22,12 +22,12 @@ Será usado todas as operações CRUD no software com a adição de um sistema d
 1. [ ] - Construir classes DAO;
 
 1. [ ] - CRUD:
-  * Construir o método para cadastro de produto;
-  * Construir o método para cadastro de funcionário;
-  * Construir o método para exclusão de produto;
-  * Construir o método para exclusão de funcionário;
-  * Construir o método para a alteração de produto;
-  * Construir o método para a alteração de funcionário;
-  * Construir o método para a consulta de produto;
-  * Construir o método para a consulta de funcionário;
+   - [ ] Construir o método para cadastro de produto;
+   - [ ] Construir o método para cadastro de funcionário;
+   - [ ] Construir o método para exclusão de produto;
+   - [ ] Construir o método para exclusão de funcionário;
+   - [ ] Construir o método para a alteração de produto;
+   - [ ] Construir o método para a alteração de funcionário;
+   - [ ] Construir o método para a consulta de produto;
+   - [ ] Construir o método para a consulta de funcionário;
 
