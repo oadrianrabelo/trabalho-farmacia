@@ -5,9 +5,14 @@
  */
 package com.projetofarmacia.interfaces;
 
+import com.projetofarmacia.DAO.ProdutoDAO;
 import java.awt.Color;
+import java.util.List;
+import java.text.SimpleDateFormat;
+import com.projetofarmacia.javabeans.Produto;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,8 +28,8 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
        //  -----------------------------------------------------
             ScrollPane.setOpaque(false);
             ScrollPane.getViewport().setOpaque(false);
-            table.setOpaque(false);
-            table.setBackground(new Color(255, 255, 255, 0));
+            tabelaProdutos.setOpaque(false);
+            tabelaProdutos.setBackground(new Color(255, 255, 255, 0));
         //    ---------------------------------------------------
       //  ImageIcon icon = new ImageIcon("src/recursos/logo.png");
        //logo2.setIcon(icon);
@@ -34,7 +39,30 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
         
         
         //-------------------------------------------------------
+    }
+    public void Listar() {
+        try {
+            ProdutoDAO dao = new ProdutoDAO();
+            List<Produto> listaDeProdutos = dao.listarProduto();
             
+            DefaultTableModel modelo = (DefaultTableModel) tabelaProdutos.getModel();
+            modelo.setNumRows(0);
+            
+            for (Produto p: listaDeProdutos) {
+                modelo.addRow(new Object[] {
+                    p.getNomeProduto(),
+                    p.getFornecedor(),
+                    p.getQuantidade(),
+                    p.getTarja(),
+                    p.getPreco(),
+                    new SimpleDateFormat("dd/MM/yyyy").format(p.getDataValidade()),
+                    new SimpleDateFormat("dd/MM/yyyy").format(p.getDataFabricacao()),
+                    p.getFarmacia().getIdFarmacia()
+                });
+            }
+        } catch (Exception e) {
+            System.out.println("erro" + e);
+        }
         
     }
 
@@ -54,7 +82,7 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         ScrollPane = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
+        tabelaProdutos = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(52, 152, 219));
         setClosable(true);
@@ -63,6 +91,23 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
         setTitle("Consultar Produto");
         setFocusable(false);
         setVisible(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(52, 152, 219));
 
@@ -98,37 +143,28 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Nome");
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaProdutos.setForeground(new java.awt.Color(255, 255, 255));
+        tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Nome", "Fornecedor", "Qtd", "Tarja", "Preço", "Data de Validade", "Data de Fabricação", "Farmacia"
+                "Nome", "Fornecedor", "Quantidade", "Tarja", "Preço", "Data de Validade", "Data de Fabricação", "Farmácia"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, true, false, true
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        table.setGridColor(new java.awt.Color(51, 102, 255));
-        table.setSurrendersFocusOnKeystroke(true);
-        table.getTableHeader().setResizingAllowed(false);
-        table.getTableHeader().setReorderingAllowed(false);
-        ScrollPane.setViewportView(table);
+        tabelaProdutos.setGridColor(new java.awt.Color(51, 102, 255));
+        tabelaProdutos.setSurrendersFocusOnKeystroke(true);
+        tabelaProdutos.getTableHeader().setResizingAllowed(false);
+        tabelaProdutos.getTableHeader().setReorderingAllowed(false);
+        ScrollPane.setViewportView(tabelaProdutos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -188,6 +224,10 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        Listar();
+    }//GEN-LAST:event_formInternalFrameActivated
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPane;
@@ -197,6 +237,6 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable table;
+    private javax.swing.JTable tabelaProdutos;
     // End of variables declaration//GEN-END:variables
 }
