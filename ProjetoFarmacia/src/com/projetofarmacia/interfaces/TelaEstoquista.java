@@ -5,12 +5,15 @@
  */
 package com.projetofarmacia.interfaces;
 
+import java.beans.PropertyVetoException;
+
 
 /**
  *
  * @author Calendoscopio
  */
 public class TelaEstoquista extends javax.swing.JFrame {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Creates new form telaprincipalAdm
@@ -100,17 +103,19 @@ public class TelaEstoquista extends javax.swing.JFrame {
         
     }//GEN-LAST:event_menuCadastraProdutoActionPerformed
 
+
     private void menuCadastraProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCadastraProdutoMouseClicked
-       CadastroProduto cp2 = new CadastroProduto();
-       painel.add(cp2);
-       cp2.setVisible(true);
+        CadastroProduto cadp = new CadastroProduto();
+        painel.add(cadp);
+        cadp.setVisible(true);
+        cadp.requestFocus();
     }//GEN-LAST:event_menuCadastraProdutoMouseClicked
 
     private void menuConsutaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuConsutaProdutoMouseClicked
-        ConsultarProduto cp1 = new ConsultarProduto();
-        painel.add(cp1);
-        cp1.setVisible(true);
-        cp1.Listar();
+        ConsultarProduto conp = new ConsultarProduto();
+        painel.add(conp);
+        conp.setVisible(true);
+        conp.requestFocus();
     }//GEN-LAST:event_menuConsutaProdutoMouseClicked
 
     /**
@@ -150,10 +155,10 @@ public class TelaEstoquista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar menu;
-    private javax.swing.JMenu menuCadastraProduto;
-    private javax.swing.JMenu menuConsutaProduto;
-    private javax.swing.JDesktopPane painel;
+    private static javax.swing.JMenuBar menu;
+    private static javax.swing.JMenu menuCadastraProduto;
+    private static javax.swing.JMenu menuConsutaProduto;
+    public static javax.swing.JDesktopPane painel;
     // End of variables declaration//GEN-END:variables
 
    

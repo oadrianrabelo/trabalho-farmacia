@@ -21,12 +21,12 @@ public class TelaLogin extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(TelaLogin.MAXIMIZED_BOTH);
          //imagem login ------------------------------------
-        ImageIcon icon = new ImageIcon("/login.png");
+        ImageIcon icon = new ImageIcon("/com/projetofarmacia/resources/login.png");
         logo.setIcon(icon);
         icon.setImage(icon.getImage().getScaledInstance(logo.getWidth(), logo.getHeight(), Image.SCALE_DEFAULT));
         logo.setIcon(icon);
         //----------------------------------------------
-        ImageIcon icon1 = new ImageIcon("/logo_inicial.png");
+        ImageIcon icon1 = new ImageIcon("/com/projetofarmacia/resources/logo_inicial.png");
         logo2.setIcon(icon1);
         icon1.setImage(icon1.getImage().getScaledInstance(logo2.getWidth(), logo2.getHeight(), Image.SCALE_DEFAULT));
         logo2.setIcon(icon1);
@@ -55,6 +55,11 @@ public class TelaLogin extends javax.swing.JFrame {
         logo2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -166,6 +171,9 @@ public class TelaLogin extends javax.swing.JFrame {
     private void campoSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoSenhaActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

@@ -10,8 +10,9 @@ import java.awt.Color;
 import java.util.List;
 import java.text.SimpleDateFormat;
 import com.projetofarmacia.javabeans.Produto;
-import java.awt.Image;
-import javax.swing.ImageIcon;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Calendoscopio
  */
 public class ConsultarProduto extends javax.swing.JInternalFrame {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Creates new form consutarProduto
@@ -50,6 +52,7 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
             
             for (Produto p: listaDeProdutos) {
                 modelo.addRow(new Object[] {
+                    p.getIdProduto(),
                     p.getNomeProduto(),
                     p.getFornecedor(),
                     p.getQuantidade(),
@@ -57,11 +60,16 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
                     p.getPreco(),
                     new SimpleDateFormat("dd/MM/yyyy").format(p.getDataValidade()),
                     new SimpleDateFormat("dd/MM/yyyy").format(p.getDataFabricacao()),
-                    p.getFarmacia().getIdFarmacia()
+                    p.getFarmacia().getIdFarmacia(),
+                    p.getLote(),
+                    p.getStatus(),
+                    p.getTipoProduto().getIdTipoProduto(),
+                    p.getCodigoBarras()
                 });
             }
         } catch (Exception e) {
             System.out.println("erro" + e);
+            e.printStackTrace();
         }
         
     }
@@ -76,8 +84,8 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnProcurar = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -111,17 +119,22 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(52, 152, 219));
 
-        jButton1.setBackground(new java.awt.Color(52, 152, 219));
-        jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/product-edit.png"))); // NOI18N
-        jButton1.setText("Editar");
+        btnEditar.setBackground(new java.awt.Color(52, 152, 219));
+        btnEditar.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        btnEditar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/product-edit.png"))); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setBackground(new java.awt.Color(52, 152, 219));
-        jButton2.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/Folder Search-certo.png"))); // NOI18N
-        jButton2.setText("Procurar");
+        btnProcurar.setBackground(new java.awt.Color(52, 152, 219));
+        btnProcurar.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        btnProcurar.setForeground(new java.awt.Color(255, 255, 255));
+        btnProcurar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/Folder Search-certo.png"))); // NOI18N
+        btnProcurar.setText("Procurar");
 
         jTextField1.setBackground(new java.awt.Color(52, 152, 219));
         jTextField1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
@@ -149,11 +162,11 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Nome", "Fornecedor", "Quantidade", "Tarja", "Preço", "Data de Validade", "Data de Fabricação", "Farmácia"
+                "ID", "Nome", "Fornecedor", "Quantidade", "Tarja", "Preço", "Data de Validade", "Data de Fabricação", "Farmácia", "lote", "reserva", "tipo", "Codbar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false, true
+                false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -178,9 +191,9 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jTextField1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
+                        .addComponent(btnProcurar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -197,8 +210,8 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,11 +241,44 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
         Listar();
     }//GEN-LAST:event_formInternalFrameActivated
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        try {
+            if (tabelaProdutos.getSelectedRow() == -1) {
+                System.out.println("EEEERRRRO");
+            } else {
+                CadastroProduto cp = new CadastroProduto();
+                cp.listarProdutos(Integer.parseInt(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0).toString()), 
+                        tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 1).toString(),
+                        tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 2).toString(),
+                        Integer.parseInt(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 3).toString()),
+                        tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 4).toString(), 
+                        Double.parseDouble(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 5).toString()),
+                        new SimpleDateFormat("dd/MM/yyyy").parse(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 6).toString()),
+                        new SimpleDateFormat("dd/MM/yyyy").parse(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 7).toString()),
+                        tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 8).toString(),
+                        (tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 9).toString())
+                        /*(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 10).toString())*/);
+                
+                TelaEstoquista.painel.add(cp);
+                cp.setVisible(true);
+                
+                Object[] obj = cp.recuperaDados();
+                for (int i = 0; i < obj.length && i < tabelaProdutos.getColumnCount(); i++) {
+                    tabelaProdutos.setValueAt(obj[i], tabelaProdutos.getSelectedRow(), i);
+                }
+            }
+        } catch (ParseException | NullPointerException e) {
+            Logger.getLogger(ConsultarProduto.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("erro " + e);
+        }
+        
+    }//GEN-LAST:event_btnEditarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPane;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnProcurar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

@@ -9,15 +9,18 @@ import com.projetofarmacia.DAO.ProdutoDAO;
 import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Produto;
 import com.projetofarmacia.javabeans.TipoProduto;
-import java.util.Date;
+import java.util.List;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
  * @author Calendoscopio
  */
 public class CadastroProduto extends javax.swing.JInternalFrame {
-
+    public static String estado;
+    public static int id;
     /**
      * Creates new form cadastroProduto
      */
@@ -381,7 +384,34 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoQuantidadeActionPerformed
 
-
+    public void listarProdutos(int id, String nome, String fornecedor, int quantidade, String tarja, double preco, Date dataFab, Date dataVal, String lote, String reserva) {
+        campoNome.setText(nome);
+        campoFornecedor.setText(fornecedor);
+        campoQuantidade.setText(String.valueOf(quantidade));
+        campoTarja.setSelectedItem(tarja);
+        campoPreco.setText(String.valueOf(preco));
+        campoFabricacao.setText(String.valueOf(dataFab));
+        campoValidade.setText(String.valueOf(dataVal));
+        campoLote.setText(lote);
+        campoReserva.setSelectedItem(reserva);
+//        campoTipo.setSelectedItem(tipo);
+    }
+    
+    public Object[] recuperaDados() {
+        Object[] obj = {
+            campoNome.getText(),
+            campoFornecedor.getText(),
+            campoQuantidade.getText(),
+            campoTarja.getSelectedIndex(),
+            campoPreco.getText(),
+            campoFabricacao.getText(),
+            campoValidade.getText(),
+            campoLote.getText(),
+            campoReserva.getSelectedIndex(),
+            campoTipo.getSelectedIndex()
+        };
+        return obj;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
     private javax.swing.JTextField campoCodBar;
