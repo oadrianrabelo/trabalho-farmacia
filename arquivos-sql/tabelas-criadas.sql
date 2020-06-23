@@ -2,13 +2,13 @@ create database bdfarmacia;
 use bdfarmacia;
 
 CREATE TABLE Farmacia (
-    id_farmacia INT PRIMARY KEY NOT NULL,
+    id_farmacia INT PRIMARY KEY NOT NULL auto_increment,
     nome_farmacia VARCHAR(45),
     endereco VARCHAR(45)
 );
 
 CREATE TABLE Funcionario (
-    id_funcionario INT PRIMARY KEY NOT NULL,
+    id_funcionario INT PRIMARY KEY NOT NULL auto_increment,
     nome_funcionario VARCHAR(45),
     endereco_funcionario VARCHAR(45),
     rg VARCHAR(14) NOT NULL,
@@ -32,8 +32,9 @@ CREATE TABLE Funcionario (
         REFERENCES Tipo_Funcionario (id_tipo)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 CREATE TABLE Produto (
-    id_produto INT PRIMARY KEY NOT NULL,
+    id_produto INT PRIMARY KEY NOT NULL auto_increment,
     nome_produto VARCHAR(45) NOT NULL,
     fornecedor VARCHAR(45) NOT NULL,
     lote VARCHAR(45) NOT NULL,
@@ -51,9 +52,8 @@ CREATE TABLE Produto (
         REFERENCES Farmacia (id_farmacia)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 CREATE TABLE Venda (
-    id_venda INT PRIMARY KEY NOT NULL,
+    id_venda INT PRIMARY KEY NOT NULL auto_increment,
     preco_venda DECIMAL(5 , 2 ),
     quantidade_produto INT,
     data_venda DATE,
@@ -66,21 +66,22 @@ CREATE TABLE Venda (
 );
 
 CREATE TABLE Departamento (
-    id_departamento INT PRIMARY KEY NOT NULL,
+    id_departamento INT PRIMARY KEY NOT NULL auto_increment,
     nome_departamento VARCHAR(45)
 );
 CREATE TABLE Tipo_Funcionario (
-    id_tipo INT PRIMARY KEY NOT NULL,
+    id_tipo INT PRIMARY KEY NOT NULL auto_increment,
     tipo_funcionario VARCHAR(45)
 );
 
+
 CREATE TABLE Tipo_Produto (
-    id_tipo_produto INT PRIMARY KEY NOT NULL,
+    id_tipo_produto INT PRIMARY KEY NOT NULL auto_increment,
     tipo_produto VARCHAR(45)
 );
 
 CREATE TABLE Entregas_Reservadas (
-    id_entregas INT PRIMARY KEY NOT NULL,
+    id_entregas INT PRIMARY KEY NOT NULL auto_increment,
     nome VARCHAR(45),
     rg VARCHAR(14),
     cpf CHAR(11),
