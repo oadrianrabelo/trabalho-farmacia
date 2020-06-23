@@ -9,7 +9,7 @@ import com.projetofarmacia.DAO.ProdutoDAO;
 import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Produto;
 import com.projetofarmacia.javabeans.TipoProduto;
-import java.sql.Date;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 
 /**
@@ -33,7 +33,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             TipoProduto tipo = new TipoProduto();
             
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-            Date data_aq = (Date) new SimpleDateFormat("dd/MM/yyyy").parse(campoValidade.getText());
+            Date data_aq = new SimpleDateFormat("dd/MM/yyyy").parse(campoValidade.getText());
             
             obj.setNomeProduto(campoNome.getText());
             obj.setFornecedor(campoFornecedor.getText());
