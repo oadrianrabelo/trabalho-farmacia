@@ -84,7 +84,7 @@
                                               </Group>
                                           </Group>
                                       </Group>
-                                      <Component id="campoReserva" min="-2" pref="128" max="-2" attributes="0"/>
+                                      <Component id="campoReserva" alignment="0" min="-2" pref="128" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -191,7 +191,7 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="89" max="32767" attributes="0"/>
                           <Component id="campoNome" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="360" max="-2" attributes="0"/>
                       </Group>
@@ -328,9 +328,10 @@
         <Component class="javax.swing.JComboBox" name="campoReserva">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="Dispon&#xed;vel"/>
-                <StringItem index="1" value="Reservado"/>
+              <StringArray count="3">
+                <StringItem index="0" value="Selecione"/>
+                <StringItem index="1" value="Livre"/>
+                <StringItem index="2" value="Reservado"/>
               </StringArray>
             </Property>
           </Properties>

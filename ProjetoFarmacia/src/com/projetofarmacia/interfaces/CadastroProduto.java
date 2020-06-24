@@ -6,13 +6,17 @@
 package com.projetofarmacia.interfaces;
 
 import com.projetofarmacia.DAO.ProdutoDAO;
+import com.projetofarmacia.DAO.TipoProdutoDAO;
 import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Produto;
 import com.projetofarmacia.javabeans.TipoProduto;
+import java.text.ParseException;
 import java.util.List;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,7 +24,7 @@ import java.util.Date;
  */
 public class CadastroProduto extends javax.swing.JInternalFrame {
     public static String estado;
-    public static int id;
+    private int id;
     /**
      * Creates new form cadastroProduto
      */
@@ -35,6 +39,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             ProdutoDAO dao = new ProdutoDAO();
             TipoProduto tipo = new TipoProduto();
             
+            obj.setIdProduto(this.getId());
             obj.setNomeProduto(campoNome.getText());
             obj.setFornecedor(campoFornecedor.getText());
             obj.setLote(campoLote.getText());
@@ -43,11 +48,12 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             obj.setCodigoBarras(Long.parseLong(campoCodBar.getText()));
             obj.setDataValidade(new SimpleDateFormat("dd/MM/yyyy").parse(campoValidade.getText()));
             obj.setDataFabricacao(new SimpleDateFormat("dd/MM/yyyy").parse(campoFabricacao.getText()));
+            obj.setStatus(campoReserva.getSelectedItem().toString());
             obj.setTarja(campoTarja.getSelectedItem().toString());
             tipo.setTipoProduto(campoTipo.getSelectedItem().toString());
             f.setIdFarmacia(1);
             obj.setFarmacia(f);
-            
+            System.out.println(this.getId());
             dao.cadastrarProduto(obj);
             
             
@@ -141,7 +147,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         campoPreco.setForeground(new java.awt.Color(255, 255, 255));
         campoPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
 
-        campoReserva.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Disponível", "Reservado" }));
+        campoReserva.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Livre", "Reservado" }));
         campoReserva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoReservaActionPerformed(evt);
@@ -352,7 +358,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                                         .addComponent(campoCodBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel01Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                         .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(360, 360, 360))))
         );
@@ -381,7 +387,12 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
-        Cadastrar();
+        if (estado.equals("EDITAR")) {
+            setarDados();
+            System.out.println("SETOU");
+        } else { 
+            Cadastrar();
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void campoQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoQuantidadeActionPerformed
@@ -391,8 +402,52 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private void campoReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoReservaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoReservaActionPerformed
-
-    public void listarProdutos(int id, String nome, String fornecedor, int quantidade, String tarja, double preco, Date dataFab, Date dataVal, String lote, int reserva) {
+    public void setarDados() {
+        try {
+            TipoProduto tp = new TipoProduto();
+            Produto obj = new Produto();
+            ProdutoDAO dao = new ProdutoDAO();
+            
+            obj.setIdProduto(this.getId());
+            obj.setNomeProduto(campoNome.getText());
+            obj.setFornecedor(campoFornecedor.getText());
+            obj.setQuantidade(Integer.parseInt(campoQuantidade.getText()));
+            obj.setLote(campoLote.getText());
+            obj.setCodigoBarras(Long.parseLong(campoCodBar.getText()));
+            obj.setStatus(String.valueOf(campoReserva.getSelectedItem()));
+            if (campoReserva.getSelectedItem().equals("Reservado")) {
+                obj.setStatus("Reservado");
+            } else if (campoReserva.getSelectedItem().equals("Disponível")) {
+                obj.setStatus("Disponível");
+            }
+            System.out.println(campoReserva.getSelectedItem());
+            obj.setPreco(Double.parseDouble(campoPreco.getText()));
+            obj.setTarja(String.valueOf(campoTarja.getSelectedItem()));
+            obj.setDataValidade(new SimpleDateFormat("dd/MM/yyyy").parse(campoValidade.getText()));
+            obj.setDataFabricacao(new SimpleDateFormat("dd/MM/yyyy").parse(campoFabricacao.getText()));
+            switch (campoTipo.getSelectedIndex()) {
+                case 1:
+                    tp.setIdTipoProduto(1);
+                    break;
+                case 2:
+                    tp.setIdTipoProduto(2);
+                    break;
+                case 3:
+                    tp.setIdTipoProduto(3);
+                    break;
+                case 4:
+                    tp.setIdTipoProduto(4);
+                    break;
+            }
+            obj.setTipoProduto(tp);
+            dao.alterarProduto(obj);
+        } catch (RuntimeException | ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void listarProdutos(int id, String nome, String fornecedor, int quantidade, String tarja, double preco, String dataVal, String dataFab,  String farm, String lote, String reserva, String tipo, long codBars) {
+        TipoProdutoDAO dao = new TipoProdutoDAO();
+        setId(id);
         campoNome.setText(nome);
         campoFornecedor.setText(fornecedor);
         campoQuantidade.setText(String.valueOf(quantidade));
@@ -402,7 +457,9 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         campoValidade.setText(String.valueOf(dataVal));
         campoLote.setText(lote);
         campoReserva.setSelectedItem(reserva);
-//        campoTipo.setSelectedItem(tipo);
+        dao.listarProdutos(campoTipo);
+        campoTipo.setSelectedItem(tipo);
+        campoCodBar.setText(String.valueOf(codBars));
     }
     
     public Object[] recuperaDados() {
@@ -410,16 +467,27 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             campoNome.getText(),
             campoFornecedor.getText(),
             campoQuantidade.getText(),
-            campoTarja.getSelectedIndex(),
+            campoTarja.getSelectedItem(),
             campoPreco.getText(),
             campoFabricacao.getText(),
             campoValidade.getText(),
             campoLote.getText(),
-            campoReserva.getSelectedIndex(),
-            campoTipo.getSelectedIndex()
+            campoReserva.getSelectedItem(),
+            campoTipo.getSelectedItem(),
+            campoCodBar.getText()
         };
         return obj;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
     private javax.swing.JTextField campoCodBar;

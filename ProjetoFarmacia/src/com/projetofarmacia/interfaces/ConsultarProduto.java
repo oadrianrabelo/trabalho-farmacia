@@ -60,10 +60,10 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
                     p.getPreco(),
                     new SimpleDateFormat("dd/MM/yyyy").format(p.getDataValidade()),
                     new SimpleDateFormat("dd/MM/yyyy").format(p.getDataFabricacao()),
-                    p.getFarmacia().getIdFarmacia(),
+                    p.getFarmacia().getNomeFarmacia(),
                     p.getLote(),
                     p.getStatus(),
-                    p.getTipoProduto().getIdTipoProduto(),
+                    p.getTipoProduto().getTipoProduto(),
                     p.getCodigoBarras()
                 });
             }
@@ -173,6 +173,7 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabelaProdutos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tabelaProdutos.setGridColor(new java.awt.Color(51, 102, 255));
         tabelaProdutos.setSurrendersFocusOnKeystroke(true);
         tabelaProdutos.getTableHeader().setResizingAllowed(false);
@@ -247,18 +248,21 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
                 System.out.println("EEEERRRRO");
             } else {
                 CadastroProduto cp = new CadastroProduto();
+                cp.estado = "EDITAR";
                 cp.listarProdutos(Integer.parseInt(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0).toString()), 
                         tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 1).toString(),
                         tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 2).toString(),
                         Integer.parseInt(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 3).toString()),
                         tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 4).toString(), 
                         Double.parseDouble(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 5).toString()),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 6).toString()),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 7).toString()),
+                        tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 6).toString(),
+                        tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 7).toString(),
                         tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 8).toString(),
-                        Integer.parseInt((tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 9).toString()))
-                        /*(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 10).toString())*/);
-                
+                        tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 9).toString(),
+                        tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 10).toString(),
+                        tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 11).toString(),
+                        Long.parseLong(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 12).toString()));
+                System.out.println(new SimpleDateFormat("dd/MM/yyyy").parse(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 6).toString()) + "\n" + new SimpleDateFormat("dd/MM/yyyy").parse(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 7).toString()));
                 TelaEstoquista.painel.add(cp);
                 cp.setVisible(true);
                 

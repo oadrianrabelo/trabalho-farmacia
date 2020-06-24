@@ -11,13 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.text.DateFormatter;
 
 public class ProdutoDAO {
     private final Connection conecta;
@@ -61,7 +57,8 @@ public class ProdutoDAO {
     public List<Produto> listarProduto() {
         try {
             List<Produto> lista = new ArrayList<>();
-            String cmdsql = "SELECT id_produto, nome_produto, fornecedor, quantidade, tarja, preco, data_de_validade, data_de_fabricacao, fk_id_farmacia, status_produto, lote, fk_id_tipo_produto, codigo_de_barras FROM Produto;";
+//            String cmdsql = "SELECT id_produto, nome_produto, fornecedor, quantidade, tarja, preco, data_de_validade, data_de_fabricacao, fk_id_farmacia, statusProduto, lote, fk_id_tipo_produto, codigo_de_barras FROM Produto;";
+            String cmdsql = "select p.id_produto, p.nome_produto, p.fornecedor, p.quantidade, p.tarja, p.preco, p.data_de_validade, p.data_de_fabricacao, p.statusProduto, p.lote, p.codigo_de_barras, t.tipo_produto, f.nome_farmacia from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia);";
             
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             
@@ -79,17 +76,16 @@ public class ProdutoDAO {
                     p.setQuantidade(rs.getInt(4));
                     p.setTarja(rs.getString(5));
                     p.setPreco(rs.getDouble(6));
-                    p.setDataFabricacao(rs.getDate(7));
-                    p.setDataValidade(rs.getDate(8));
-                    f.setIdFarmacia(rs.getInt(9));
-                    p.setFarmacia(f);
-                    p.setStatus(rs.getString(10));
-                    p.setLote(rs.getString(11));
-                    tp.setIdTipoProduto(rs.getInt(12));
+                    p.setDataValidade(rs.getDate(7));
+                    p.setDataFabricacao(rs.getDate(8));
+                    p.setStatus(rs.getString(9));
+                    p.setLote(rs.getString(10));
+                    p.setCodigoBarras(rs.getLong(11));
+                    tp.setTipoProduto(rs.getString(12));
+                    f.setNomeFarmacia(rs.getString(13));
                     p.setTipoProduto(tp);
-                    p.setCodigoBarras(rs.getInt(13));
+                    p.setFarmacia(f);
                     lista.add(p);
-                    System.out.println(rs.getString(10));
                     
                 } catch (NullPointerException e) {
                     
@@ -103,18 +99,22 @@ public class ProdutoDAO {
     }
     public void alterarProduto (Produto obj) {
         try {
-            String cmdsql = "UPDATE Produto SET nome_produto = ?, fornecedor = ?, quantidade = ?, tarja = ?, preco = ?, data_de_validade = ?, data_de_fabricacao = ? WHERE id_produto = ?;";
+            String cmdsql = "UPDATE Produto SET nome_produto = ?, fornecedor = ?, lote = ?, quantidade = ?, tarja = ?, preco = ?, data_de_validade = ?, data_de_fabricacao = ?, codigo_de_barras = ?, statusProduto = ?, fk_id_tipo_produto = ? WHERE id_produto = ?;";
             
             try (PreparedStatement stmt = conecta.prepareStatement(cmdsql)) { 
             
                 stmt.setString(1, obj.getNomeProduto());
                 stmt.setString(2, obj.getFornecedor());
-                stmt.setInt(3, obj.getQuantidade());
-                stmt.setString(4, obj.getTarja());
-                stmt.setDouble(5, obj.getPreco());
-                stmt.setDate(6, converteData(obj.getDataFabricacao()));
+                stmt.setString(3, obj.getLote());
+                stmt.setInt(4, obj.getQuantidade());
+                stmt.setString(5, obj.getTarja());
+                stmt.setDouble(6, obj.getPreco());
                 stmt.setDate(7, converteData(obj.getDataValidade()));
-                stmt.setInt(8, obj.getIdProduto());
+                stmt.setDate(8, converteData(obj.getDataFabricacao()));
+                stmt.setLong(9, obj.getCodigoBarras());
+                stmt.setString(10, obj.getStatus());
+                stmt.setInt(11, obj.getTipoProduto().getIdTipoProduto());
+                stmt.setInt(12, obj.getIdProduto());
                 
                 stmt.executeUpdate();
                 stmt.close();
@@ -126,43 +126,7 @@ public class ProdutoDAO {
             throw new RuntimeException(e);
         }
     }
-    
-    public List<Produto> listarProdutoEditar(int id) {
-        try {
-            List<Produto> lista = new ArrayList<>();
-            String cmdsql = "SELECT nome_produto, fornecedor, quantidade, tarja, preco, data_de_validade, data_de_fabricacao, fk_id_farmacia FROM Produto WHERE id_produto = 1;";
-            
-            PreparedStatement stmt = conecta.prepareStatement(cmdsql);
-            
-            ResultSet rs = stmt.executeQuery();
-            
-            
-            while (rs.next()) {
-                try {
-                    Produto p = new Produto();
-                    Farmacia f = new Farmacia();
-                    p.setNomeProduto(rs.getString(1));
-                    p.setFornecedor(rs.getString(2));
-                    p.setQuantidade(rs.getInt(3));
-                    p.setTarja(rs.getString(4));
-                    p.setPreco(rs.getDouble(5));
-                    p.setDataFabricacao(rs.getDate(6));
-                    p.setDataValidade(rs.getDate(7));
-                    f.setIdFarmacia(rs.getInt(8));
-                    p.setFarmacia(f);
-//                    rs.getInt(id);
-                    lista.add(p);
-                    
-                } catch (NullPointerException e) {
-                    
-                }
-            } 
-            
-            return lista;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+        
     
     public static java.sql.Date converteData(java.util.Date dataConverte) throws ParseException {
         String padrao = "dd/MM/yyyy";
