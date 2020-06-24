@@ -166,7 +166,7 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, true, true, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -256,7 +256,7 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
                         new SimpleDateFormat("dd/MM/yyyy").parse(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 6).toString()),
                         new SimpleDateFormat("dd/MM/yyyy").parse(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 7).toString()),
                         tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 8).toString(),
-                        (tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 9).toString())
+                        Integer.parseInt((tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 9).toString()))
                         /*(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 10).toString())*/);
                 
                 TelaEstoquista.painel.add(cp);

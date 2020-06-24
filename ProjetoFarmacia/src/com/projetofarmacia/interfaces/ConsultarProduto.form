@@ -207,8 +207,8 @@
                     <Column editable="false" title="Quantidade" type="java.lang.Object"/>
                     <Column editable="false" title="Tarja" type="java.lang.Object"/>
                     <Column editable="false" title="Pre&#xe7;o" type="java.lang.Object"/>
-                    <Column editable="false" title="Data de Validade" type="java.lang.Object"/>
-                    <Column editable="false" title="Data de Fabrica&#xe7;&#xe3;o" type="java.lang.Object"/>
+                    <Column editable="true" title="Data de Validade" type="java.lang.Object"/>
+                    <Column editable="true" title="Data de Fabrica&#xe7;&#xe3;o" type="java.lang.Object"/>
                     <Column editable="false" title="Farm&#xe1;cia" type="java.lang.Object"/>
                     <Column editable="false" title="lote" type="java.lang.Object"/>
                     <Column editable="false" title="reserva" type="java.lang.Object"/>

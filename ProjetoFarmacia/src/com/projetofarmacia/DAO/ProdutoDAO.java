@@ -61,7 +61,7 @@ public class ProdutoDAO {
     public List<Produto> listarProduto() {
         try {
             List<Produto> lista = new ArrayList<>();
-            String cmdsql = "SELECT id_produto, nome_produto, fornecedor, quantidade, tarja, preco, data_de_validade, data_de_fabricacao, fk_id_farmacia, statusProduto, lote, fk_id_tipo_produto, codigo_de_barras FROM Produto;";
+            String cmdsql = "SELECT id_produto, nome_produto, fornecedor, quantidade, tarja, preco, data_de_validade, data_de_fabricacao, fk_id_farmacia, status_produto, lote, fk_id_tipo_produto, codigo_de_barras FROM Produto;";
             
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             
@@ -87,8 +87,9 @@ public class ProdutoDAO {
                     p.setLote(rs.getString(11));
                     tp.setIdTipoProduto(rs.getInt(12));
                     p.setTipoProduto(tp);
-                    p.setCodigoBarras(13);
+                    p.setCodigoBarras(rs.getInt(13));
                     lista.add(p);
+                    System.out.println(rs.getString(10));
                     
                 } catch (NullPointerException e) {
                     

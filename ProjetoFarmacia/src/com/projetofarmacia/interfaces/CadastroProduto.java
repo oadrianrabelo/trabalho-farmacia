@@ -141,7 +141,12 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         campoPreco.setForeground(new java.awt.Color(255, 255, 255));
         campoPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
 
-        campoReserva.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Disponivel", "Reservado" }));
+        campoReserva.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Disponível", "Reservado" }));
+        campoReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoReservaActionPerformed(evt);
+            }
+        });
 
         campoFornecedor.setBackground(new java.awt.Color(52, 152, 219));
         campoFornecedor.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
@@ -331,7 +336,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                                             .addGroup(painel01Layout.createSequentialGroup()
                                                 .addComponent(jLabel10)
                                                 .addGap(22, 22, 22)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel9)
                                         .addGap(4, 4, 4)
                                         .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -384,7 +388,11 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoQuantidadeActionPerformed
 
-    public void listarProdutos(int id, String nome, String fornecedor, int quantidade, String tarja, double preco, Date dataFab, Date dataVal, String lote, String reserva) {
+    private void campoReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoReservaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoReservaActionPerformed
+
+    public void listarProdutos(int id, String nome, String fornecedor, int quantidade, String tarja, double preco, Date dataFab, Date dataVal, String lote, int reserva) {
         campoNome.setText(nome);
         campoFornecedor.setText(fornecedor);
         campoQuantidade.setText(String.valueOf(quantidade));
