@@ -10,26 +10,26 @@ import com.projetofarmacia.DAO.TipoProdutoDAO;
 import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Produto;
 import com.projetofarmacia.javabeans.TipoProduto;
+import java.awt.HeadlessException;
 import java.text.ParseException;
-import java.util.List;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Calendoscopio
  */
 public class CadastroProduto extends javax.swing.JInternalFrame {
-    public static String estado;
+    private static final long serialVersionUID = 1L;
     private int id;
-    /**
-     * Creates new form cadastroProduto
-     */
+    public static boolean edit;
+
     public CadastroProduto() {
         initComponents();
+        btnExcluir.setOpaque(false);
+        btnExcluir.setContentAreaFilled(false);
+        btnExcluir.setBorderPainted(false);
+        btnExcluir.setIcon(null);
+        btnExcluir.setText("");
     }
 
     private void Cadastrar() {
@@ -39,7 +39,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             ProdutoDAO dao = new ProdutoDAO();
             TipoProduto tipo = new TipoProduto();
             
-            obj.setIdProduto(this.getId());
             obj.setNomeProduto(campoNome.getText());
             obj.setFornecedor(campoFornecedor.getText());
             obj.setLote(campoLote.getText());
@@ -53,7 +52,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             tipo.setTipoProduto(campoTipo.getSelectedItem().toString());
             f.setIdFarmacia(1);
             obj.setFarmacia(f);
-            System.out.println(this.getId());
             dao.cadastrarProduto(obj);
             
             
@@ -94,11 +92,17 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         btnSalvar = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         campoQuantidade = new javax.swing.JFormattedTextField();
+        btnExcluir = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(52, 152, 219));
         setClosable(true);
         setResizable(true);
         setOpaque(true);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+        });
 
         painel01.setBackground(new java.awt.Color(52, 152, 219));
 
@@ -147,7 +151,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         campoPreco.setForeground(new java.awt.Color(255, 255, 255));
         campoPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
 
-        campoReserva.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Livre", "Reservado" }));
+        campoReserva.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Disponível", "Reservado" }));
         campoReserva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoReservaActionPerformed(evt);
@@ -243,6 +247,21 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
 
+        btnExcluir.setBackground(new java.awt.Color(52, 152, 219));
+        btnExcluir.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        btnExcluir.setForeground(new java.awt.Color(255, 255, 255));
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/product-delete.png"))); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.setEnabled(false);
+        btnExcluir.setMaximumSize(new java.awt.Dimension(95, 27));
+        btnExcluir.setMinimumSize(new java.awt.Dimension(95, 27));
+        btnExcluir.setPreferredSize(new java.awt.Dimension(95, 27));
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painel01Layout = new javax.swing.GroupLayout(painel01);
         painel01.setLayout(painel01Layout);
         painel01Layout.setHorizontalGroup(
@@ -297,8 +316,10 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                 .addGap(28, 28, 28))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel01Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSalvar)
-                .addGap(51, 51, 51))
+                .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(41, 41, 41))
         );
         painel01Layout.setVerticalGroup(
             painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,9 +332,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                         .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painel01Layout.createSequentialGroup()
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-                                .addComponent(btnSalvar)
-                                .addGap(21, 21, 21))
+                                .addGap(21, 152, Short.MAX_VALUE))
                             .addGroup(painel01Layout.createSequentialGroup()
                                 .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel2)
@@ -356,7 +375,11 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel8)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(campoCodBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnSalvar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(25, 25, 25))))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel01Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                         .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -387,11 +410,13 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
-        if (estado.equals("EDITAR")) {
+        if (edit) {
             setarDados();
-            System.out.println("SETOU");
-        } else { 
+            edit = false;
+            System.out.println("Alterado");
+        } else {
             Cadastrar();
+            System.out.println("Cadastrado");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -402,6 +427,17 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private void campoReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoReservaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoReservaActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (edit = true) {
+            excluirProduto();
+            System.out.println("Excluído");
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+
+    }//GEN-LAST:event_formMouseEntered
     public void setarDados() {
         try {
             TipoProduto tp = new TipoProduto();
@@ -420,7 +456,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             } else if (campoReserva.getSelectedItem().equals("Disponível")) {
                 obj.setStatus("Disponível");
             }
-            System.out.println(campoReserva.getSelectedItem());
             obj.setPreco(Double.parseDouble(campoPreco.getText()));
             obj.setTarja(String.valueOf(campoTarja.getSelectedItem()));
             obj.setDataValidade(new SimpleDateFormat("dd/MM/yyyy").parse(campoValidade.getText()));
@@ -445,7 +480,22 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             throw new RuntimeException(e);
         }
     }
-    public void listarProdutos(int id, String nome, String fornecedor, int quantidade, String tarja, double preco, String dataVal, String dataFab,  String farm, String lote, String reserva, String tipo, long codBars) {
+    
+    public void excluirProduto() {
+        try {
+            Produto obj = new Produto();
+            obj.setIdProduto(getId());
+            ProdutoDAO dao = new ProdutoDAO();
+            
+            dao.excluirProduto(obj);
+            dao.corrigeId();
+            
+            this.dispose();
+        } catch (NumberFormatException | HeadlessException e) {
+            System.out.println(e);
+        }
+    }
+    public void listarProdutos(int id, String nome, String fornecedor, int quantidade, String tarja, double preco, String dataVal, String dataFab,  String farm, String lote, String reserva, String tipo, long codBars, boolean isedit) {
         TipoProdutoDAO dao = new TipoProdutoDAO();
         setId(id);
         campoNome.setText(nome);
@@ -460,6 +510,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         dao.listarProdutos(campoTipo);
         campoTipo.setSelectedItem(tipo);
         campoCodBar.setText(String.valueOf(codBars));
+        edit = isedit;
     }
     
     public Object[] recuperaDados() {
@@ -479,6 +530,10 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         return obj;
     }
 
+
+    public String getEstado(String estado) {
+        return estado;
+    }
     public int getId() {
         return id;
     }
@@ -489,6 +544,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JTextField campoCodBar;
     private javax.swing.JFormattedTextField campoFabricacao;

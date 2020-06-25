@@ -108,12 +108,14 @@ public class TelaEstoquista extends javax.swing.JFrame {
         CadastroProduto cadp = new CadastroProduto();
         painel.add(cadp);
         cadp.setVisible(true);
+        
     }//GEN-LAST:event_menuCadastraProdutoMouseClicked
 
     private void menuConsutaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuConsutaProdutoMouseClicked
         ConsultarProduto conp = new ConsultarProduto();
         painel.add(conp);
         conp.setVisible(true);
+        conp.Listar();
     }//GEN-LAST:event_menuConsutaProdutoMouseClicked
 
     /**

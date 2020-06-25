@@ -6,13 +6,18 @@
 package com.projetofarmacia.interfaces;
 
 import com.projetofarmacia.DAO.ProdutoDAO;
+import static com.projetofarmacia.interfaces.CadastroProduto.btnExcluir;
 import java.awt.Color;
 import java.util.List;
 import java.text.SimpleDateFormat;
 import com.projetofarmacia.javabeans.Produto;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ConsultarProduto extends javax.swing.JInternalFrame {
     private static final long serialVersionUID = 1L;
+    public static boolean isEditing;
 
     /**
      * Creates new form consutarProduto
@@ -86,7 +92,7 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         btnEditar = new javax.swing.JButton();
         btnProcurar = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        campoNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         ScrollPane = new javax.swing.JScrollPane();
@@ -116,6 +122,11 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
             }
         });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(52, 152, 219));
 
@@ -136,14 +147,14 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
         btnProcurar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/Folder Search-certo.png"))); // NOI18N
         btnProcurar.setText("Procurar");
 
-        jTextField1.setBackground(new java.awt.Color(52, 152, 219));
-        jTextField1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jTextField1.setCaretColor(new java.awt.Color(52, 152, 219));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        campoNome.setBackground(new java.awt.Color(52, 152, 219));
+        campoNome.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        campoNome.setForeground(new java.awt.Color(255, 255, 255));
+        campoNome.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        campoNome.setCaretColor(new java.awt.Color(52, 152, 219));
+        campoNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                campoNomeActionPerformed(evt);
             }
         });
 
@@ -166,7 +177,7 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, true, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -178,7 +189,29 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
         tabelaProdutos.setSurrendersFocusOnKeystroke(true);
         tabelaProdutos.getTableHeader().setResizingAllowed(false);
         tabelaProdutos.getTableHeader().setReorderingAllowed(false);
+        tabelaProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabelaProdutosMousePressed(evt);
+            }
+        });
         ScrollPane.setViewportView(tabelaProdutos);
+        if (tabelaProdutos.getColumnModel().getColumnCount() > 0) {
+            tabelaProdutos.getColumnModel().getColumn(0).setMinWidth(0);
+            tabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tabelaProdutos.getColumnModel().getColumn(0).setMaxWidth(0);
+            tabelaProdutos.getColumnModel().getColumn(9).setMinWidth(0);
+            tabelaProdutos.getColumnModel().getColumn(9).setPreferredWidth(0);
+            tabelaProdutos.getColumnModel().getColumn(9).setMaxWidth(0);
+            tabelaProdutos.getColumnModel().getColumn(10).setMinWidth(0);
+            tabelaProdutos.getColumnModel().getColumn(10).setPreferredWidth(0);
+            tabelaProdutos.getColumnModel().getColumn(10).setMaxWidth(0);
+            tabelaProdutos.getColumnModel().getColumn(11).setMinWidth(0);
+            tabelaProdutos.getColumnModel().getColumn(11).setPreferredWidth(0);
+            tabelaProdutos.getColumnModel().getColumn(11).setMaxWidth(0);
+            tabelaProdutos.getColumnModel().getColumn(12).setMinWidth(0);
+            tabelaProdutos.getColumnModel().getColumn(12).setPreferredWidth(0);
+            tabelaProdutos.getColumnModel().getColumn(12).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -190,7 +223,7 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1)
+                        .addComponent(campoNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnProcurar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -215,7 +248,7 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
                             .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)))
                 .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -234,9 +267,9 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void campoNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_campoNomeActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
         Listar();
@@ -248,7 +281,13 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
                 System.out.println("EEEERRRRO");
             } else {
                 CadastroProduto cp = new CadastroProduto();
-                cp.estado = "EDITAR";
+                isEditing = true;
+                CadastroProduto.btnExcluir.setEnabled(true);
+                btnExcluir.setOpaque(true);
+                btnExcluir.setContentAreaFilled(true);
+                btnExcluir.setBorderPainted(true);
+                btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/product-delete.png")));
+                btnExcluir.setText("Sair");
                 cp.listarProdutos(Integer.parseInt(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0).toString()), 
                         tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 1).toString(),
                         tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 2).toString(),
@@ -261,8 +300,9 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
                         tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 9).toString(),
                         tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 10).toString(),
                         tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 11).toString(),
-                        Long.parseLong(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 12).toString()));
-                System.out.println(new SimpleDateFormat("dd/MM/yyyy").parse(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 6).toString()) + "\n" + new SimpleDateFormat("dd/MM/yyyy").parse(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 7).toString()));
+                        Long.parseLong(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 12).toString()),
+                        isEditing);
+            
                 TelaEstoquista.painel.add(cp);
                 cp.setVisible(true);
                 
@@ -271,22 +311,36 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
                     tabelaProdutos.setValueAt(obj[i], tabelaProdutos.getSelectedRow(), i);
                 }
             }
-        } catch (ParseException | NullPointerException e) {
+            
+        } catch (NullPointerException e) {
             Logger.getLogger(ConsultarProduto.class.getName()).log(Level.SEVERE, null, e);
             System.out.println("erro " + e);
         }
         
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+
+    }//GEN-LAST:event_formMouseEntered
+
+    private void tabelaProdutosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutosMousePressed
+        Point ponteiro = evt.getPoint();
+        int linha = tabelaProdutos.rowAtPoint(ponteiro);
+        if (evt.getClickCount() == 2 && tabelaProdutos.getSelectedRow() != -1) {
+            JOptionPane.showMessageDialog(null, "Clicou duas vezes");
+        }
+
+    }//GEN-LAST:event_tabelaProdutosMousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPane;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnProcurar;
+    private javax.swing.JTextField campoNome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tabelaProdutos;
     // End of variables declaration//GEN-END:variables
 }

@@ -24,7 +24,7 @@ public class ProdutoDAO {
     
     public void cadastrarProduto(Produto obj) {
         try {
-            String cmdsql = "INSERT INTO Produto(id_produto, nome_produto, fornecedor, lote, data_de_fabricacao, data_de_validade, codigo_de_barras, quantidade, tarja, preco, statusProduto, fk_id_tipo_produto, fk_id_farmacia) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String cmdsql = "INSERT INTO Produto(id_produto, nome_produto, fornecedor, lote, data_de_fabricacao, data_de_validade, codigo_de_barras, quantidade, tarja, preco, status_produto, fk_id_tipo_produto, fk_id_farmacia) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             
             try (PreparedStatement stmt = conecta.prepareStatement(cmdsql)){
                 stmt.setInt(1, obj.getIdProduto());
@@ -58,7 +58,7 @@ public class ProdutoDAO {
         try {
             List<Produto> lista = new ArrayList<>();
 //            String cmdsql = "SELECT id_produto, nome_produto, fornecedor, quantidade, tarja, preco, data_de_validade, data_de_fabricacao, fk_id_farmacia, statusProduto, lote, fk_id_tipo_produto, codigo_de_barras FROM Produto;";
-            String cmdsql = "select p.id_produto, p.nome_produto, p.fornecedor, p.quantidade, p.tarja, p.preco, p.data_de_validade, p.data_de_fabricacao, p.statusProduto, p.lote, p.codigo_de_barras, t.tipo_produto, f.nome_farmacia from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia);";
+            String cmdsql = "select p.id_produto, p.nome_produto, p.fornecedor, p.quantidade, p.tarja, p.preco, p.data_de_validade, p.data_de_fabricacao, p.status_produto, p.lote, p.codigo_de_barras, t.tipo_produto, f.nome_farmacia from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia);";
             
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             
@@ -99,7 +99,7 @@ public class ProdutoDAO {
     }
     public void alterarProduto (Produto obj) {
         try {
-            String cmdsql = "UPDATE Produto SET nome_produto = ?, fornecedor = ?, lote = ?, quantidade = ?, tarja = ?, preco = ?, data_de_validade = ?, data_de_fabricacao = ?, codigo_de_barras = ?, statusProduto = ?, fk_id_tipo_produto = ? WHERE id_produto = ?;";
+            String cmdsql = "UPDATE Produto SET nome_produto = ?, fornecedor = ?, lote = ?, quantidade = ?, tarja = ?, preco = ?, data_de_validade = ?, data_de_fabricacao = ?, codigo_de_barras = ?, status_produto = ?, fk_id_tipo_produto = ? WHERE id_produto = ?;";
             
             try (PreparedStatement stmt = conecta.prepareStatement(cmdsql)) { 
             
@@ -127,13 +127,41 @@ public class ProdutoDAO {
         }
     }
         
+    public void excluirProduto(Produto obj) {
+        try {
+            String cmdsql = "DELETE FROM Produto WHERE id_produto = ?;";
+            PreparedStatement stmt = conecta.prepareStatement(cmdsql);
+            stmt.setInt(1, obj.getIdProduto());
+            
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     
+    public void corrigeId() {
+        try {
+            String corrige01 = "SET @num :=0;";
+            String corrige02 = "UPDATE Produto SET id_produto = @num := (@num+1);";
+            String corrige03 = "ALTER TABLE Produto auto_increment = 1;";
+            PreparedStatement stmt = conecta.prepareStatement(corrige01);
+            
+            stmt.addBatch(corrige01);
+            stmt.addBatch(corrige02);
+            stmt.addBatch(corrige03);
+            
+            stmt.executeBatch();
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } 
+    }
     public static java.sql.Date converteData(java.util.Date dataConverte) throws ParseException {
         String padrao = "dd/MM/yyyy";
         SimpleDateFormat df = new SimpleDateFormat(padrao);
         Date data = Calendar.getInstance().getTime();
         String dataFormatada = df.format(dataConverte);
-        System.out.println(dataFormatada);
         return new java.sql.Date(df.parse(dataFormatada).getTime());
         
     }
