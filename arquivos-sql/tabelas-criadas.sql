@@ -6,6 +6,10 @@ CREATE TABLE Farmacia (
     nome_farmacia VARCHAR(45),
     endereco VARCHAR(45)
 );
+drop table departamento;
+drop table tipo_funcionario;
+drop table farmacia;
+drop table venda;
 
 CREATE TABLE Funcionario (
     id_funcionario INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -13,12 +17,13 @@ CREATE TABLE Funcionario (
     endereco_funcionario VARCHAR(45),
     rg VARCHAR(14) NOT NULL,
     cpf CHAR(11) UNIQUE NOT NULL,
+    crm INT NOT NULL,
     data_de_nascimento DATE,
     data_de_admissao DATE,
+    data_de_desligamento DATE,
     sexo ENUM('Masculino', 'Feminino'),
     login VARCHAR(45) UNIQUE NOT NULL,
     senha VARCHAR(45) NOT NULL,
-    crm INT NOT NULL,
     fk_id_departamento INT NOT NULL,
     fk_id_farmacia INT NOT NULL,
     fk_id_tipo_func INT NOT NULL,
@@ -32,6 +37,8 @@ CREATE TABLE Funcionario (
         REFERENCES Tipo_Funcionario (id_tipo)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 CREATE TABLE Produto (
     id_produto INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
