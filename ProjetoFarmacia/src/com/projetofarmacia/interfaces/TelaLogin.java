@@ -5,6 +5,9 @@
  */
 package com.projetofarmacia.interfaces;
 
+import com.projetofarmacia.DAO.FuncionarioDAO;
+import com.projetofarmacia.javabeans.Funcionario;
+import com.projetofarmacia.interfaces.*;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
@@ -45,7 +48,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        campoUsuário = new javax.swing.JTextField();
+        campoUsuario = new javax.swing.JTextField();
         campoSenha = new javax.swing.JPasswordField();
         logo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -63,9 +66,9 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        campoUsuário.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        campoUsuário.setForeground(new java.awt.Color(52, 152, 219));
-        campoUsuário.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(52, 152, 219)));
+        campoUsuario.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        campoUsuario.setForeground(new java.awt.Color(52, 152, 219));
+        campoUsuario.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(52, 152, 219)));
 
         campoSenha.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         campoSenha.setForeground(new java.awt.Color(52, 152, 219));
@@ -89,6 +92,11 @@ public class TelaLogin extends javax.swing.JFrame {
         btnEntrar.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
         btnEntrar.setText("Entrar");
+        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEntrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -109,7 +117,7 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(campoUsuário, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                            .addComponent(campoUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
                             .addComponent(campoSenha)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(120, 120, 120)
@@ -123,7 +131,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(114, 114, 114)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(campoUsuário, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(39, 39, 39)
@@ -135,6 +143,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        logo2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logo2.setMinimumSize(new java.awt.Dimension(1053, 706));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -170,12 +179,56 @@ public class TelaLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void logar() {
+        try {
+            Funcionario f = new Funcionario();
+            String login, senha;
+            login = campoUsuario.getText();
+            senha = new String(campoSenha.getPassword());
+            
+            FuncionarioDAO dao = new FuncionarioDAO();
+            switch (dao.efetuarLogin(login, senha)) {
+                case 1:
+                    TelaPrincipalAdm tpa = new TelaPrincipalAdm();
+                    tpa.setVisible(true);
+//                    this.dispose();
+                    break;
+                case 2:
+                    TelaFarmaceutico tf = new TelaFarmaceutico();
+                    tf.setVisible(true);
+//                    this.dispose();
+                    break;
+                case 3:
+                    TelaCaixa tc = new TelaCaixa();
+                    tc.setVisible(true);
+//                    this.dispose();
+                    break;
+                case 4:
+                    TelaEstoquista te = new TelaEstoquista();
+                    te.setVisible(true);
+//                    this.dispose();
+                    break;
+                case 5:
+                    TelaCaixa tc1 = new TelaCaixa();
+                    tc1.setVisible(true);
+//                    this.dispose();
+                    break;
+            } 
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     private void campoSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoSenhaActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
     }//GEN-LAST:event_formWindowActivated
+
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+        logar();
+        System.out.println("clicou logar");
+    }//GEN-LAST:event_btnEntrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,7 +263,7 @@ public class TelaLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEntrar;
     private javax.swing.JPasswordField campoSenha;
-    private javax.swing.JTextField campoUsuário;
+    private javax.swing.JTextField campoUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

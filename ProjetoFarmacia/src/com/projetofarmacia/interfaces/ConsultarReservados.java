@@ -34,6 +34,7 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
         lblNome = new javax.swing.JLabel();
         ScrollPane = new javax.swing.JScrollPane();
         tabelaConsultaReserva = new javax.swing.JTable();
+        btnProcurar1 = new javax.swing.JButton();
 
         setClosable(true);
         setResizable(true);
@@ -44,7 +45,7 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
         btnProcurar.setBackground(new java.awt.Color(52, 152, 219));
         btnProcurar.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
         btnProcurar.setForeground(new java.awt.Color(255, 255, 255));
-        btnProcurar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Folder Search-certo.png"))); // NOI18N
+        btnProcurar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/Folder Search-certo.png"))); // NOI18N
         btnProcurar.setText("Procurar");
 
         campoPesquisa.setBackground(new java.awt.Color(52, 152, 219));
@@ -61,7 +62,7 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
         lblReserva.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         lblReserva.setForeground(new java.awt.Color(255, 255, 255));
         lblReserva.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblReserva.setText("Reserva e Entregas de Medicamentos");
+        lblReserva.setText("Reserva de Medicamentos");
 
         lblNome.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         lblNome.setForeground(new java.awt.Color(255, 255, 255));
@@ -99,21 +100,30 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
         tabelaConsultaReserva.getTableHeader().setReorderingAllowed(false);
         ScrollPane.setViewportView(tabelaConsultaReserva);
 
+        btnProcurar1.setBackground(new java.awt.Color(52, 152, 219));
+        btnProcurar1.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        btnProcurar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnProcurar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/basket_put.png"))); // NOI18N
+        btnProcurar1.setText("Carrinho");
+
         javax.swing.GroupLayout painel01Layout = new javax.swing.GroupLayout(painel01);
         painel01.setLayout(painel01Layout);
         painel01Layout.setHorizontalGroup(
             painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 904, Short.MAX_VALUE)
             .addComponent(lblReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(painel01Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ScrollPane)
                     .addGroup(painel01Layout.createSequentialGroup()
                         .addComponent(lblNome)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(campoPesquisa))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnProcurar)
+                    .addGroup(painel01Layout.createSequentialGroup()
+                        .addComponent(campoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnProcurar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(btnProcurar1)))
                 .addContainerGap())
         );
         painel01Layout.setVerticalGroup(
@@ -121,14 +131,17 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
             .addGroup(painel01Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(lblReserva)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addComponent(lblNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(campoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnProcurar1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -153,6 +166,7 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPane;
     private javax.swing.JButton btnProcurar;
+    private javax.swing.JButton btnProcurar1;
     private javax.swing.JTextField campoPesquisa;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblReserva;

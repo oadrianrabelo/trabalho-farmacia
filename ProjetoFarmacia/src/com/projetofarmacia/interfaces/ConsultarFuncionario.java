@@ -7,7 +7,6 @@ package com.projetofarmacia.interfaces;
 
 import com.projetofarmacia.DAO.FuncionarioDAO;
 import com.projetofarmacia.javabeans.*;
-import com.projetofarmacia.interfaces.TelaPrincipalAdm;
 import java.util.List;
 import java.text.SimpleDateFormat;
 import java.awt.Color;
@@ -310,7 +309,7 @@ public class ConsultarFuncionario extends javax.swing.JInternalFrame {
             FuncionarioDAO dao = new FuncionarioDAO();
             
             dao.excluirFuncionario(obj);
-            dao.corrigeId();
+            dao.corrigeId(obj);
         } catch (NumberFormatException | HeadlessException e) {
             throw new RuntimeException(e);
         }

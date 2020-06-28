@@ -29,17 +29,10 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
         painel01 = new javax.swing.JPanel();
         campoNome = new javax.swing.JTextField();
         campoCPF = new javax.swing.JFormattedTextField();
-        campoReservar = new javax.swing.JButton();
-        cbEntrega = new javax.swing.JCheckBox();
-        campoEndereco = new javax.swing.JTextField();
-        campoComplemento = new javax.swing.JTextField();
-        campoCaixa = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
         jLabel10 = new javax.swing.JLabel();
+        campoReservar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(52, 152, 219));
         setClosable(true);
@@ -55,46 +48,16 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
         campoCPF.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         campoCPF.setForeground(new java.awt.Color(255, 255, 255));
 
-        campoReservar.setBackground(new java.awt.Color(52, 152, 219));
-        campoReservar.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        campoReservar.setForeground(new java.awt.Color(255, 255, 255));
-        campoReservar.setText("Reservar");
-
-        cbEntrega.setBackground(new java.awt.Color(52, 152, 219));
-        cbEntrega.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        cbEntrega.setForeground(new java.awt.Color(255, 255, 255));
-        cbEntrega.setText("Entrega");
-        cbEntrega.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbEntregaActionPerformed(evt);
-            }
-        });
-
-        campoEndereco.setBackground(new java.awt.Color(52, 152, 219));
-        campoEndereco.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        campoEndereco.setForeground(new java.awt.Color(255, 255, 255));
-        campoEndereco.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-
-        campoComplemento.setBackground(new java.awt.Color(52, 152, 219));
-        campoComplemento.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        campoComplemento.setForeground(new java.awt.Color(255, 255, 255));
-        campoComplemento.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-
-        campoCaixa.setBackground(new java.awt.Color(52, 152, 219));
-        campoCaixa.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        campoCaixa.setForeground(new java.awt.Color(255, 255, 255));
-        campoCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/basket-go.png"))); // NOI18N
-        campoCaixa.setText("Caixa");
-
-        jLabel6.setText("CPF");
-
-        jLabel7.setText("Endereço");
-
-        jLabel8.setText("Complemento");
+        jLabel6.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Telefone");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("RESERVA DE MEDICAMENTO");
 
+        jLabel10.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Nome");
 
         javax.swing.GroupLayout painel01Layout = new javax.swing.GroupLayout(painel01);
@@ -102,51 +65,22 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
         painel01Layout.setHorizontalGroup(
             painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel01Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
                 .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painel01Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
+                        .addComponent(jLabel10)
                         .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painel01Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(painel01Layout.createSequentialGroup()
-                                        .addGap(136, 136, 136)
-                                        .addComponent(jLabel9))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel01Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(campoReservar))
-                                    .addGroup(painel01Layout.createSequentialGroup()
-                                        .addGap(389, 389, 389)
-                                        .addComponent(jLabel6))))
+                                .addGap(136, 136, 136)
+                                .addComponent(jLabel9))
                             .addGroup(painel01Layout.createSequentialGroup()
-                                .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(campoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 20, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel01Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(campoCaixa)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel01Layout.createSequentialGroup()
-                .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGap(376, 376, 376)
+                                .addComponent(jLabel6))))
                     .addGroup(painel01Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(campoEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel01Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painel01Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(campoComplemento))))
-                .addGap(27, 27, 27))
-            .addGroup(painel01Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(cbEntrega)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jSeparator2)
+                        .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(campoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         painel01Layout.setVerticalGroup(
             painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,58 +95,44 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
                 .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addComponent(campoReservar)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbEntrega)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(campoEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(campoComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(campoCaixa)
-                .addContainerGap())
+                .addContainerGap(59, Short.MAX_VALUE))
         );
+
+        campoReservar.setBackground(new java.awt.Color(52, 152, 219));
+        campoReservar.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        campoReservar.setForeground(new java.awt.Color(255, 255, 255));
+        campoReservar.setText("Reservar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(painel01, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(campoReservar)
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painel01, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(painel01, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(campoReservar)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEntregaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbEntregaActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField campoCPF;
-    private javax.swing.JButton campoCaixa;
-    private javax.swing.JTextField campoComplemento;
-    private javax.swing.JTextField campoEndereco;
     private javax.swing.JTextField campoNome;
     private javax.swing.JButton campoReservar;
-    private javax.swing.JCheckBox cbEntrega;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPanel painel01;
     // End of variables declaration//GEN-END:variables
 

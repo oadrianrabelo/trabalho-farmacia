@@ -179,7 +179,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             }
         });
 
-        cbFuncao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Gerente", "Farmacuêtico", "Caixa", "Estoquista", "Vendedor" }));
+        cbFuncao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Gerente", "Farmacêutico", "Caixa", "Estoquista", "Vendedor" }));
 
         cbDepartamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Unidade de Controle de Estoque", "Unidade de Controle de Medicação", "Unidade de Relacionamento com o Cliente" }));
 
@@ -499,7 +499,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             obj.setTipoFuncionario(t);
             
             dao.alterarFuncionario(obj);
-            dao.corrigeId();
+            dao.corrigeId(obj);
         } catch (RuntimeException | ParseException e) {
             throw new RuntimeException(e);
         }
@@ -569,13 +569,13 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             //;Farmacia(campoFarmacia.getText());
             f.setIdFarmacia(1);
             d.setIdDepartamento(cbDepartamento.getSelectedIndex());
-            t.setIdTipoFuncionario(cbDepartamento.getSelectedIndex());
+            t.setIdTipoFuncionario(cbFuncao.getSelectedIndex());
             obj.setFarmacia(f);
             obj.setDepartamento(d);
             obj.setTipoFuncionario(t);
             
             dao.cadastrarFuncionario(obj);
-            dao.corrigeId();
+            dao.corrigeId(obj);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

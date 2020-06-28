@@ -32,6 +32,46 @@ public class FuncionarioDAO {
         this.conecta = new ConnectionFactory().conecta();
     }
     
+    public int efetuarLogin (String login, String senha) {
+        try {
+            Funcionario f = new Funcionario();
+            TipoFuncionario tp = new TipoFuncionario();
+            String cmdsql = "SELECT * FROM Funcionario WHERE login = ? and senha = ?;";
+            
+            PreparedStatement stmt = conecta.prepareStatement(cmdsql);
+            
+            stmt.setString(1, login);
+            stmt.setString(2, senha);
+            
+            ResultSet rs = stmt.executeQuery();
+            if (rs.first()) {
+                if (rs.getInt("fk_id_tipo_func") == 1) {
+                    System.out.println("gerente");
+                    return 1;
+                } else if (rs.getInt("fk_id_tipo_func") == 2) {
+                    System.out.println("Farmaceutico");
+                    return 2;
+                } else if (rs.getInt("fk_id_tipo_func") == 3) {
+                    System.out.println("caixa");
+                    return 3;
+                } else if (rs.getInt("fk_id_tipo_func") == 4) {
+                    System.out.println("estoquista");
+                    return 4;
+                } else if (rs.getInt("fk_id_tipo_func") == 5) {
+                    System.out.println("vendedor");
+                    return 5;
+                } else {
+                    return 0;
+                }
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    
     public void cadastrarFuncionario (Funcionario obj) {
         try {
             String cmdsql = "INSERT INTO Funcionario(id_funcionario, nome_funcionario, endereco_funcionario, rg, cpf, crm, data_de_nascimento, data_de_admissao, data_de_desligamento, sexo, login, senha, fk_id_departamento, fk_id_farmacia, fk_id_tipo_func) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
@@ -54,6 +94,7 @@ public class FuncionarioDAO {
                 stmt.setInt(13, obj.getDepartamento().getIdDepartamento());
                 stmt.setInt(14, obj.getFarmacia().getIdFarmacia());
                 stmt.setInt(15, obj.getTipoFuncionario().getIdTipoFuncionario());
+                System.out.println(obj.getTipoFuncionario().getIdTipoFuncionario());
                 
                 stmt.execute();
                 stmt.close();
@@ -68,7 +109,7 @@ public class FuncionarioDAO {
     public List<Funcionario> listarFuncionario () {
         try {
             List<Funcionario> lista = new ArrayList<>();
-            String cmdsql = "select f.id_funcionario, f.nome_funcionario, f.endereco_funcionario, f.rg, f.cpf, f.crm, f.data_de_nascimento, f.data_de_admissao, f.data_de_desligamento, f.sexo, f.login, f.senha, d.nome_departamento, fa.nome_farmacia, t.tipo_funcionario from funcionario f inner join departamento d on (f.fk_id_departamento = d.id_departamento) inner join farmacia fa on (f.fk_id_farmacia = fa.id_farmacia) inner join tipo_funcionario t on (f.fk_id_tipo_func = t.id_tipo);";
+            String cmdsql = "select f.id_funcionario, f.nome_funcionario, f.endereco_funcionario, f.rg, f.cpf, f.crm, f.data_de_nascimento, f.data_de_admissao, f.data_de_desligamento, f.sexo, f.login, f.senha, d.nome_departamento, fa.nome_farmacia, t.tipo_funcionario from funcionario f inner join departamento d on (f.fk_id_departamento = d.id_departamento) inner join farmacia fa on (f.fk_id_farmacia = fa.id_farmacia) inner join tipo_funcionario t on (f.fk_id_tipo_func = t.id_tipo) ORDER BY id_funcionario;";
             
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             
@@ -115,7 +156,7 @@ public class FuncionarioDAO {
     
     public void alterarFuncionario (Funcionario obj) {
         try {
-            String cmdsql = "UPDATE Funcionario SET nome_funcionario = ?, endereco_funcionario = ?, rg = ?, cpf = ?, crm = ?, data_de_nascimento = ?, data_de_admissao = ?, data_de_desligamento = ?, sexo = ?, login = ?, senha = ?, fk_id_departamento = ?, fk_id_farmacia = ?, fk_id_tipo_func = ? WHERE id_funcionario = ?;";
+            String cmdsql = "UPDATE Funcionario SET nome_funcionario = ?, endereco_funcionario = ?, rg = ?, cpf = ?, crm = ?, data_de_nascimento = ?, data_de_admissao = ?, data_de_desligamento = ?, sexo = ?, login = ?, senha = ?, fk_id_departamento = ?, fk_id_farmacia = ?, fk_id_tipo_func = ? WHERE id_funcionario = ? ;";
             try (PreparedStatement stmt = conecta.prepareStatement(cmdsql)){
                 
                 stmt.setString(1, obj.getNomeFuncionario());
@@ -148,7 +189,7 @@ public class FuncionarioDAO {
     public List<Funcionario> buscarFuncionario(String nome) {
         try {
             List<Funcionario> lista = new ArrayList<>();
-            String cmdsql = "select f.id_funcionario, f.nome_funcionario, f.endereco_funcionario, f.rg, f.cpf, f.crm, f.data_de_nascimento, f.data_de_admissao, f.data_de_desligamento, f.sexo, f.login, f.senha, d.nome_departamento, fa.nome_farmacia, t.tipo_funcionario from funcionario f inner join departamento d on (f.fk_id_departamento = d.id_departamento) inner join farmacia fa on (f.fk_id_farmacia = fa.id_farmacia) inner join tipo_funcionario t on (f.fk_id_tipo_func = t.id_tipo) WHERE f.nome_funcionario like ?;";
+            String cmdsql = "select f.id_funcionario, f.nome_funcionario, f.endereco_funcionario, f.rg, f.cpf, f.crm, f.data_de_nascimento, f.data_de_admissao, f.data_de_desligamento, f.sexo, f.login, f.senha, d.nome_departamento, fa.nome_farmacia, t.tipo_funcionario from funcionario f inner join departamento d on (f.fk_id_departamento = d.id_departamento) inner join farmacia fa on (f.fk_id_farmacia = fa.id_farmacia) inner join tipo_funcionario t on (f.fk_id_tipo_func = t.id_tipo) WHERE f.nome_funcionario like ? ORDER BY id_funcionario;";
             
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             stmt.setString(1, "%" + nome + "%");
@@ -202,26 +243,27 @@ public class FuncionarioDAO {
                 stmt.setInt(1, obj.getIdFuncionario());
                 
                 stmt.execute();
+                stmt.close();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
     
-    public void corrigeId() {
+    public void corrigeId(Funcionario obj) {
         try {
-            String corrige01 = "SET @num :=0;";
+            String corrige01 = "set @num := 0;";
             String corrige02 = "UPDATE Funcionario SET id_funcionario = @num := (@num+1);";
             String corrige03 = "ALTER TABLE Produto auto_increment = 1;";
-            PreparedStatement stmt = conecta.prepareStatement(corrige01);
-            
-            stmt.addBatch(corrige01);
-            stmt.addBatch(corrige02);
-            stmt.addBatch(corrige03);
-            
-            stmt.executeBatch();
-            stmt.close();
+            try (PreparedStatement stmt = conecta.prepareStatement(corrige01)) {
+                stmt.addBatch(corrige01);
+                stmt.addBatch(corrige02);
+                stmt.addBatch(corrige03);
+                
+                stmt.executeBatch();
+            }
         } catch (SQLException e) {
+            System.out.println(e);
             throw new RuntimeException(e);
         } 
     }

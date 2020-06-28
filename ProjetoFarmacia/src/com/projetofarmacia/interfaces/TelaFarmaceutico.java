@@ -37,16 +37,16 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
 
         pane = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnProcurar = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         ScrollPane = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
+        btnCarrinho02 = new javax.swing.JButton();
+        btnCarrinho = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        menuReservados = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Farmacia");
@@ -55,17 +55,11 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(52, 152, 219));
 
-        jButton1.setBackground(new java.awt.Color(52, 152, 219));
-        jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/basket-go.png"))); // NOI18N
-        jButton1.setText("Caixa");
-
-        jButton2.setBackground(new java.awt.Color(52, 152, 219));
-        jButton2.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Folder Search-certo.png"))); // NOI18N
-        jButton2.setText("Procurar");
+        btnProcurar.setBackground(new java.awt.Color(52, 152, 219));
+        btnProcurar.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        btnProcurar.setForeground(new java.awt.Color(255, 255, 255));
+        btnProcurar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/Folder Search-certo.png"))); // NOI18N
+        btnProcurar.setText("Procurar");
 
         jTextField1.setBackground(new java.awt.Color(52, 152, 219));
         jTextField1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
@@ -119,53 +113,56 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
         table.getTableHeader().setReorderingAllowed(false);
         ScrollPane.setViewportView(table);
 
-        jButton3.setBackground(new java.awt.Color(52, 152, 219));
-        jButton3.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Reservar/Entregar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        btnCarrinho02.setBackground(new java.awt.Color(52, 152, 219));
+        btnCarrinho02.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        btnCarrinho02.setForeground(new java.awt.Color(255, 255, 255));
+        btnCarrinho02.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/basket_1.png"))); // NOI18N
+
+        btnCarrinho.setBackground(new java.awt.Color(52, 152, 219));
+        btnCarrinho.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        btnCarrinho.setForeground(new java.awt.Color(255, 255, 255));
+        btnCarrinho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/basket_put.png"))); // NOI18N
+        btnCarrinho.setText("Carrinho");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
-                        .addGap(14, 14, 14)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
-                        .addComponent(jButton3)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(30, 30, 30))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(ScrollPane)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnProcurar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCarrinho))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCarrinho02)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addComponent(btnCarrinho02)
+                .addGap(1, 1, 1)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(22, 22, 22)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
 
         javax.swing.GroupLayout paneLayout = new javax.swing.GroupLayout(pane);
@@ -182,19 +179,19 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
 
         jMenuBar2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/delivery.png"))); // NOI18N
-        jMenu1.setText("Entregas e reservados ");
-        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+        menuReservados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/delivery.png"))); // NOI18N
+        menuReservados.setText("Reservados ");
+        menuReservados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu1MouseClicked(evt);
+                menuReservadosMouseClicked(evt);
             }
         });
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+        menuReservados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
+                menuReservadosActionPerformed(evt);
             }
         });
-        jMenuBar2.add(jMenu1);
+        jMenuBar2.add(menuReservados);
 
         setJMenuBar(jMenuBar2);
 
@@ -216,21 +213,15 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+    private void menuReservadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuReservadosActionPerformed
         
-    }//GEN-LAST:event_jMenu1ActionPerformed
+    }//GEN-LAST:event_menuReservadosActionPerformed
 
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+    private void menuReservadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuReservadosMouseClicked
         ConsultarReservados cr1 = new ConsultarReservados();
         pane.add(cr1);
         cr1.setVisible(true);
-    }//GEN-LAST:event_jMenu1MouseClicked
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        ReservarProduto rp1 = new ReservarProduto();
-        pane.add(rp1);
-        rp1.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_menuReservadosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -255,6 +246,10 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         
         //</editor-fold>
 
@@ -266,16 +261,16 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPane;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnCarrinho;
+    private javax.swing.JButton btnCarrinho02;
+    private javax.swing.JButton btnProcurar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JDesktopPane pane;
+    private javax.swing.JMenu menuReservados;
+    public static javax.swing.JDesktopPane pane;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 
