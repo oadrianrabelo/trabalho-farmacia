@@ -6,10 +6,6 @@ CREATE TABLE Farmacia (
     nome_farmacia VARCHAR(45),
     endereco VARCHAR(45)
 );
-drop table departamento;
-drop table tipo_funcionario;
-drop table farmacia;
-drop table venda;
 
 CREATE TABLE Funcionario (
     id_funcionario INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -87,15 +83,14 @@ CREATE TABLE Tipo_Produto (
     tipo_produto VARCHAR(45)
 );
 
-CREATE TABLE Entregas_Reservadas (
-    id_entregas INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    nome VARCHAR(45),
-    rg VARCHAR(14),
-    cpf CHAR(11),
-    endereco VARCHAR(45),
-    complemento VARCHAR(50),
+CREATE TABLE Detalhe_Venda (
+    produto varchar(45),
+    qtd int,
+    valor decimal(5,2),
+    subtotal decimal(5,2),
     fk_id_venda INT NOT NULL REFERENCES Venda (id_venda)
     ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 
     
