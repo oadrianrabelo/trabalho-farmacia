@@ -21,14 +21,14 @@ public class TelaLogin extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(TelaLogin.MAXIMIZED_BOTH);
          //imagem login ------------------------------------
-        ImageIcon icon = new ImageIcon("/com/projetofarmacia/resources/login.png");
-        logo.setIcon(icon);
+        ImageIcon icon = new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/login.png"));
+//        logo.setIcon(icon);
         icon.setImage(icon.getImage().getScaledInstance(logo.getWidth(), logo.getHeight(), Image.SCALE_DEFAULT));
         logo.setIcon(icon);
         //----------------------------------------------
-        ImageIcon icon1 = new ImageIcon("/com/projetofarmacia/resources/logo_inicial.png");
-        logo2.setIcon(icon1);
-        icon1.setImage(icon1.getImage().getScaledInstance(logo2.getWidth(), logo2.getHeight(), Image.SCALE_DEFAULT));
+        ImageIcon icon1 = new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/logo_inicial.png"));
+//        logo2.setIcon(icon1);
+        icon1.setImage(icon1.getImage().getScaledInstance(logo2.getWidth(), logo2.getHeight(), 0));
         logo2.setIcon(icon1);
 
         
@@ -134,6 +134,8 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        logo2.setMinimumSize(new java.awt.Dimension(1053, 706));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

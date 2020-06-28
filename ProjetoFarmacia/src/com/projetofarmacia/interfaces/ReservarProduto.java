@@ -83,7 +83,7 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
         campoCaixa.setBackground(new java.awt.Color(52, 152, 219));
         campoCaixa.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         campoCaixa.setForeground(new java.awt.Color(255, 255, 255));
-        campoCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/basket-go.png"))); // NOI18N
+        campoCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/basket-go.png"))); // NOI18N
         campoCaixa.setText("Caixa");
 
         jLabel6.setText("CPF");
@@ -161,7 +161,7 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
                 .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(campoReservar)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)

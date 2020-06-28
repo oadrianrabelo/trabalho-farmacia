@@ -25,11 +25,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
     public CadastroProduto() {
         initComponents();
-        btnExcluir.setOpaque(false);
-        btnExcluir.setContentAreaFilled(false);
-        btnExcluir.setBorderPainted(false);
-        btnExcluir.setIcon(null);
-        btnExcluir.setText("");
     }
 
     private void Cadastrar() {
@@ -92,7 +87,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         btnSalvar = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         campoQuantidade = new javax.swing.JFormattedTextField();
-        btnExcluir = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(52, 152, 219));
         setClosable(true);
@@ -247,21 +241,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
 
-        btnExcluir.setBackground(new java.awt.Color(52, 152, 219));
-        btnExcluir.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        btnExcluir.setForeground(new java.awt.Color(255, 255, 255));
-        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/product-delete.png"))); // NOI18N
-        btnExcluir.setText("Excluir");
-        btnExcluir.setEnabled(false);
-        btnExcluir.setMaximumSize(new java.awt.Dimension(95, 27));
-        btnExcluir.setMinimumSize(new java.awt.Dimension(95, 27));
-        btnExcluir.setPreferredSize(new java.awt.Dimension(95, 27));
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout painel01Layout = new javax.swing.GroupLayout(painel01);
         painel01.setLayout(painel01Layout);
         painel01Layout.setHorizontalGroup(
@@ -316,9 +295,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                 .addGap(28, 28, 28))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel01Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                    .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
         );
         painel01Layout.setVerticalGroup(
@@ -377,11 +354,9 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                                         .addComponent(campoCodBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnSalvar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(25, 25, 25))))))
+                                        .addGap(58, 58, 58))))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel01Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                         .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(360, 360, 360))))
         );
@@ -427,13 +402,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private void campoReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoReservaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoReservaActionPerformed
-
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        if (edit = true) {
-            excluirProduto();
-            System.out.println("Excluído");
-        }
-    }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
 
@@ -507,7 +475,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         campoValidade.setText(String.valueOf(dataVal));
         campoLote.setText(lote);
         campoReserva.setSelectedItem(reserva);
-        dao.listarProdutos(campoTipo);
+        dao.listarTipoProduto(campoTipo);
         campoTipo.setSelectedItem(tipo);
         campoCodBar.setText(String.valueOf(codBars));
         edit = isedit;
@@ -530,7 +498,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         return obj;
     }
 
-
     public String getEstado(String estado) {
         return estado;
     }
@@ -544,7 +511,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JTextField campoCodBar;
     private javax.swing.JFormattedTextField campoFabricacao;

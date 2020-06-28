@@ -6,17 +6,15 @@
 package com.projetofarmacia.interfaces;
 
 import com.projetofarmacia.DAO.ProdutoDAO;
-import static com.projetofarmacia.interfaces.CadastroProduto.btnExcluir;
 import java.awt.Color;
 import java.util.List;
 import java.text.SimpleDateFormat;
 import com.projetofarmacia.javabeans.Produto;
+import java.awt.HeadlessException;
 import java.awt.Point;
-import java.awt.event.MouseEvent;
-import java.text.ParseException;
+import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -52,7 +50,6 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
         try {
             ProdutoDAO dao = new ProdutoDAO();
             List<Produto> listaDeProdutos = dao.listarProduto();
-            
             DefaultTableModel modelo = (DefaultTableModel) tabelaProdutos.getModel();
             modelo.setNumRows(0);
             
@@ -97,6 +94,7 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         ScrollPane = new javax.swing.JScrollPane();
         tabelaProdutos = new javax.swing.JTable();
+        btnExcluir = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(52, 152, 219));
         setClosable(true);
@@ -157,6 +155,11 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
                 campoNomeActionPerformed(evt);
             }
         });
+        campoNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoNomeKeyReleased(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -213,6 +216,17 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
             tabelaProdutos.getColumnModel().getColumn(12).setMaxWidth(0);
         }
 
+        btnExcluir.setBackground(new java.awt.Color(52, 152, 219));
+        btnExcluir.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        btnExcluir.setForeground(new java.awt.Color(255, 255, 255));
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/product-delete.png"))); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -222,7 +236,7 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(campoNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnProcurar)
@@ -230,7 +244,8 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExcluir)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -238,8 +253,10 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -282,12 +299,6 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
             } else {
                 CadastroProduto cp = new CadastroProduto();
                 isEditing = true;
-                CadastroProduto.btnExcluir.setEnabled(true);
-                btnExcluir.setOpaque(true);
-                btnExcluir.setContentAreaFilled(true);
-                btnExcluir.setBorderPainted(true);
-                btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/product-delete.png")));
-                btnExcluir.setText("Sair");
                 cp.listarProdutos(Integer.parseInt(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0).toString()), 
                         tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 1).toString(),
                         tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 2).toString(),
@@ -313,8 +324,7 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
             }
             
         } catch (NullPointerException e) {
-            Logger.getLogger(ConsultarProduto.class.getName()).log(Level.SEVERE, null, e);
-            System.out.println("erro " + e);
+            throw new RuntimeException(e);
         }
         
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -332,10 +342,66 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_tabelaProdutosMousePressed
 
+    public void excluirProduto() {
+        try {
+            Produto obj = new Produto();
+            obj.setIdProduto(Integer.parseInt(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0).toString()));
+            ProdutoDAO dao = new ProdutoDAO();
+            
+            dao.excluirProduto(obj);
+            dao.corrigeId();
+            
+            this.Listar();
+//            this.dispose();
+        } catch (NumberFormatException | HeadlessException e) {
+            System.out.println(e);
+        }
+    }
+    public void Buscar(String nome) {
+        try {
+            ProdutoDAO dao = new ProdutoDAO();
+            List<Produto> listaDeProdutos = dao.buscarProduto(nome);
+            DefaultTableModel modelo = (DefaultTableModel) tabelaProdutos.getModel();
+            modelo.setNumRows(0);
+            
+            for (Produto p: listaDeProdutos) {
+                modelo.addRow(new Object[] {
+                    p.getIdProduto(),
+                    p.getNomeProduto(),
+                    p.getFornecedor(),
+                    p.getQuantidade(),
+                    p.getTarja(),
+                    p.getPreco(),
+                    new SimpleDateFormat("dd/MM/yyyy").format(p.getDataValidade()),
+                    new SimpleDateFormat("dd/MM/yyyy").format(p.getDataFabricacao()),
+                    p.getFarmacia().getNomeFarmacia(),
+                    p.getLote(),
+                    p.getStatus(),
+                    p.getTipoProduto().getTipoProduto(),
+                    p.getCodigoBarras()
+                });
+            }
+        } catch (Exception e) {
+            System.out.println("erro" + e);
+            e.printStackTrace();
+        }
+        
+    }
+    private void campoNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoNomeKeyReleased
+        if (evt.getKeyCode() != KeyEvent.VK_ALPHANUMERIC) {
+                    Buscar(campoNome.getText());
+        }
+    }//GEN-LAST:event_campoNomeKeyReleased
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        excluirProduto();
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPane;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnProcurar;
     private javax.swing.JTextField campoNome;
     private javax.swing.JLabel jLabel1;

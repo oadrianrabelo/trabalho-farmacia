@@ -208,6 +208,11 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="logo2">
+          <Properties>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[1053, 706]"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

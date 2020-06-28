@@ -149,7 +149,7 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
         btnCaixa.setBackground(new java.awt.Color(52, 152, 219));
         btnCaixa.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         btnCaixa.setForeground(new java.awt.Color(255, 255, 255));
-        btnCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/basket-go.png"))); // NOI18N
+        btnCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/basket-go.png"))); // NOI18N
         btnCaixa.setText("Caixa");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N

@@ -5,15 +5,26 @@
  */
 package com.projetofarmacia.interfaces;
 
+import com.projetofarmacia.DAO.FuncionarioDAO;
+import com.projetofarmacia.DAO.TipoFuncionarioDAO;
+import com.projetofarmacia.javabeans.Departamento;
+import com.projetofarmacia.javabeans.Farmacia;
+import com.projetofarmacia.javabeans.Funcionario;
+import com.projetofarmacia.javabeans.TipoFuncionario;
+import java.awt.Color;
+import java.awt.HeadlessException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author Calendoscopio
  */
 public class CadastroFuncionario extends javax.swing.JInternalFrame {
+    private static final long serialVersionUID = 1L;
+    public static boolean edit;
 
-    /**
-     * Creates new form Cadastro_edita_produto
-     */
     public CadastroFuncionario() {
         initComponents();
     }
@@ -29,17 +40,17 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 
         painel01 = new javax.swing.JPanel();
         campoNome = new javax.swing.JTextField();
-        campoDataNasc = new javax.swing.JFormattedTextField();
+        campoNascimento = new javax.swing.JFormattedTextField();
         cbSexo = new javax.swing.JComboBox<String>();
         campoRG = new javax.swing.JFormattedTextField();
         campoCPF = new javax.swing.JFormattedTextField();
         campoEndereco = new javax.swing.JTextField();
         campoId = new javax.swing.JTextField();
         campoFarmacia = new javax.swing.JTextField();
-        campoDataAdmissao = new javax.swing.JFormattedTextField();
-        campoDataDesligamento = new javax.swing.JFormattedTextField();
+        campoAdmissao = new javax.swing.JFormattedTextField();
+        campoDesligamento = new javax.swing.JFormattedTextField();
         cbFuncao = new javax.swing.JComboBox<String>();
-        cbUnidade = new javax.swing.JComboBox<String>();
+        cbDepartamento = new javax.swing.JComboBox<String>();
         campoLogin = new javax.swing.JTextField();
         campoSenha = new javax.swing.JPasswordField();
         btnSalvar = new javax.swing.JButton();
@@ -59,6 +70,8 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        campoCRM = new javax.swing.JFormattedTextField();
+        jLabel16 = new javax.swing.JLabel();
 
         setClosable(true);
         setResizable(true);
@@ -67,6 +80,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         painel01.setBackground(new java.awt.Color(52, 152, 219));
         painel01.setForeground(new java.awt.Color(255, 255, 255));
 
+        campoNome.setBackground(new java.awt.Color(52, 152, 219));
         campoNome.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         campoNome.setForeground(new java.awt.Color(255, 255, 255));
         campoNome.setToolTipText("");
@@ -79,28 +93,29 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             }
         });
 
-        campoDataNasc.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        campoDataNasc.setForeground(new java.awt.Color(255, 255, 255));
+        campoNascimento.setBackground(new java.awt.Color(52, 152, 219));
+        campoNascimento.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        campoNascimento.setForeground(new java.awt.Color(255, 255, 255));
         try {
-            campoDataNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            campoNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        campoDataNasc.addActionListener(new java.awt.event.ActionListener() {
+        campoNascimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoDataNascActionPerformed(evt);
+                campoNascimentoActionPerformed(evt);
             }
         });
 
         cbSexo.setBackground(new java.awt.Color(52, 152, 219));
         cbSexo.setForeground(new java.awt.Color(255, 255, 255));
-        cbSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "F", "M" }));
+        cbSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Masculino", "Feminino" }));
         cbSexo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         cbSexo.setOpaque(false);
 
+        campoRG.setBackground(new java.awt.Color(52, 152, 219));
         campoRG.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         campoRG.setForeground(new java.awt.Color(255, 255, 255));
-        campoRG.setText("jFormattedTextField1");
         campoRG.setOpaque(false);
         campoRG.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,9 +123,9 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             }
         });
 
+        campoCPF.setBackground(new java.awt.Color(52, 152, 219));
         campoCPF.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         campoCPF.setForeground(new java.awt.Color(255, 255, 255));
-        campoCPF.setText("jFormattedTextField1");
         campoCPF.setOpaque(false);
         campoCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,52 +133,61 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             }
         });
 
+        campoEndereco.setBackground(new java.awt.Color(52, 152, 219));
         campoEndereco.setForeground(new java.awt.Color(255, 255, 255));
         campoEndereco.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
 
         campoId.setEditable(false);
+        campoId.setBackground(new java.awt.Color(52, 152, 219));
         campoId.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         campoId.setForeground(new java.awt.Color(255, 255, 255));
         campoId.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        campoId.setEnabled(false);
 
         campoFarmacia.setEditable(false);
+        campoFarmacia.setBackground(new java.awt.Color(52, 152, 219));
         campoFarmacia.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         campoFarmacia.setForeground(new java.awt.Color(255, 255, 255));
         campoFarmacia.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        campoFarmacia.setEnabled(false);
 
-        campoDataAdmissao.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        campoDataAdmissao.setForeground(new java.awt.Color(255, 255, 255));
+        campoAdmissao.setBackground(new java.awt.Color(52, 152, 219));
+        campoAdmissao.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        campoAdmissao.setForeground(new java.awt.Color(255, 255, 255));
         try {
-            campoDataAdmissao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            campoAdmissao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        campoDataAdmissao.addActionListener(new java.awt.event.ActionListener() {
+        campoAdmissao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoDataAdmissaoActionPerformed(evt);
+                campoAdmissaoActionPerformed(evt);
             }
         });
 
-        campoDataDesligamento.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        campoDataDesligamento.setForeground(new java.awt.Color(255, 255, 255));
+        campoDesligamento.setBackground(new java.awt.Color(52, 152, 219));
+        campoDesligamento.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        campoDesligamento.setForeground(new java.awt.Color(255, 255, 255));
         try {
-            campoDataDesligamento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            campoDesligamento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        campoDataDesligamento.addActionListener(new java.awt.event.ActionListener() {
+        campoDesligamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoDataDesligamentoActionPerformed(evt);
+                campoDesligamentoActionPerformed(evt);
             }
         });
 
-        cbFuncao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Gerente", "Farmaceutico", "Caixa", "Estoquista", "Vendedor", " " }));
+        cbFuncao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Gerente", "Farmacuêtico", "Caixa", "Estoquista", "Vendedor" }));
 
-        cbUnidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Unidade de Controle de Estoque", "Unidade de Controle de Medicação", "Unidade de Relacionamento com o Cliente" }));
+        cbDepartamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Unidade de Controle de Estoque", "Unidade de Controle de Medicação", "Unidade de Relacionamento com o Cliente" }));
 
+        campoLogin.setBackground(new java.awt.Color(52, 152, 219));
         campoLogin.setForeground(new java.awt.Color(255, 255, 255));
         campoLogin.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
 
+        campoSenha.setBackground(new java.awt.Color(52, 152, 219));
         campoSenha.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         campoSenha.setForeground(new java.awt.Color(255, 255, 255));
         campoSenha.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
@@ -176,8 +200,13 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         btnSalvar.setBackground(new java.awt.Color(52, 152, 219));
         btnSalvar.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/save icon.png"))); // NOI18N
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/save icon.png"))); // NOI18N
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -242,6 +271,20 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Senha");
 
+        campoCRM.setBackground(new java.awt.Color(52, 152, 219));
+        campoCRM.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        campoCRM.setForeground(new java.awt.Color(255, 255, 255));
+        campoCRM.setOpaque(false);
+        campoCRM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoCRMActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("CRM");
+
         javax.swing.GroupLayout painel01Layout = new javax.swing.GroupLayout(painel01);
         painel01.setLayout(painel01Layout);
         painel01Layout.setHorizontalGroup(
@@ -250,49 +293,56 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             .addGroup(painel01Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel7)
-                        .addComponent(campoNome)
-                        .addGroup(painel01Layout.createSequentialGroup()
-                            .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel01Layout.createSequentialGroup()
-                                    .addComponent(campoDataNasc)
-                                    .addGap(12, 12, 12)))
+                    .addGroup(painel01Layout.createSequentialGroup()
+                        .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel7)
+                                .addComponent(campoNome)
                                 .addGroup(painel01Layout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addComponent(cbSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGap(14, 14, 14)
-                                    .addComponent(campoRG, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
-                                .addGroup(painel01Layout.createSequentialGroup()
-                                    .addGap(7, 7, 7)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(29, 29, 29)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(campoCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)))
-                        .addComponent(campoEndereco))
-                    .addComponent(jLabel13))
-                .addGap(10, 10, 10)
+                                    .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel01Layout.createSequentialGroup()
+                                            .addComponent(campoNascimento)
+                                            .addGap(12, 12, 12)))
+                                    .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(painel01Layout.createSequentialGroup()
+                                            .addGap(6, 6, 6)
+                                            .addComponent(cbSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGap(14, 14, 14)
+                                            .addComponent(campoRG, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
+                                        .addGroup(painel01Layout.createSequentialGroup()
+                                            .addGap(7, 7, 7)
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(29, 29, 29)
+                                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(campoCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)))
+                                .addComponent(campoEndereco))
+                            .addComponent(jLabel13))
+                        .addGap(10, 10, 10))
+                    .addGroup(painel01Layout.createSequentialGroup()
+                        .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(campoCRM, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel01Layout.createSequentialGroup()
                         .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(campoDataAdmissao)
+                            .addComponent(campoAdmissao)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel01Layout.createSequentialGroup()
                                 .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(2, 2, 2)))
                         .addGap(18, 18, 18)
                         .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(campoDataDesligamento)))
+                            .addComponent(campoDesligamento)))
                     .addGroup(painel01Layout.createSequentialGroup()
                         .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbUnidade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbDepartamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(painel01Layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(89, 89, 89)
@@ -361,7 +411,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
                                     .addComponent(campoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(campoRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campoDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(campoNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(painel01Layout.createSequentialGroup()
                                 .addGap(66, 66, 66)
                                 .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -369,14 +419,18 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel8))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(campoDataAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campoDataDesligamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(campoAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campoDesligamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painel01Layout.createSequentialGroup()
                                 .addGap(11, 11, 11)
                                 .addComponent(jLabel13)
                                 .addGap(4, 4, 4)
-                                .addComponent(campoEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(campoEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campoCRM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(painel01Layout.createSequentialGroup()
                                 .addGap(13, 13, 13)
                                 .addComponent(jLabel2)
@@ -385,7 +439,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(14, 14, 14)
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -396,7 +450,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
                                 .addComponent(campoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(64, 64, 64)
                                 .addComponent(btnSalvar)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(15, Short.MAX_VALUE))
                     .addGroup(painel01Layout.createSequentialGroup()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -416,17 +470,127 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void campoDataNascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDataNascActionPerformed
+    public void setarDados() {
+        try {
+            Funcionario obj = new Funcionario();
+            FuncionarioDAO dao = new FuncionarioDAO();
+            Farmacia f = new Farmacia();
+            Departamento d = new Departamento();
+            TipoFuncionario t = new TipoFuncionario();
+            
+            obj.setIdFuncionario(Integer.parseInt(campoId.getText()));
+            obj.setNomeFuncionario(campoNome.getText());
+            obj.setEnderecoFuncionario(campoEndereco.getText());
+            obj.setRgFuncionario(campoRG.getText());
+            obj.setCpfFuncionario(campoCPF.getText());
+            obj.setCrm(Integer.parseInt(campoCRM.getText()));
+            obj.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(campoNascimento.getText()));
+            obj.setDataAdmissao(new SimpleDateFormat("dd/MM/yyyy").parse(campoAdmissao.getText()));
+            obj.setDataDesligamento(new SimpleDateFormat("dd/MM/yyyy").parse(campoDesligamento.getText()));
+            obj.setSexo(cbSexo.getSelectedItem().toString());
+            obj.setLoginFuncionario(campoLogin.getText());
+            obj.setSenhaFuncionario(String.valueOf(campoSenha.getPassword()));
+            d.setIdDepartamento(cbDepartamento.getSelectedIndex());
+            f.setIdFarmacia(1);
+            t.setIdTipoFuncionario(cbFuncao.getSelectedIndex());
+            
+            obj.setFarmacia(f);
+            obj.setDepartamento(d);
+            obj.setTipoFuncionario(t);
+            
+            dao.alterarFuncionario(obj);
+            dao.corrigeId();
+        } catch (RuntimeException | ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    
+    
+    public void listarFuncionarios(int id, String nome, String funcao, String dep, String login, String nasc, String rg, String cpf, String endereco, String sexo, String senha, int crm, String farmacia, String admi, String deslg, boolean isedit) {
+        campoId.setText(String.valueOf(id));
+        campoNome.setText(nome);
+        cbFuncao.setSelectedItem(funcao);
+        cbDepartamento.setSelectedItem(dep);
+        campoLogin.setText(login);
+        campoNascimento.setText(String.valueOf(nasc));
+        campoRG.setText(rg);
+        campoCPF.setText(cpf);
+        campoEndereco.setText(endereco);
+        cbSexo.setSelectedItem(sexo);
+        campoSenha.setText(senha);
+        campoCRM.setText(String.valueOf(crm));
+        campoFarmacia.setText(farmacia);
+        campoAdmissao.setText(String.valueOf(admi));
+        campoDesligamento.setText(String.valueOf(deslg));
+        edit = isedit;
+    }
+    
+    public Object[] recuperaDados() {
+        Object[] obj = {
+            campoId.getText(),
+            campoNome.getText(),
+            cbFuncao.getSelectedItem(),
+            cbDepartamento.getSelectedItem(),
+            campoLogin.getText(),
+            campoNascimento.getText(),
+            campoRG.getText(),
+            campoCPF.getText(),
+            campoEndereco.getText(),
+            cbSexo.getSelectedItem(),
+            campoSenha.getPassword(),
+            campoCRM.getText(),
+            campoFarmacia.getText(),
+            campoAdmissao.getText(),
+            campoDesligamento.getText(),
+        };
+        return obj;
+    }
+    private void Cadastrar() {
+        try {
+            Funcionario obj = new Funcionario();
+            FuncionarioDAO dao = new FuncionarioDAO();
+            Farmacia f = new Farmacia();
+            Departamento d = new Departamento();
+            TipoFuncionario t = new TipoFuncionario();
+            obj.setNomeFuncionario(campoNome.getText());
+            obj.setEnderecoFuncionario(campoEndereco.getText());
+            obj.setRgFuncionario(campoRG.getText());
+            obj.setCpfFuncionario(campoCPF.getText());
+            obj.setCrm(Integer.parseInt(campoCRM.getText()));
+            
+            obj.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(campoNascimento.getText()));
+            obj.setDataAdmissao(new SimpleDateFormat("dd/MM/yyyy").parse(campoAdmissao.getText()));
+            obj.setDataDesligamento(new SimpleDateFormat("dd/MM/yyyy").parse(campoDesligamento.getText()));
+            
+            obj.setSexo(cbSexo.getSelectedItem().toString());
+            obj.setLoginFuncionario(campoLogin.getText());
+            obj.setSenhaFuncionario(String.valueOf(campoSenha.getPassword()));
+            //;Farmacia(campoFarmacia.getText());
+            f.setIdFarmacia(1);
+            d.setIdDepartamento(cbDepartamento.getSelectedIndex());
+            t.setIdTipoFuncionario(cbDepartamento.getSelectedIndex());
+            obj.setFarmacia(f);
+            obj.setDepartamento(d);
+            obj.setTipoFuncionario(t);
+            
+            dao.cadastrarFuncionario(obj);
+            dao.corrigeId();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void campoNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNascimentoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoDataNascActionPerformed
+    }//GEN-LAST:event_campoNascimentoActionPerformed
 
-    private void campoDataAdmissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDataAdmissaoActionPerformed
+    private void campoAdmissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoAdmissaoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoDataAdmissaoActionPerformed
+    }//GEN-LAST:event_campoAdmissaoActionPerformed
 
-    private void campoDataDesligamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDataDesligamentoActionPerformed
+    private void campoDesligamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDesligamentoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoDataDesligamentoActionPerformed
+    }//GEN-LAST:event_campoDesligamentoActionPerformed
 
     private void campoRGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoRGActionPerformed
         // TODO add your handling code here:
@@ -444,23 +608,39 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoNomeActionPerformed
 
+    private void campoCRMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCRMActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoCRMActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        if (edit) {
+            setarDados();
+            edit = false;
+            System.out.println("Alterado");
+        } else {
+            Cadastrar();
+            System.out.println("Cadastrado");
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JFormattedTextField campoAdmissao;
     private javax.swing.JFormattedTextField campoCPF;
-    private javax.swing.JFormattedTextField campoDataAdmissao;
-    private javax.swing.JFormattedTextField campoDataDesligamento;
-    private javax.swing.JFormattedTextField campoDataNasc;
+    private javax.swing.JFormattedTextField campoCRM;
+    private javax.swing.JFormattedTextField campoDesligamento;
     private javax.swing.JTextField campoEndereco;
     private javax.swing.JTextField campoFarmacia;
     private javax.swing.JTextField campoId;
     private javax.swing.JTextField campoLogin;
+    private javax.swing.JFormattedTextField campoNascimento;
     private javax.swing.JTextField campoNome;
     private javax.swing.JFormattedTextField campoRG;
     private javax.swing.JPasswordField campoSenha;
+    private javax.swing.JComboBox<String> cbDepartamento;
     private javax.swing.JComboBox<String> cbFuncao;
     private javax.swing.JComboBox<String> cbSexo;
-    private javax.swing.JComboBox<String> cbUnidade;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -468,6 +648,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -127,7 +127,7 @@
                       <Component id="campoNome" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="campoCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="44" max="32767" attributes="0"/>
+                  <EmptySpace pref="46" max="32767" attributes="0"/>
                   <Component id="campoReservar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
@@ -269,7 +269,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/recursos/basket-go.png"/>
+              <Image iconType="3" name="/com/projetofarmacia/resources/basket-go.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Caixa"/>
           </Properties>
