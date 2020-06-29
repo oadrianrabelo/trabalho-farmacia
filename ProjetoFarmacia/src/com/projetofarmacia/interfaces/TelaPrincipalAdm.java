@@ -5,10 +5,7 @@
  */
 package com.projetofarmacia.interfaces;
 
-import com.projetofarmacia.interfaces.CadastroFuncionario;
-import com.projetofarmacia.interfaces.ConsultarFuncionario;
-import com.projetofarmacia.interfaces.ConsultarProduto;
-import com.projetofarmacia.interfaces.TelaCaixa;
+import com.projetofarmacia.DAO.FuncionarioDAO;
 
 
 /**
@@ -151,7 +148,9 @@ public class TelaPrincipalAdm extends javax.swing.JFrame {
 
     private void cadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarFuncionarioActionPerformed
        CadastroFuncionario cf1 = new CadastroFuncionario();
+       FuncionarioDAO dao = new FuncionarioDAO();
        painel.add(cf1);
+       CadastroFuncionario.campoFarmacia.setText(TelaLogin.nomeFarm);
        cf1.setVisible(true);
     }//GEN-LAST:event_cadastrarFuncionarioActionPerformed
 

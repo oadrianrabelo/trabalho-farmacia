@@ -109,7 +109,6 @@ public class TelaEstoquista extends javax.swing.JFrame {
         ConsultarProduto conp = new ConsultarProduto();
         painel.add(conp);
         conp.setVisible(true);
-        conp.Listar();
     }//GEN-LAST:event_menuConsutaProdutoMouseClicked
 
     /**

@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class Funcionario {
     // ATRIBUTOS
-    private int idFuncionario, crm;
+    private int idFuncionario;
     private String nomeFuncionario, enderecoFuncionario, rgFuncionario, cpfFuncionario, loginFuncionario, senhaFuncionario, sexo;
     private Date dataNascimento, dataAdmissao, dataDesligamento;
     private Farmacia farmacia;
@@ -16,9 +16,8 @@ public class Funcionario {
     // CONSTRUTORES
     public Funcionario() { }
 
-    public Funcionario(int idFuncionario, int crm, String nomeFuncionario, String enderecoFuncionario, String rgFuncionario, String cpfFuncionario, String loginFuncionario, String senhaFuncionario, String sexo, Date dataNascimento, Date dataAdmissao, Date dataDesligameto, Farmacia farmacia, Departamento departamento, TipoFuncionario tipoFuncionario) {
+    public Funcionario(int idFuncionario, String nomeFuncionario, String enderecoFuncionario, String rgFuncionario, String cpfFuncionario, String loginFuncionario, String senhaFuncionario, String sexo, Date dataNascimento, Date dataAdmissao, Date dataDesligameto, Farmacia farmacia, Departamento departamento, TipoFuncionario tipoFuncionario) {
         this.idFuncionario = idFuncionario;
-        this.crm = crm;
         this.nomeFuncionario = nomeFuncionario;
         this.enderecoFuncionario = enderecoFuncionario;
         this.rgFuncionario = rgFuncionario;
@@ -137,14 +136,6 @@ public class Funcionario {
 
     public void setTipoFuncionario(TipoFuncionario tipoFuncionario) {
         this.tipoFuncionario = tipoFuncionario;
-    }
-
-    public int getCrm() {
-        return crm;
-    }
-
-    public void setCrm(int crm) {
-        this.crm = crm;
     }
 
     public Date getDataDesligamento() {

@@ -5,6 +5,12 @@
  */
 package com.projetofarmacia.interfaces;
 
+import com.projetofarmacia.DAO.ProdutoDAO;
+import com.projetofarmacia.javabeans.Produto;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 
 
 /**
@@ -38,11 +44,11 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
         pane = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
         btnProcurar = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        campoNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         ScrollPane = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
+        tabelaProdutos = new javax.swing.JTable();
         btnCarrinho02 = new javax.swing.JButton();
         btnCarrinho = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
@@ -52,6 +58,11 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
         setTitle("Farmacia");
         setBackground(new java.awt.Color(255, 255, 255));
         setLocationByPlatform(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(52, 152, 219));
 
@@ -61,14 +72,14 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
         btnProcurar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/Folder Search-certo.png"))); // NOI18N
         btnProcurar.setText("Procurar");
 
-        jTextField1.setBackground(new java.awt.Color(52, 152, 219));
-        jTextField1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jTextField1.setCaretColor(new java.awt.Color(52, 152, 219));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        campoNome.setBackground(new java.awt.Color(52, 152, 219));
+        campoNome.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        campoNome.setForeground(new java.awt.Color(255, 255, 255));
+        campoNome.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        campoNome.setCaretColor(new java.awt.Color(52, 152, 219));
+        campoNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                campoNomeActionPerformed(evt);
             }
         });
 
@@ -81,22 +92,19 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Nome");
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Nome", "Fornecedor", "Qtd", "Tarja", "Preço", "Data de Validade", "Data de Fabricação", "Farmacia"
+                "id*", "Nome", "Fornecedor", "Qtd", "Tarja", "Preço", "Data de Validade", "Data de Fabricação", "Farmacia"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -107,16 +115,21 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        table.setGridColor(new java.awt.Color(51, 102, 255));
-        table.setSurrendersFocusOnKeystroke(true);
-        table.getTableHeader().setResizingAllowed(false);
-        table.getTableHeader().setReorderingAllowed(false);
-        ScrollPane.setViewportView(table);
+        tabelaProdutos.setGridColor(new java.awt.Color(51, 102, 255));
+        tabelaProdutos.setSurrendersFocusOnKeystroke(true);
+        tabelaProdutos.getTableHeader().setResizingAllowed(false);
+        tabelaProdutos.getTableHeader().setReorderingAllowed(false);
+        ScrollPane.setViewportView(tabelaProdutos);
 
         btnCarrinho02.setBackground(new java.awt.Color(52, 152, 219));
         btnCarrinho02.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
         btnCarrinho02.setForeground(new java.awt.Color(255, 255, 255));
         btnCarrinho02.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/basket_1.png"))); // NOI18N
+        btnCarrinho02.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarrinho02ActionPerformed(evt);
+            }
+        });
 
         btnCarrinho.setBackground(new java.awt.Color(52, 152, 219));
         btnCarrinho.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
@@ -137,7 +150,7 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(ScrollPane)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnProcurar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -157,7 +170,7 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -209,9 +222,36 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    
+    public void Listar() {
+        try {
+            ProdutoDAO dao = new ProdutoDAO();
+            List<Produto> listaDeProdutos = dao.listarProduto();
+            DefaultTableModel modelo = (DefaultTableModel) tabelaProdutos.getModel();
+            modelo.setNumRows(0);
+            
+            for (Produto p: listaDeProdutos) {
+                modelo.addRow(new Object[] {
+                    p.getIdProduto(),
+                    p.getNomeProduto(),
+                    p.getFornecedor(),
+                    p.getQuantidade(),
+                    p.getTarja(),
+                    p.getPreco(),
+                    new SimpleDateFormat("dd/MM/yyyy").format(p.getDataValidade()),
+                    new SimpleDateFormat("dd/MM/yyyy").format(p.getDataFabricacao()),
+                    p.getFarmacia().getNomeFarmacia(),
+                });
+            }
+        } catch (Exception e) {
+            System.out.println("erro" + e);
+            e.printStackTrace();
+        }
+        
+    }
+    private void campoNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_campoNomeActionPerformed
 
     private void menuReservadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuReservadosActionPerformed
         
@@ -222,6 +262,14 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
         pane.add(cr1);
         cr1.setVisible(true);
     }//GEN-LAST:event_menuReservadosMouseClicked
+
+    private void btnCarrinho02ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarrinho02ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCarrinho02ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        Listar();
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -264,14 +312,14 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
     private javax.swing.JButton btnCarrinho;
     private javax.swing.JButton btnCarrinho02;
     private javax.swing.JButton btnProcurar;
+    private javax.swing.JTextField campoNome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JMenu menuReservados;
     public static javax.swing.JDesktopPane pane;
-    private javax.swing.JTable table;
+    private javax.swing.JTable tabelaProdutos;
     // End of variables declaration//GEN-END:variables
 
    

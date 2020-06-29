@@ -40,8 +40,8 @@ public class ProdutoDAO {
                 stmt.setString(9, obj.getTarja());
                 stmt.setDouble(10, obj.getPreco());
                 stmt.setString(11, obj.getStatus());
-                stmt.setInt(12, 1);
-                stmt.setInt(13, 1);
+                stmt.setInt(12, obj.getTipoProduto().getIdTipoProduto());
+                stmt.setInt(13, obj.getFarmacia().getIdFarmacia());
                 
                 stmt.execute();
                 stmt.close();
@@ -58,7 +58,8 @@ public class ProdutoDAO {
         try {
             List<Produto> lista = new ArrayList<>();
 //            String cmdsql = "SELECT id_produto, nome_produto, fornecedor, quantidade, tarja, preco, data_de_validade, data_de_fabricacao, fk_id_farmacia, statusProduto, lote, fk_id_tipo_produto, codigo_de_barras FROM Produto;";
-            String cmdsql = "select p.id_produto, p.nome_produto, p.fornecedor, p.quantidade, p.tarja, p.preco, p.data_de_validade, p.data_de_fabricacao, p.status_produto, p.lote, p.codigo_de_barras, t.tipo_produto, f.nome_farmacia from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia);";
+//            String cmdsql = "select p.id_produto, p.nome_produto, p.fornecedor, p.quantidade, p.tarja, p.preco, p.data_de_validade, p.data_de_fabricacao, p.status_produto, p.lote, p.codigo_de_barras, t.tipo_produto, f.nome_farmacia from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia);";
+            String cmdsql = "select p.*, f.nome_farmacia, t.tipo_produto from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia);";
             
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             
@@ -73,16 +74,18 @@ public class ProdutoDAO {
                     p.setIdProduto(rs.getInt(1));
                     p.setNomeProduto(rs.getString(2));
                     p.setFornecedor(rs.getString(3));
-                    p.setQuantidade(rs.getInt(4));
-                    p.setTarja(rs.getString(5));
-                    p.setPreco(rs.getDouble(6));
-                    p.setDataValidade(rs.getDate(7));
-                    p.setDataFabricacao(rs.getDate(8));
-                    p.setStatus(rs.getString(9));
-                    p.setLote(rs.getString(10));
-                    p.setCodigoBarras(rs.getLong(11));
-                    tp.setTipoProduto(rs.getString(12));
-                    f.setNomeFarmacia(rs.getString(13));
+                    p.setLote(rs.getString(4));
+                    p.setDataFabricacao(rs.getDate(5));
+                    p.setDataValidade(rs.getDate(6));
+                    p.setCodigoBarras(rs.getLong(7));
+                    p.setQuantidade(rs.getInt(8));
+                    p.setTarja(rs.getString(9));
+                    p.setPreco(rs.getDouble(10));
+                    f.setIdFarmacia(rs.getInt(11));
+                    p.setStatus(rs.getString(12));
+                    tp.setIdTipoProduto(rs.getInt(13));
+                    f.setNomeFarmacia(rs.getString(14));
+                    tp.setTipoProduto(rs.getString(15));
                     p.setTipoProduto(tp);
                     p.setFarmacia(f);
                     lista.add(p);
@@ -166,6 +169,9 @@ public class ProdutoDAO {
             throw new RuntimeException(e);
         }
     }
+    
+//    public List<Produto> listarReservados() {
+//    }
     public void excluirProduto(Produto obj) {
         try {
             String cmdsql = "DELETE FROM Produto WHERE id_produto = ?;";

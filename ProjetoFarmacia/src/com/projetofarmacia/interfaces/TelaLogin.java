@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
  * @author Calendoscopio
  */
 public class TelaLogin extends javax.swing.JFrame {
+    public static String nomeFarm;
 
     /**
      * Creates new form telaLogin
@@ -185,7 +186,6 @@ public class TelaLogin extends javax.swing.JFrame {
             String login, senha;
             login = campoUsuario.getText();
             senha = new String(campoSenha.getPassword());
-            
             FuncionarioDAO dao = new FuncionarioDAO();
             switch (dao.efetuarLogin(login, senha)) {
                 case 1:

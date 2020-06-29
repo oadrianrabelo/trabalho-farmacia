@@ -70,8 +70,6 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        campoCRM = new javax.swing.JFormattedTextField();
-        jLabel16 = new javax.swing.JLabel();
 
         setClosable(true);
         setResizable(true);
@@ -271,20 +269,6 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Senha");
 
-        campoCRM.setBackground(new java.awt.Color(52, 152, 219));
-        campoCRM.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        campoCRM.setForeground(new java.awt.Color(255, 255, 255));
-        campoCRM.setOpaque(false);
-        campoCRM.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoCRMActionPerformed(evt);
-            }
-        });
-
-        jLabel16.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("CRM");
-
         javax.swing.GroupLayout painel01Layout = new javax.swing.GroupLayout(painel01);
         painel01.setLayout(painel01Layout);
         painel01Layout.setHorizontalGroup(
@@ -293,40 +277,33 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             .addGroup(painel01Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel01Layout.createSequentialGroup()
-                        .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel7)
+                        .addComponent(campoNome)
+                        .addGroup(painel01Layout.createSequentialGroup()
+                            .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel01Layout.createSequentialGroup()
+                                    .addComponent(campoNascimento)
+                                    .addGap(12, 12, 12)))
                             .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel7)
-                                .addComponent(campoNome)
                                 .addGroup(painel01Layout.createSequentialGroup()
-                                    .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel01Layout.createSequentialGroup()
-                                            .addComponent(campoNascimento)
-                                            .addGap(12, 12, 12)))
-                                    .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(painel01Layout.createSequentialGroup()
-                                            .addGap(6, 6, 6)
-                                            .addComponent(cbSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addGap(14, 14, 14)
-                                            .addComponent(campoRG, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
-                                        .addGroup(painel01Layout.createSequentialGroup()
-                                            .addGap(7, 7, 7)
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(29, 29, 29)
-                                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(campoCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)))
-                                .addComponent(campoEndereco))
-                            .addComponent(jLabel13))
-                        .addGap(10, 10, 10))
-                    .addGroup(painel01Layout.createSequentialGroup()
-                        .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(campoCRM, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGap(6, 6, 6)
+                                    .addComponent(cbSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(14, 14, 14)
+                                    .addComponent(campoRG, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
+                                .addGroup(painel01Layout.createSequentialGroup()
+                                    .addGap(7, 7, 7)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(29, 29, 29)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)))
+                        .addComponent(campoEndereco))
+                    .addComponent(jLabel13))
+                .addGap(10, 10, 10)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,11 +403,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
                                 .addGap(11, 11, 11)
                                 .addComponent(jLabel13)
                                 .addGap(4, 4, 4)
-                                .addComponent(campoEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(campoCRM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(campoEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(painel01Layout.createSequentialGroup()
                                 .addGap(13, 13, 13)
                                 .addComponent(jLabel2)
@@ -450,7 +423,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
                                 .addComponent(campoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(64, 64, 64)
                                 .addComponent(btnSalvar)))
-                        .addContainerGap(15, Short.MAX_VALUE))
+                        .addContainerGap(26, Short.MAX_VALUE))
                     .addGroup(painel01Layout.createSequentialGroup()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -483,7 +456,6 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             obj.setEnderecoFuncionario(campoEndereco.getText());
             obj.setRgFuncionario(campoRG.getText());
             obj.setCpfFuncionario(campoCPF.getText());
-            obj.setCrm(Integer.parseInt(campoCRM.getText()));
             obj.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(campoNascimento.getText()));
             obj.setDataAdmissao(new SimpleDateFormat("dd/MM/yyyy").parse(campoAdmissao.getText()));
             obj.setDataDesligamento(new SimpleDateFormat("dd/MM/yyyy").parse(campoDesligamento.getText()));
@@ -507,7 +479,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
     
     
     
-    public void listarFuncionarios(int id, String nome, String funcao, String dep, String login, String nasc, String rg, String cpf, String endereco, String sexo, String senha, int crm, String farmacia, String admi, String deslg, boolean isedit) {
+    public void listarFuncionarios(int id, String nome, String funcao, String dep, String login, String nasc, String rg, String cpf, String endereco, String sexo, String senha, String farmacia, String admi, String deslg, boolean isedit) {
         campoId.setText(String.valueOf(id));
         campoNome.setText(nome);
         cbFuncao.setSelectedItem(funcao);
@@ -519,7 +491,6 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         campoEndereco.setText(endereco);
         cbSexo.setSelectedItem(sexo);
         campoSenha.setText(senha);
-        campoCRM.setText(String.valueOf(crm));
         campoFarmacia.setText(farmacia);
         campoAdmissao.setText(String.valueOf(admi));
         campoDesligamento.setText(String.valueOf(deslg));
@@ -539,7 +510,6 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             campoEndereco.getText(),
             cbSexo.getSelectedItem(),
             campoSenha.getPassword(),
-            campoCRM.getText(),
             campoFarmacia.getText(),
             campoAdmissao.getText(),
             campoDesligamento.getText(),
@@ -557,7 +527,6 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             obj.setEnderecoFuncionario(campoEndereco.getText());
             obj.setRgFuncionario(campoRG.getText());
             obj.setCpfFuncionario(campoCPF.getText());
-            obj.setCrm(Integer.parseInt(campoCRM.getText()));
             
             obj.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(campoNascimento.getText()));
             obj.setDataAdmissao(new SimpleDateFormat("dd/MM/yyyy").parse(campoAdmissao.getText()));
@@ -608,10 +577,6 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoNomeActionPerformed
 
-    private void campoCRMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCRMActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoCRMActionPerformed
-
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (edit) {
             setarDados();
@@ -628,10 +593,9 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JFormattedTextField campoAdmissao;
     private javax.swing.JFormattedTextField campoCPF;
-    private javax.swing.JFormattedTextField campoCRM;
     private javax.swing.JFormattedTextField campoDesligamento;
     private javax.swing.JTextField campoEndereco;
-    private javax.swing.JTextField campoFarmacia;
+    public static javax.swing.JTextField campoFarmacia;
     private javax.swing.JTextField campoId;
     private javax.swing.JTextField campoLogin;
     private javax.swing.JFormattedTextField campoNascimento;
@@ -648,7 +612,6 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

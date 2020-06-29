@@ -101,6 +101,11 @@ public class Carrinho extends javax.swing.JInternalFrame {
         btnProcurar1.setForeground(new java.awt.Color(255, 255, 255));
         btnProcurar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/basket.png"))); // NOI18N
         btnProcurar1.setText("Caixa");
+        btnProcurar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcurar1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -157,6 +162,10 @@ public class Carrinho extends javax.swing.JInternalFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void btnProcurar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnProcurar1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

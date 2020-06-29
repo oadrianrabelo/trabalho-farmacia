@@ -141,14 +141,14 @@ public class ConsultarFuncionario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "íd", "Nome", "Função", "Departamento", "Login", "Data de Nascimento", "RG", "CPF", "Endereço", "sexo", "senha", "crm", "farmacia", "data de admissaol", "data de desligamento"
+                "íd", "Nome", "Função", "Departamento", "Login", "Data de Nascimento", "RG", "CPF", "Endereço", "sexo", "senha", "farmacia", "data de admissaol", "data de desligamento"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -190,8 +190,7 @@ public class ConsultarFuncionario extends javax.swing.JInternalFrame {
                     .addGroup(painell01Layout.createSequentialGroup()
                         .addComponent(campoNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnProcurar)
-                        .addGap(0, 0, 0))
+                        .addComponent(btnProcurar))
                     .addGroup(painell01Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
                         .addGap(689, 689, 689)))
@@ -259,7 +258,6 @@ public class ConsultarFuncionario extends javax.swing.JInternalFrame {
                     f.getEnderecoFuncionario(),
                     f.getSexo(),
                     f.getSenhaFuncionario(),
-                    f.getCrm(),
                     f.getFarmacia().getNomeFarmacia(),
                     new SimpleDateFormat("dd/MM/yyyy").format(f.getDataAdmissao()),
                     new SimpleDateFormat("dd/MM/yyyy").format(f.getDataDesligamento())
@@ -291,7 +289,6 @@ public class ConsultarFuncionario extends javax.swing.JInternalFrame {
                     f.getEnderecoFuncionario(),
                     f.getSexo(),
                     f.getSenhaFuncionario(),
-                    f.getCrm(),
                     f.getFarmacia().getNomeFarmacia(),
                     new SimpleDateFormat("dd/MM/yyyy").format(f.getDataAdmissao()),
                     new SimpleDateFormat("dd/MM/yyyy").format(f.getDataDesligamento())
@@ -343,10 +340,9 @@ public class ConsultarFuncionario extends javax.swing.JInternalFrame {
                         tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 8).toString(),
                         tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 9).toString(),
                         tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 10).toString(),
-                        Integer.parseInt(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 11).toString()),
+                        tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 11).toString(),
                         tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 12).toString(),
                         tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 13).toString(),
-                        tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 14).toString(),
                         isEditing);
                 
                 TelaPrincipalAdm.painel.add(cf);

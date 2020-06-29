@@ -44,9 +44,10 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             obj.setDataFabricacao(new SimpleDateFormat("dd/MM/yyyy").parse(campoFabricacao.getText()));
             obj.setStatus(campoReserva.getSelectedItem().toString());
             obj.setTarja(campoTarja.getSelectedItem().toString());
-            tipo.setTipoProduto(campoTipo.getSelectedItem().toString());
+            tipo.setIdTipoProduto(campoTipo.getSelectedIndex());
             f.setIdFarmacia(1);
             obj.setFarmacia(f);
+            obj.setTipoProduto(tipo);
             dao.cadastrarProduto(obj);
             
             
@@ -428,20 +429,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             obj.setTarja(String.valueOf(campoTarja.getSelectedItem()));
             obj.setDataValidade(new SimpleDateFormat("dd/MM/yyyy").parse(campoValidade.getText()));
             obj.setDataFabricacao(new SimpleDateFormat("dd/MM/yyyy").parse(campoFabricacao.getText()));
-            switch (campoTipo.getSelectedIndex()) {
-                case 1:
-                    tp.setIdTipoProduto(1);
-                    break;
-                case 2:
-                    tp.setIdTipoProduto(2);
-                    break;
-                case 3:
-                    tp.setIdTipoProduto(3);
-                    break;
-                case 4:
-                    tp.setIdTipoProduto(4);
-                    break;
-            }
+            tp.setIdTipoProduto(campoTipo.getSelectedIndex());
             obj.setTipoProduto(tp);
             dao.alterarProduto(obj);
         } catch (RuntimeException | ParseException e) {

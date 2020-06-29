@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -74,7 +75,7 @@ public class FuncionarioDAO {
     
     public void cadastrarFuncionario (Funcionario obj) {
         try {
-            String cmdsql = "INSERT INTO Funcionario(id_funcionario, nome_funcionario, endereco_funcionario, rg, cpf, crm, data_de_nascimento, data_de_admissao, data_de_desligamento, sexo, login, senha, fk_id_departamento, fk_id_farmacia, fk_id_tipo_func) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            String cmdsql = "INSERT INTO Funcionario(id_funcionario, nome_funcionario, endereco_funcionario, rg, cpf, data_de_nascimento, data_de_admissao, data_de_desligamento, sexo, login, senha, fk_id_departamento, fk_id_farmacia, fk_id_tipo_func) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
             
             try (PreparedStatement stmt = conecta.prepareStatement(cmdsql)) {
                 stmt.setInt(1, obj.getIdFuncionario());
@@ -82,19 +83,17 @@ public class FuncionarioDAO {
                 stmt.setString(3, obj.getEnderecoFuncionario());
                 stmt.setString(4, obj.getRgFuncionario());
                 stmt.setString(5, obj.getCpfFuncionario());
-                stmt.setInt(6, obj.getCrm());
                 
-                stmt.setDate(7, converteData(obj.getDataNascimento()));
-                stmt.setDate(8, converteData(obj.getDataAdmissao()));
-                stmt.setDate(9, converteData(obj.getDataDesligamento()));
+                stmt.setDate(6, converteData(obj.getDataNascimento()));
+                stmt.setDate(7, converteData(obj.getDataAdmissao()));
+                stmt.setDate(8, converteData(obj.getDataDesligamento()));
                 
-                stmt.setString(10, obj.getSexo());
-                stmt.setString(11, obj.getLoginFuncionario());
-                stmt.setString(12, obj.getSenhaFuncionario());
-                stmt.setInt(13, obj.getDepartamento().getIdDepartamento());
-                stmt.setInt(14, obj.getFarmacia().getIdFarmacia());
-                stmt.setInt(15, obj.getTipoFuncionario().getIdTipoFuncionario());
-                System.out.println(obj.getTipoFuncionario().getIdTipoFuncionario());
+                stmt.setString(9, obj.getSexo());
+                stmt.setString(10, obj.getLoginFuncionario());
+                stmt.setString(11, obj.getSenhaFuncionario());
+                stmt.setInt(12, obj.getDepartamento().getIdDepartamento());
+                stmt.setInt(13, obj.getFarmacia().getIdFarmacia());
+                stmt.setInt(14, obj.getTipoFuncionario().getIdTipoFuncionario());
                 
                 stmt.execute();
                 stmt.close();
@@ -109,7 +108,7 @@ public class FuncionarioDAO {
     public List<Funcionario> listarFuncionario () {
         try {
             List<Funcionario> lista = new ArrayList<>();
-            String cmdsql = "select f.id_funcionario, f.nome_funcionario, f.endereco_funcionario, f.rg, f.cpf, f.crm, f.data_de_nascimento, f.data_de_admissao, f.data_de_desligamento, f.sexo, f.login, f.senha, d.nome_departamento, fa.nome_farmacia, t.tipo_funcionario from funcionario f inner join departamento d on (f.fk_id_departamento = d.id_departamento) inner join farmacia fa on (f.fk_id_farmacia = fa.id_farmacia) inner join tipo_funcionario t on (f.fk_id_tipo_func = t.id_tipo) ORDER BY id_funcionario;";
+            String cmdsql = "select f.id_funcionario, f.nome_funcionario, f.endereco_funcionario, f.rg, f.cpf, f.data_de_nascimento, f.data_de_admissao, f.data_de_desligamento, f.sexo, f.login, f.senha, d.nome_departamento, fa.nome_farmacia, t.tipo_funcionario from funcionario f inner join departamento d on (f.fk_id_departamento = d.id_departamento) inner join farmacia fa on (f.fk_id_farmacia = fa.id_farmacia) inner join tipo_funcionario t on (f.fk_id_tipo_func = t.id_tipo) ORDER BY id_funcionario;";
             
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             
@@ -127,16 +126,15 @@ public class FuncionarioDAO {
                     f.setEnderecoFuncionario(rs.getString(3));
                     f.setRgFuncionario(rs.getString(4));
                     f.setCpfFuncionario(rs.getString(5));
-                    f.setCrm(rs.getInt(6));
-                    f.setDataNascimento(rs.getDate(7));
-                    f.setDataAdmissao(rs.getDate(8));
-                    f.setDataDesligamento(rs.getDate(9));
-                    f.setSexo(rs.getString(10));
-                    f.setLoginFuncionario(rs.getString(11));
-                    f.setSenhaFuncionario(rs.getString(12));
-                    d.setNomeDepartamento(rs.getString(13));
-                    fa.setNomeFarmacia(rs.getString(14));
-                    t.setTipoFuncionario(rs.getString(15));
+                    f.setDataNascimento(rs.getDate(6));
+                    f.setDataAdmissao(rs.getDate(7));
+                    f.setDataDesligamento(rs.getDate(8));
+                    f.setSexo(rs.getString(9));
+                    f.setLoginFuncionario(rs.getString(10));
+                    f.setSenhaFuncionario(rs.getString(11));
+                    d.setNomeDepartamento(rs.getString(12));
+                    fa.setNomeFarmacia(rs.getString(13));
+                    t.setTipoFuncionario(rs.getString(14));
                     
                     f.setDepartamento(d);
                     f.setFarmacia(fa);
@@ -153,27 +151,25 @@ public class FuncionarioDAO {
             throw new RuntimeException(e);
         }
     }
-    
     public void alterarFuncionario (Funcionario obj) {
         try {
-            String cmdsql = "UPDATE Funcionario SET nome_funcionario = ?, endereco_funcionario = ?, rg = ?, cpf = ?, crm = ?, data_de_nascimento = ?, data_de_admissao = ?, data_de_desligamento = ?, sexo = ?, login = ?, senha = ?, fk_id_departamento = ?, fk_id_farmacia = ?, fk_id_tipo_func = ? WHERE id_funcionario = ? ;";
+            String cmdsql = "UPDATE Funcionario SET nome_funcionario = ?, endereco_funcionario = ?, rg = ?, cpf = ?, data_de_nascimento = ?, data_de_admissao = ?, data_de_desligamento = ?, sexo = ?, login = ?, senha = ?, fk_id_departamento = ?, fk_id_farmacia = ?, fk_id_tipo_func = ? WHERE id_funcionario = ?;";
             try (PreparedStatement stmt = conecta.prepareStatement(cmdsql)){
                 
                 stmt.setString(1, obj.getNomeFuncionario());
                 stmt.setString(2, obj.getEnderecoFuncionario());
                 stmt.setString(3, obj.getRgFuncionario());
                 stmt.setString(4, obj.getCpfFuncionario());
-                stmt.setInt(5, obj.getCrm());
-                stmt.setDate(6, converteData(obj.getDataNascimento()));
-                stmt.setDate(7, converteData(obj.getDataAdmissao()));
-                stmt.setDate(8, converteData(obj.getDataDesligamento()));
-                stmt.setString(9, obj.getSexo());
-                stmt.setString(10, obj.getLoginFuncionario());
-                stmt.setString(11, obj.getSenhaFuncionario());
-                stmt.setInt(12, obj.getDepartamento().getIdDepartamento());
-                stmt.setInt(13, obj.getFarmacia().getIdFarmacia());
-                stmt.setInt(14, obj.getTipoFuncionario().getIdTipoFuncionario());
-                stmt.setInt(15, obj.getIdFuncionario());
+                stmt.setDate(5, converteData(obj.getDataNascimento()));
+                stmt.setDate(6, converteData(obj.getDataAdmissao()));
+                stmt.setDate(7, converteData(obj.getDataDesligamento()));
+                stmt.setString(8, obj.getSexo());
+                stmt.setString(9, obj.getLoginFuncionario());
+                stmt.setString(10, obj.getSenhaFuncionario());
+                stmt.setInt(11, obj.getDepartamento().getIdDepartamento());
+                stmt.setInt(12, obj.getFarmacia().getIdFarmacia());
+                stmt.setInt(13, obj.getTipoFuncionario().getIdTipoFuncionario());
+                stmt.setInt(14, obj.getIdFuncionario());
                 
                 stmt.executeUpdate();
                 stmt.close();
@@ -189,7 +185,7 @@ public class FuncionarioDAO {
     public List<Funcionario> buscarFuncionario(String nome) {
         try {
             List<Funcionario> lista = new ArrayList<>();
-            String cmdsql = "select f.id_funcionario, f.nome_funcionario, f.endereco_funcionario, f.rg, f.cpf, f.crm, f.data_de_nascimento, f.data_de_admissao, f.data_de_desligamento, f.sexo, f.login, f.senha, d.nome_departamento, fa.nome_farmacia, t.tipo_funcionario from funcionario f inner join departamento d on (f.fk_id_departamento = d.id_departamento) inner join farmacia fa on (f.fk_id_farmacia = fa.id_farmacia) inner join tipo_funcionario t on (f.fk_id_tipo_func = t.id_tipo) WHERE f.nome_funcionario like ? ORDER BY id_funcionario;";
+            String cmdsql = "select f.id_funcionario, f.nome_funcionario, f.endereco_funcionario, f.rg, f.cpf, f.data_de_nascimento, f.data_de_admissao, f.data_de_desligamento, f.sexo, f.login, f.senha, d.nome_departamento, fa.nome_farmacia, t.tipo_funcionario from funcionario f inner join departamento d on (f.fk_id_departamento = d.id_departamento) inner join farmacia fa on (f.fk_id_farmacia = fa.id_farmacia) inner join tipo_funcionario t on (f.fk_id_tipo_func = t.id_tipo) WHERE f.nome_funcionario like ? ORDER BY id_funcionario;";
             
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             stmt.setString(1, "%" + nome + "%");
@@ -208,16 +204,15 @@ public class FuncionarioDAO {
                     f.setEnderecoFuncionario(rs.getString(3));
                     f.setRgFuncionario(rs.getString(4));
                     f.setCpfFuncionario(rs.getString(5));
-                    f.setCrm(rs.getInt(6));
-                    f.setDataNascimento(rs.getDate(7));
-                    f.setDataAdmissao(rs.getDate(8));
-                    f.setDataDesligamento(rs.getDate(9));
-                    f.setSexo(rs.getString(10));
-                    f.setLoginFuncionario(rs.getString(11));
-                    f.setSenhaFuncionario(rs.getString(12));
-                    d.setNomeDepartamento(rs.getString(13));
-                    fa.setNomeFarmacia(rs.getString(14));
-                    t.setTipoFuncionario(rs.getString(15));
+                    f.setDataNascimento(rs.getDate(6));
+                    f.setDataAdmissao(rs.getDate(7));
+                    f.setDataDesligamento(rs.getDate(8));
+                    f.setSexo(rs.getString(9));
+                    f.setLoginFuncionario(rs.getString(10));
+                    f.setSenhaFuncionario(rs.getString(11));
+                    d.setNomeDepartamento(rs.getString(12));
+                    fa.setNomeFarmacia(rs.getString(13));
+                    t.setTipoFuncionario(rs.getString(14));
                     
                     f.setDepartamento(d);
                     f.setFarmacia(fa);

@@ -71,10 +71,7 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
         tabelaConsultaReserva.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
         tabelaConsultaReserva.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Nome", "RG", "CPF", "Endereço", "Complemento", "Status", "produtos", "Farmacia"

@@ -6,8 +6,9 @@ import java.util.Date;
 
 public class Venda {
     // ATRIBUTOS
-    private int idVenda, quantidade;
-    private double precoVenda;
+    private int idVenda;
+    private String cliente, status, obs, cpf, endereco;
+    private double total;
     private Date dataVenda;
     private Farmacia farmacia;
     private Funcionario funcionario;
@@ -17,17 +18,21 @@ public class Venda {
 
     public Venda() { }
 
-    public Venda(int idVenda, int quantidade, double precoVenda, Date dataVenda, Farmacia farmacia, Funcionario funcionario, Produto produto) {
+    public Venda(int idVenda, String cliente, String status, String obs, String cpf, String endereco, double total, Date dataVenda, Farmacia farmacia, Funcionario funcionario, Produto produto) {
         this.idVenda = idVenda;
-        this.quantidade = quantidade;
-        this.precoVenda = precoVenda;
+        this.cliente = cliente;
+        this.status = status;
+        this.obs = obs;
+        this.cpf = cpf;
+        this.endereco = endereco;
+        this.total = total;
         this.dataVenda = dataVenda;
         this.farmacia = farmacia;
         this.funcionario = funcionario;
         this.produto = produto;
     }
-    
-    // MÉTODOS GETTERS AND SETTERS
+
+    // GETTERS E SETTERS
 
     public int getIdVenda() {
         return idVenda;
@@ -37,20 +42,52 @@ public class Venda {
         this.idVenda = idVenda;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public String getCliente() {
+        return cliente;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
     }
 
-    public double getPrecoVenda() {
-        return precoVenda;
+    public String getStatus() {
+        return status;
     }
 
-    public void setPrecoVenda(double precoVenda) {
-        this.precoVenda = precoVenda;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getObs() {
+        return obs;
+    }
+
+    public void setObs(String obs) {
+        this.obs = obs;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     public Date getDataVenda() {
@@ -84,5 +121,7 @@ public class Venda {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
+    
+    
     
 }

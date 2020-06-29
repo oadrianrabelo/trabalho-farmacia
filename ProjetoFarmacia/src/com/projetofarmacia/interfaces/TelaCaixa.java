@@ -5,13 +5,23 @@
  */
 package com.projetofarmacia.interfaces;
 
+import com.projetofarmacia.DAO.ProdutoDAO;
+import com.projetofarmacia.javabeans.Produto;
+import java.awt.Point;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
  * @author Calendoscopio
  */
 public class TelaCaixa extends javax.swing.JFrame {
-
+    private double total;
     /**
      * Creates new form telaprincipalAdm
      */
@@ -41,19 +51,19 @@ public class TelaCaixa extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         campoTotal = new javax.swing.JFormattedTextField();
-        jButton4 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnDinheiro = new javax.swing.JButton();
+        btnCartao = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaProcurarRe = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        btnProcurarReservados = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
+        btnProcurarProduto = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tabelaProcurarProduto = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
 
@@ -61,6 +71,11 @@ public class TelaCaixa extends javax.swing.JFrame {
         setTitle("Farmacia");
         setBackground(new java.awt.Color(255, 255, 255));
         setLocationByPlatform(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         painel01.setBackground(new java.awt.Color(52, 152, 219));
 
@@ -72,17 +87,14 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         tabelaProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Produto", "Qtd", "preço", "Preço", "Data da venda", "funcionario", "Farmacia"
+                "Produto", "Qtd", "Preço", "Data da venda", "funcionario", "Farmacia"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -93,6 +105,11 @@ public class TelaCaixa extends javax.swing.JFrame {
         tabelaProduto.setSurrendersFocusOnKeystroke(true);
         tabelaProduto.getTableHeader().setResizingAllowed(false);
         tabelaProduto.getTableHeader().setReorderingAllowed(false);
+        tabelaProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabelaProdutoMousePressed(evt);
+            }
+        });
         ScrollPane.setViewportView(tabelaProduto);
 
         jPanel1.setBackground(new java.awt.Color(52, 152, 219));
@@ -106,18 +123,24 @@ public class TelaCaixa extends javax.swing.JFrame {
         campoTotal.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         campoTotal.setForeground(new java.awt.Color(255, 255, 255));
         campoTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        campoTotal.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
 
-        jButton4.setBackground(new java.awt.Color(52, 152, 219));
-        jButton4.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/cash.png"))); // NOI18N
-        jButton4.setText("Dinheiro");
+        btnDinheiro.setBackground(new java.awt.Color(52, 152, 219));
+        btnDinheiro.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        btnDinheiro.setForeground(new java.awt.Color(255, 255, 255));
+        btnDinheiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/cash.png"))); // NOI18N
+        btnDinheiro.setText("Dinheiro");
 
-        jButton3.setBackground(new java.awt.Color(52, 152, 219));
-        jButton3.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/payment-card (2).png"))); // NOI18N
-        jButton3.setText("Cartão");
+        btnCartao.setBackground(new java.awt.Color(52, 152, 219));
+        btnCartao.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        btnCartao.setForeground(new java.awt.Color(255, 255, 255));
+        btnCartao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/payment-card (2).png"))); // NOI18N
+        btnCartao.setText("Cartão");
+        btnCartao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCartaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -128,10 +151,10 @@ public class TelaCaixa extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 622, Short.MAX_VALUE)
+                .addComponent(btnCartao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(btnDinheiro)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -141,23 +164,20 @@ public class TelaCaixa extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(campoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton3)
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnCartao)
+                        .addComponent(btnDinheiro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaProcurarRe.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+
             },
             new String [] {
                 "Nome"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelaProcurarRe);
 
         jTextField1.setBackground(new java.awt.Color(52, 152, 219));
         jTextField1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
@@ -170,11 +190,11 @@ public class TelaCaixa extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(52, 152, 219));
-        jButton2.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/Folder Search-certo.png"))); // NOI18N
-        jButton2.setText("Procurar");
+        btnProcurarReservados.setBackground(new java.awt.Color(52, 152, 219));
+        btnProcurarReservados.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        btnProcurarReservados.setForeground(new java.awt.Color(255, 255, 255));
+        btnProcurarReservados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/Folder Search-certo.png"))); // NOI18N
+        btnProcurarReservados.setText("Procurar");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -195,11 +215,16 @@ public class TelaCaixa extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(52, 152, 219));
-        jButton5.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/Folder Search-certo.png"))); // NOI18N
-        jButton5.setText("Procurar");
+        btnProcurarProduto.setBackground(new java.awt.Color(52, 152, 219));
+        btnProcurarProduto.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        btnProcurarProduto.setForeground(new java.awt.Color(255, 255, 255));
+        btnProcurarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/Folder Search-certo.png"))); // NOI18N
+        btnProcurarProduto.setText("Procurar");
+        btnProcurarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcurarProdutoActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -207,18 +232,33 @@ public class TelaCaixa extends javax.swing.JFrame {
         jLabel7.setText("Reservados");
         jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaProcurarProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+
             },
             new String [] {
-                "Nome Produto"
+                "ID", "Nome Produto", "quantidade", "preco", "databenda", "func", "farmacial"
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaProcurarProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabelaProcurarProdutoMousePressed(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tabelaProcurarProduto);
+        if (tabelaProcurarProduto.getColumnModel().getColumnCount() > 0) {
+            tabelaProcurarProduto.getColumnModel().getColumn(0).setMinWidth(80);
+            tabelaProcurarProduto.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tabelaProcurarProduto.getColumnModel().getColumn(0).setMaxWidth(80);
+        }
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -242,7 +282,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton5))
+                                .addComponent(btnProcurarProduto))
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel01Layout.createSequentialGroup()
@@ -250,14 +290,14 @@ public class TelaCaixa extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2))
+                                .addComponent(btnProcurarReservados))
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
                             .addGroup(painel01Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(3, 3, 3)))))
+                                .addGap(3, 3, 3))
+                            .addComponent(ScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         painel01Layout.setVerticalGroup(
@@ -265,12 +305,10 @@ public class TelaCaixa extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel01Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(painel01Layout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnProcurarReservados, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
                         .addGap(8, 8, 8)
@@ -282,10 +320,11 @@ public class TelaCaixa extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnProcurarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
                     .addGroup(painel01Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)
                         .addComponent(ScrollPane)))
                 .addGap(22, 22, 22)
@@ -317,6 +356,109 @@ public class TelaCaixa extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void btnCartaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCartaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCartaoActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        ListarProdutos();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void tabelaProcurarProdutoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProcurarProdutoMousePressed
+        Point ponteiro = evt.getPoint();
+        int linha = tabelaProcurarProduto.rowAtPoint(ponteiro);
+        int cliques = evt.getClickCount();
+        if (cliques == 2 && tabelaProcurarProduto.getSelectedRow() != -1) {
+            transfereItens();
+            double subtotal;
+            subtotal = Double.parseDouble(tabelaProcurarProduto.getValueAt(tabelaProcurarProduto.getSelectedRow(), 3).toString());
+            System.out.println("preço do produto: " + subtotal);
+            total += subtotal;
+            campoTotal.setText(String.valueOf(total));
+        }    
+    }//GEN-LAST:event_tabelaProcurarProdutoMousePressed
+
+    private void btnProcurarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarProdutoActionPerformed
+        
+        
+    }//GEN-LAST:event_btnProcurarProdutoActionPerformed
+
+    private void tabelaProdutoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutoMousePressed
+        Point ponteiro = evt.getPoint();
+        int cliques = evt.getClickCount();
+        if (cliques == 2 && tabelaProduto.getSelectedRow() != -1) {
+            double subtotal;
+            subtotal = Double.parseDouble(tabelaProduto.getValueAt(tabelaProduto.getSelectedRow(), 2).toString());
+    //        System.out.println(tabelaProduto.getSelectedColumn());
+            total -= subtotal;
+            if (total <=0) {
+                total = 0;
+            }
+            removeItens();
+            campoTotal.setText(String.valueOf(total));
+        } 
+    }//GEN-LAST:event_tabelaProdutoMousePressed
+
+    private void removeItens() {
+        if (tabelaProcurarProduto.getSelectedRowCount() != 0) {
+            DefaultTableModel tabel = (DefaultTableModel) tabelaProduto.getModel();
+            tabel.removeRow(tabelaProduto.getSelectedRow());
+        } else {
+            System.out.println("nenhuma linha");
+        }
+    }
+    private void transfereItens() {
+        if (tabelaProcurarProduto.getSelectedRowCount() != 0) {
+            DefaultTableModel tabelaOrigem = (DefaultTableModel) tabelaProcurarProduto.getModel();
+            DefaultTableModel tabelaDestino = (DefaultTableModel) tabelaProduto.getModel();
+            
+            Object[] obj = {
+                tabelaOrigem.getValueAt(tabelaProcurarProduto.getSelectedRow(), 1),
+                tabelaOrigem.getValueAt(tabelaProcurarProduto.getSelectedRow(), 2),
+                tabelaOrigem.getValueAt(tabelaProcurarProduto.getSelectedRow(), 3),
+                tabelaOrigem.getValueAt(tabelaProcurarProduto.getSelectedRow(), 4),
+                null,
+                tabelaOrigem.getValueAt(tabelaProcurarProduto.getSelectedRow(), 6)};
+            tabelaDestino.addRow(obj);
+            
+            
+        } else {
+            System.out.println("nenhuma linha");
+        }
+    }
+    private void ListarProdutos() {
+        try {
+            ProdutoDAO dao = new ProdutoDAO();
+            List<Produto> listaDeProdutos = dao.listarProduto();
+            DefaultTableModel modelo = (DefaultTableModel) tabelaProcurarProduto.getModel();
+            modelo.setNumRows(0);
+            dataComp();
+            for (Produto p: listaDeProdutos) {
+                modelo.addRow(new Object[] {
+                    p.getIdProduto(),
+                    p.getNomeProduto(),
+                    p.getQuantidade(),
+                    p.getPreco(),
+                    dataComp(),
+                    null,
+                    p.getFarmacia().getNomeFarmacia()
+                });
+            }
+        } catch (Exception e) {
+            System.out.println("erro" + e);
+            e.printStackTrace();
+        }
+        
+    }
+    
+    private String dataComp() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+//        System.out.println(Type.valueOf(dtf.format(now)));
+        return dtf.format(now);
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -355,11 +497,11 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPane;
+    private javax.swing.JButton btnCartao;
+    private javax.swing.JButton btnDinheiro;
+    private javax.swing.JButton btnProcurarProduto;
+    private javax.swing.JButton btnProcurarReservados;
     private javax.swing.JFormattedTextField campoTotal;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -370,11 +512,11 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JPanel painel01;
+    public static javax.swing.JPanel painel01;
+    private javax.swing.JTable tabelaProcurarProduto;
+    private javax.swing.JTable tabelaProcurarRe;
     private javax.swing.JTable tabelaProduto;
     // End of variables declaration//GEN-END:variables
 
