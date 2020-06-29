@@ -171,6 +171,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Caixa"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProcurar1ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
