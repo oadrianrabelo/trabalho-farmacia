@@ -6,9 +6,9 @@ import java.util.Date;
 
 public class Venda {
     // ATRIBUTOS
-    private int idVenda;
-    private String cliente, status, obs, cpf, endereco;
+    private int idVenda, quantidade;
     private double total;
+    private String nome, status, tipo, tarja;
     private Date dataVenda;
     private Farmacia farmacia;
     private Funcionario funcionario;
@@ -16,23 +16,22 @@ public class Venda {
     
     // CONSTRUTORES
 
-    public Venda() { }
+    public Venda() {
+    }
 
-    public Venda(int idVenda, String cliente, String status, String obs, String cpf, String endereco, double total, Date dataVenda, Farmacia farmacia, Funcionario funcionario, Produto produto) {
+    public Venda(int idVenda, int quantidade, double total, String nome, String status, String tipo, String tarja, Date dataVenda, Farmacia farmacia, Funcionario funcionario, Produto produto) {
         this.idVenda = idVenda;
-        this.cliente = cliente;
-        this.status = status;
-        this.obs = obs;
-        this.cpf = cpf;
-        this.endereco = endereco;
+        this.quantidade = quantidade;
         this.total = total;
+        this.nome = nome;
+        this.status = status;
+        this.tipo = tipo;
+        this.tarja = tarja;
         this.dataVenda = dataVenda;
         this.farmacia = farmacia;
         this.funcionario = funcionario;
         this.produto = produto;
     }
-
-    // GETTERS E SETTERS
 
     public int getIdVenda() {
         return idVenda;
@@ -42,12 +41,28 @@ public class Venda {
         this.idVenda = idVenda;
     }
 
-    public String getCliente() {
-        return cliente;
+    public int getQuantidade() {
+        return quantidade;
     }
 
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getStatus() {
@@ -58,36 +73,20 @@ public class Venda {
         this.status = status;
     }
 
-    public String getObs() {
-        return obs;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setObs(String obs) {
-        this.obs = obs;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getTarja() {
+        return tarja;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public double getTotal() {
-        return total;
-    }
-
-    public void setTotal(double total) {
-        this.total = total;
+    public void setTarja(String tarja) {
+        this.tarja = tarja;
     }
 
     public Date getDataVenda() {
@@ -121,7 +120,6 @@ public class Venda {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
-    
     
     
 }
