@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.util.List;
 import java.text.SimpleDateFormat;
 import com.projetofarmacia.javabeans.Produto;
+import com.projetofarmacia.javabeans.Venda;
 import java.awt.HeadlessException;
 import java.awt.Point;
 import java.awt.event.KeyEvent;

@@ -5,6 +5,15 @@
  */
 package com.projetofarmacia.interfaces;
 
+import com.projetofarmacia.DAO.ProdutoDAO;
+import com.projetofarmacia.DAO.ReservasDAO;
+import static com.projetofarmacia.interfaces.TelaFarmaceutico.tabelaProdutos;
+import com.projetofarmacia.javabeans.Produto;
+import com.projetofarmacia.javabeans.Reservas;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Calendoscopio
@@ -39,6 +48,23 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
         setClosable(true);
         setResizable(true);
         setTitle("Farmacia");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
 
         painel01.setBackground(new java.awt.Color(52, 152, 219));
 
@@ -74,14 +100,14 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Nome", "RG", "CPF", "Endereço", "Complemento", "Status", "produtos", "Farmacia"
+                "id", "Nome", "Telefone", "Status", "produtos", "Farmacia"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                true, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -154,10 +180,36 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public void Listar() {
+        try {
+            ReservasDAO dao = new ReservasDAO();
+            List<Reservas> listaDeProdutos = dao.listarReservados();
+            DefaultTableModel modelo = (DefaultTableModel) tabelaConsultaReserva.getModel();
+            modelo.setNumRows(0);
+            
+            for (Reservas r : listaDeProdutos) {
+                modelo.addRow(new Object[] {
+                    r.getIdReserva(),
+                    r.getNomeCliente(),
+                    r.getTelefone(),
+                    null,
+                    r.getProduto().getNomeProduto(),
+                    r.getFarmacia().getNomeFarmacia()
+                });
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        
+    }
     private void campoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoPesquisaActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        Listar();
+        
+    }//GEN-LAST:event_formInternalFrameOpened
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

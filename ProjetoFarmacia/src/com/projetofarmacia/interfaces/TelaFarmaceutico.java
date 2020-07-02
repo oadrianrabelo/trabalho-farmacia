@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Calendoscopio
  */
 public class TelaFarmaceutico extends javax.swing.JFrame {
-
+    private static Carrinho car = new Carrinho();
     /**
      * Creates new form telaprincipalAdm
      */
@@ -71,6 +71,11 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
         btnProcurar.setForeground(new java.awt.Color(255, 255, 255));
         btnProcurar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/Folder Search-certo.png"))); // NOI18N
         btnProcurar.setText("Procurar");
+        btnProcurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcurarActionPerformed(evt);
+            }
+        });
 
         campoNome.setBackground(new java.awt.Color(52, 152, 219));
         campoNome.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
@@ -136,6 +141,11 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
         btnCarrinho.setForeground(new java.awt.Color(255, 255, 255));
         btnCarrinho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/basket_put.png"))); // NOI18N
         btnCarrinho.setText("Carrinho");
+        btnCarrinho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarrinhoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -223,10 +233,24 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
+    public void adicionarCarrinho() {
+        DefaultTableModel tabelaOrigem = (DefaultTableModel) tabelaProdutos.getModel();
+        DefaultTableModel tabelaDestino = (DefaultTableModel) Carrinho.tabelaCarrinho.getModel();
+        Object[] obj = {
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 0),
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 1),
+            1,
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 4),
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 5),
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 6),
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 8)
+        };
+        tabelaDestino.addRow(obj);
+    }
     public void Listar() {
         try {
             ProdutoDAO dao = new ProdutoDAO();
-            List<Produto> listaDeProdutos = dao.listarProduto();
+            List<Produto> listaDeProdutos = dao.listarMedicamentos();
             DefaultTableModel modelo = (DefaultTableModel) tabelaProdutos.getModel();
             modelo.setNumRows(0);
             
@@ -244,8 +268,7 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
                 });
             }
         } catch (Exception e) {
-            System.out.println("erro" + e);
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         
     }
@@ -264,12 +287,33 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
     }//GEN-LAST:event_menuReservadosMouseClicked
 
     private void btnCarrinho02ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarrinho02ActionPerformed
-        // TODO add your handling code here:
+        pane.add(car);
+        car.setVisible(true);
     }//GEN-LAST:event_btnCarrinho02ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         Listar();
     }//GEN-LAST:event_formWindowActivated
+
+    private void btnCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarrinhoActionPerformed
+        if (tabelaProdutos.getSelectedRowCount() != 0) {
+            String tarja = String.valueOf(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 4).toString());
+            if (tarja.equals("Tarja preta") || tarja.equals("Tarja vermelha (com retenção da receita)")) {
+                LiberarMedicamento lm = new LiberarMedicamento();
+                pane.add(lm);
+                lm.setVisible(true);
+                
+               
+            } else {
+                adicionarCarrinho();
+            }
+        } else {
+            System.out.println("NENHUMA LINHAA");
+        }
+    }//GEN-LAST:event_btnCarrinhoActionPerformed
+
+    private void btnProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarActionPerformed
+    }//GEN-LAST:event_btnProcurarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -319,7 +363,7 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu menuReservados;
     public static javax.swing.JDesktopPane pane;
-    private javax.swing.JTable tabelaProdutos;
+    public static javax.swing.JTable tabelaProdutos;
     // End of variables declaration//GEN-END:variables
 
    

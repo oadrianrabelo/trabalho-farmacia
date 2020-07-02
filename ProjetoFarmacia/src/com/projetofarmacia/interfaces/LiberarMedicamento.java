@@ -5,12 +5,14 @@
  */
 package com.projetofarmacia.interfaces;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Calendoscopio
  */
 public class LiberarMedicamento extends javax.swing.JInternalFrame {
-
+    public boolean liberar;
     /**
      * Creates new form liberarMedicamento
      */
@@ -49,7 +51,6 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
         jSeparator3 = new javax.swing.JSeparator();
 
         setClosable(true);
-        setEnabled(false);
 
         painel01.setBackground(new java.awt.Color(52, 152, 219));
 
@@ -151,6 +152,11 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
         btnCaixa.setForeground(new java.awt.Color(255, 255, 255));
         btnCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/basket-go.png"))); // NOI18N
         btnCaixa.setText("Caixa");
+        btnCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCaixaActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -293,6 +299,22 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
     private void campoCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCPFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoCPFActionPerformed
+
+    private void btnCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaixaActionPerformed
+        DefaultTableModel tabelaOrigem = (DefaultTableModel) TelaFarmaceutico.tabelaProdutos.getModel();
+        DefaultTableModel tabelaDestino = (DefaultTableModel) Carrinho.tabelaCarrinho.getModel();
+
+        Object[] obj = {
+            tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 0),
+            tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 1),
+            tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 3),
+            tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 4),
+            tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 5),
+            tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 6),
+            tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 8)
+        };
+        tabelaDestino.addRow(obj);
+    }//GEN-LAST:event_btnCaixaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

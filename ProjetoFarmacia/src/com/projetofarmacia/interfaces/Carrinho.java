@@ -5,6 +5,17 @@
  */
 package com.projetofarmacia.interfaces;
 
+import com.projetofarmacia.DAO.VendaDAO;
+import com.projetofarmacia.javabeans.Farmacia;
+import com.projetofarmacia.javabeans.Funcionario;
+import com.projetofarmacia.javabeans.Produto;
+import com.projetofarmacia.javabeans.Venda;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Calendoscopio
@@ -31,10 +42,31 @@ public class Carrinho extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         ScrollPane = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        btnProcurar1 = new javax.swing.JButton();
+        tabelaCarrinho = new javax.swing.JTable();
+        btnExcluir = new javax.swing.JButton();
+        btnReservar = new javax.swing.JButton();
+        btnCaixa = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        campoNome = new javax.swing.JTextField();
+
+        setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(52, 152, 219));
 
@@ -43,22 +75,19 @@ public class Carrinho extends javax.swing.JInternalFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Carrinho Farmácia");
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaCarrinho.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Nome", "Qtd", "Tarja", "Preço", "Data de Validade", "Farmacia", "Funcionário"
+                "id", "Nome", "Qtd", "Tarja", "Preço", "Data de Validade", "Farmacia", "Funcionário"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -69,41 +98,56 @@ public class Carrinho extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        table.setGridColor(new java.awt.Color(51, 102, 255));
-        table.setSurrendersFocusOnKeystroke(true);
-        table.getTableHeader().setResizingAllowed(false);
-        table.getTableHeader().setReorderingAllowed(false);
-        ScrollPane.setViewportView(table);
+        tabelaCarrinho.setGridColor(new java.awt.Color(51, 102, 255));
+        tabelaCarrinho.setSurrendersFocusOnKeystroke(true);
+        tabelaCarrinho.getTableHeader().setResizingAllowed(false);
+        tabelaCarrinho.getTableHeader().setReorderingAllowed(false);
+        ScrollPane.setViewportView(tabelaCarrinho);
 
-        jButton3.setBackground(new java.awt.Color(52, 152, 219));
-        jButton3.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/basket_delete.png"))); // NOI18N
-        jButton3.setText("Excluir");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnExcluir.setBackground(new java.awt.Color(52, 152, 219));
+        btnExcluir.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        btnExcluir.setForeground(new java.awt.Color(255, 255, 255));
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/basket_delete.png"))); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnExcluirActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(52, 152, 219));
-        jButton4.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Reservar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnReservar.setBackground(new java.awt.Color(52, 152, 219));
+        btnReservar.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        btnReservar.setForeground(new java.awt.Color(255, 255, 255));
+        btnReservar.setText("Reservar");
+        btnReservar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnReservarActionPerformed(evt);
             }
         });
 
-        btnProcurar1.setBackground(new java.awt.Color(52, 152, 219));
-        btnProcurar1.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
-        btnProcurar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnProcurar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/basket.png"))); // NOI18N
-        btnProcurar1.setText("Caixa");
-        btnProcurar1.addActionListener(new java.awt.event.ActionListener() {
+        btnCaixa.setBackground(new java.awt.Color(52, 152, 219));
+        btnCaixa.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        btnCaixa.setForeground(new java.awt.Color(255, 255, 255));
+        btnCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/basket.png"))); // NOI18N
+        btnCaixa.setText("Caixa");
+        btnCaixa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProcurar1ActionPerformed(evt);
+                btnCaixaActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Nome");
+
+        campoNome.setBackground(new java.awt.Color(52, 152, 219));
+        campoNome.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        campoNome.setForeground(new java.awt.Color(255, 255, 255));
+        campoNome.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        campoNome.setCaretColor(new java.awt.Color(52, 152, 219));
+        campoNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoNomeActionPerformed(evt);
             }
         });
 
@@ -111,31 +155,37 @@ public class Carrinho extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 863, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addComponent(btnExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnProcurar1)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCaixa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4))
-                    .addComponent(ScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 843, Short.MAX_VALUE))
+                        .addComponent(btnReservar))
+                    .addComponent(ScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(34, 34, 34)
                 .addComponent(jLabel2)
-                .addGap(29, 29, 29)
-                .addComponent(ScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnProcurar1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addContainerGap())
         );
 
@@ -153,28 +203,93 @@ public class Carrinho extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    public void enviarCaixa() {
+        try {
+            VendaDAO dao = new VendaDAO();
+            Venda obj = new Venda();
+            Farmacia f = new Farmacia();
+            Funcionario fun = new Funcionario();
+            Produto p = new Produto();
+
+            obj.setNome(campoNome.getText());
+            for (int i = 0; i < tabelaCarrinho.getRowCount(); i++) {
+                obj.setDataVenda(new SimpleDateFormat("dd/MM/yyyy").parse(dataComp()));
+                p.setNomeProduto(tabelaCarrinho.getValueAt(i, 1).toString());
+                p.setIdProduto(Integer.parseInt(tabelaCarrinho.getValueAt(i, 0).toString()));
+                p.setPreco(Double.parseDouble(tabelaCarrinho.getValueAt(i, 4).toString()));
+                obj.setQuantidade(Integer.parseInt(tabelaCarrinho.getValueAt(i, 2).toString()));
+                
+                obj.setTarja(tabelaCarrinho.getValueAt(i, 3).toString());
+                obj.setTipo("Medicamento");
+                obj.setTotal(100);
+                obj.setStatus("EM ABERTO");
+                f.setIdFarmacia(1);
+                fun.setIdFuncionario(5);
+                obj.setProduto(p);
+                obj.setFarmacia(f);
+                obj.setFuncionario(fun);
+
+                dao.insereVenda(obj);
+            }
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+                
+    }
+//        DefaultTableModel tabelaOrigem = (DefaultTableModel) tabelaCarrinho.getModel();
+//        DefaultTableModel tabelaDestino = (DefaultTableModel) TelaCaixa.tabelaReservados.getModel();
+//        for (int i = 0; i < tabelaCarrinho.getRowCount(); i++ ) {
+//            System.out.println(tabelaCarrinho.getRowCount());
+//                Object[] obj = {
+//                tabelaOrigem.getValueAt(i, 1),
+//                tabelaOrigem.getValueAt(i, 2),
+//                tabelaOrigem.getValueAt(i, 3),
+//                tabelaOrigem.getValueAt(i, 4),
+//                null
+//            };
+//            tabelaDestino.addRow(obj);
+//        }
+        
+    
+    private String dataComp() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+//        System.out.println(Type.valueOf(dtf.format(now)));
+        return dtf.format(now);
+    }
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        DefaultTableModel tabela = (DefaultTableModel) tabelaCarrinho.getModel();
+        
+        tabela.removeRow(tabelaCarrinho.getSelectedRow());
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
         ReservarProduto rp1 = new ReservarProduto();
         TelaFarmaceutico.pane.add(rp1);
         rp1.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnReservarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btnCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaixaActionPerformed
+        enviarCaixa();
+    }//GEN-LAST:event_btnCaixaActionPerformed
 
-    private void btnProcurar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurar1ActionPerformed
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+    }//GEN-LAST:event_formInternalFrameOpened
+
+    private void campoNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnProcurar1ActionPerformed
+    }//GEN-LAST:event_campoNomeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPane;
-    private javax.swing.JButton btnProcurar1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnCaixa;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnReservar;
+    private javax.swing.JTextField campoNome;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTable table;
+    public static javax.swing.JTable tabelaCarrinho;
     // End of variables declaration//GEN-END:variables
 }
