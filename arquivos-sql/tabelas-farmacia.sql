@@ -110,47 +110,55 @@ CREATE TABLE IF NOT EXISTS `bdfarmacia`.`Produto` (
 -- -----------------------------------------------------
 -- Table `farmacia`.`venda`
 -- -----------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS `bdfarmacia`.`Venda` (
   `id_venda` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NULL,
+  `data_venda` DATE NULL,
+  `tarja` VARCHAR(45),
+  `tipo` enum("Medicamento", "Higiene", "Alimentação", "Cosméticos"),
+  `status` ENUM("FINALIZADO", "EM ABERTO", "NO CAIXA") NULL,
+  `quantidade` INT NULL,
+  `total` DECIMAL NULL,
+  `fk_id_produto` INT NOT NULL,
   `fk_id_farmacia` INT NOT NULL,
   `fk_id_funcionario` INT NOT NULL,
-  `nome` VARCHAR(45) NULL,
-  `endereco` VARCHAR(50) NULL,
-  `data_venda` DATE NULL,
-  `status` ENUM("FINALIZADO", "EM ABERTO") NULL,
+  INDEX `fk_table1_produto_idx` (`fk_id_produto` ASC),
   INDEX `fk_table1_farmacias1_idx` (`fk_id_farmacia` ASC),
   INDEX `fk_table1_funcionario1_idx` (`fk_id_funcionario` ASC),
   PRIMARY KEY (`id_venda`),
-  CONSTRAINT `fk_table1_farmacias1`
-    FOREIGN KEY (`fk_id_farmacia`)
-    REFERENCES `bdfarmacia`.`farmacia` (`id_farmacia`)
-    ON DELETE CASCADE
+  FOREIGN KEY (`fk_id_produto`) 
+  REFERENCES `bdfarmacia`.`produto` (`id_produto`)
+	ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_table1_funcionario1`
-    FOREIGN KEY (`fk_id_funcionario`)
-    REFERENCES `bdfarmacia`.`funcionario` (`id_funcionario`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE);
-
-
--- -----------------------------------------------------
--- Table `farmacia`.`detalhe_venda`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bdfarmacia`.`detalhe_venda` (
-  `id_detalhe` INT NOT NULL AUTO_INCREMENT,
-  `fk_id_venda` INT NOT NULL,
-  `produto` VARCHAR(45) NULL,
-  `quantidade` INT NULL,
-  `subtotal` DECIMAL NULL,
-  `total` DECIMAL NULL,
-  PRIMARY KEY (`id_detalhe`),
-  INDEX `fk_entrgas_reservaos_venda1_idx` (`fk_id_venda` ASC),
-  CONSTRAINT `fk_entrgas_reservaos_venda1`
-    FOREIGN KEY (`fk_id_venda`)
-    REFERENCES `bdfarmacia`.`venda` (`id_venda`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE);
-
+  FOREIGN KEY (`fk_id_farmacia`)
+	REFERENCES `bdfarmacia`.`farmacia` (`id_farmacia`)
+	ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  FOREIGN KEY (`fk_id_funcionario`)
+	REFERENCES `bdfarmacia`.`funcionario` (`id_funcionario`)
+	ON DELETE CASCADE
+    ON UPDATE CASCADE
+    );
+    
+CREATE TABLE IF NOT EXISTS `bdfarmacia`.`Reservas`(
+	`id_reserva`INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`nome_cliente` VARCHAR(45) NOT NULL,
+    `nome_produto` VARCHAR(45) NOT NULL,
+    `telefone`VARCHAR(11) NOT NULL,
+    `fk_id_farmacia` INT NOT NULL,
+    `fk_id_produto` INT NOT NULL,
+    CONSTRAINT `fk_id_produto1`
+		FOREIGN KEY (`fk_id_produto`)
+		REFERENCES `bdfarmacia`.`produto` (`id_produto`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+	CONSTRAINT `fk_id_farmacia1`
+		FOREIGN KEY (`fk_id_farmacia`)
+		REFERENCES `bdfarmacia`.`farmacia` (`id_farmacia`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
 
 -- -----------------------------------------------------
 -- Table `farmacia`.`receita`
