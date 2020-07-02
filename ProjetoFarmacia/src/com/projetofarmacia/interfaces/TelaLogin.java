@@ -206,13 +206,14 @@ public class TelaLogin extends javax.swing.JFrame {
                 case 4:
                     TelaEstoquista te = new TelaEstoquista();
                     te.setVisible(true);
-//                    this.dispose();
+                    this.dispose();
                     break;
                 case 5:
                     TelaCaixa tc1 = new TelaCaixa();
                     tc1.setVisible(true);
-//                    this.dispose();
+                    this.dispose();
                     break;
+                    
             } 
         } catch (Exception e) {
             throw new RuntimeException(e);
