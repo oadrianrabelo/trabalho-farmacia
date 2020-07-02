@@ -5,7 +5,9 @@
  */
 package com.projetofarmacia.interfaces;
 
+import com.projetofarmacia.DAO.FuncionarioDAO;
 import com.projetofarmacia.DAO.ProdutoDAO;
+import com.projetofarmacia.javabeans.Funcionario;
 import com.projetofarmacia.javabeans.Produto;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -236,6 +238,9 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
     public void adicionarCarrinho() {
         DefaultTableModel tabelaOrigem = (DefaultTableModel) tabelaProdutos.getModel();
         DefaultTableModel tabelaDestino = (DefaultTableModel) Carrinho.tabelaCarrinho.getModel();
+        Funcionario f = new Funcionario();
+        FuncionarioDAO dao = new FuncionarioDAO();
+        f.setIdFuncionario(TelaLogin.idFunc);
         Object[] obj = {
             tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 0),
             tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 1),
@@ -243,7 +248,8 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
             tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 4),
             tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 5),
             tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 6),
-            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 8)
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 8),
+            dao.nomeFuncionario(f)
         };
         tabelaDestino.addRow(obj);
     }

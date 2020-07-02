@@ -224,7 +224,7 @@ public class Carrinho extends javax.swing.JInternalFrame {
                 obj.setTotal(100);
                 obj.setStatus("EM ABERTO");
                 f.setIdFarmacia(1);
-                fun.setIdFuncionario(5);
+                fun.setIdFuncionario(TelaLogin.idFunc);
                 obj.setProduto(p);
                 obj.setFarmacia(f);
                 obj.setFuncionario(fun);
@@ -236,20 +236,6 @@ public class Carrinho extends javax.swing.JInternalFrame {
         }
                 
     }
-//        DefaultTableModel tabelaOrigem = (DefaultTableModel) tabelaCarrinho.getModel();
-//        DefaultTableModel tabelaDestino = (DefaultTableModel) TelaCaixa.tabelaReservados.getModel();
-//        for (int i = 0; i < tabelaCarrinho.getRowCount(); i++ ) {
-//            System.out.println(tabelaCarrinho.getRowCount());
-//                Object[] obj = {
-//                tabelaOrigem.getValueAt(i, 1),
-//                tabelaOrigem.getValueAt(i, 2),
-//                tabelaOrigem.getValueAt(i, 3),
-//                tabelaOrigem.getValueAt(i, 4),
-//                null
-//            };
-//            tabelaDestino.addRow(obj);
-//        }
-        
     
     private String dataComp() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");

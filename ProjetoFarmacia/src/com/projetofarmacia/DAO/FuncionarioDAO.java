@@ -5,6 +5,7 @@
  */
 package com.projetofarmacia.DAO;
 
+import com.projetofarmacia.interfaces.TelaLogin;
 import com.projetofarmacia.jdbc.ConnectionFactory;
 import com.projetofarmacia.javabeans.Funcionario;
 import com.projetofarmacia.javabeans.TipoFuncionario;
@@ -33,6 +34,33 @@ public class FuncionarioDAO {
         this.conecta = new ConnectionFactory().conecta();
     }
     
+    public String nomeFuncionario(Funcionario obj) {
+        try {
+            String nomeFunc = "";
+            String cmdsql = "SELECT nome_funcionario, fk_id_tipo_func FROM Funcionario WHERE id_funcionario = ?;";
+            PreparedStatement stmt = conecta.prepareStatement(cmdsql);
+            stmt.setInt(1, obj.getIdFuncionario());
+            
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                try {
+                    
+                    obj.setNomeFuncionario(rs.getString("nome_funcionario"));
+                    
+                    nomeFunc = obj.getNomeFuncionario();
+                    
+                    System.out.println(nomeFunc);
+                } catch (NullPointerException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            return nomeFunc;
+                
+           
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } 
+    }
     public int efetuarLogin (String login, String senha) {
         try {
             Funcionario f = new Funcionario();
@@ -46,20 +74,17 @@ public class FuncionarioDAO {
             
             ResultSet rs = stmt.executeQuery();
             if (rs.first()) {
+                TelaLogin.idFunc = rs.getInt("id_funcionario");
+                TelaLogin.nomeFunc = rs.getString("nome_funcionario");
                 if (rs.getInt("fk_id_tipo_func") == 1) {
-                    System.out.println("gerente");
                     return 1;
                 } else if (rs.getInt("fk_id_tipo_func") == 2) {
-                    System.out.println("Farmaceutico");
                     return 2;
                 } else if (rs.getInt("fk_id_tipo_func") == 3) {
-                    System.out.println("caixa");
                     return 3;
                 } else if (rs.getInt("fk_id_tipo_func") == 4) {
-                    System.out.println("estoquista");
                     return 4;
                 } else if (rs.getInt("fk_id_tipo_func") == 5) {
-                    System.out.println("vendedor");
                     return 5;
                 } else {
                     return 0;
@@ -241,6 +266,23 @@ public class FuncionarioDAO {
                 stmt.close();
             }
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public void pegarNomeFuncionario(Funcionario obj) {
+        try {
+            String cmdsql = "SELECT nome FROM Funcionario WHERE id_funcionario = ?;";
+            try (PreparedStatement stmt = conecta.prepareStatement(cmdsql)) {
+                stmt.setInt(1, obj.getIdFuncionario());
+
+                stmt.execute();
+                stmt.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

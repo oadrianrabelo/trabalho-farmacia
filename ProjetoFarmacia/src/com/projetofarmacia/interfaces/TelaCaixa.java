@@ -5,6 +5,7 @@
  */
 package com.projetofarmacia.interfaces;
 
+import com.projetofarmacia.DAO.FuncionarioDAO;
 import com.projetofarmacia.DAO.ProdutoDAO;
 import com.projetofarmacia.DAO.VendaDAO;
 import com.projetofarmacia.dialogs.confirmarPagamentoCartao;
@@ -515,7 +516,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             obj.setTotal(0);
             obj.setStatus("NO CAIXA");
             f.setIdFarmacia(1);
-            fun.setIdFuncionario(5);
+            fun.setIdFuncionario(TelaLogin.idFunc);
             obj.setProduto(p);
             obj.setFarmacia(f);
             obj.setFuncionario(fun);
@@ -558,6 +559,9 @@ public class TelaCaixa extends javax.swing.JFrame {
             DefaultTableModel modelo = (DefaultTableModel) tabelaProcurarProduto.getModel();
             modelo.setNumRows(0);
             dataComp();
+            Funcionario f = new Funcionario();
+            FuncionarioDAO daof = new FuncionarioDAO();
+            f.setIdFuncionario(TelaLogin.idFunc);
             for (Produto p: listaDeProdutos) {
                 modelo.addRow(new Object[] {
                     p.getIdProduto(),
@@ -565,7 +569,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                     p.getQuantidade(),
                     p.getPreco(),
                     dataComp(),
-                    null,
+                    daof.nomeFuncionario(f),
                     p.getFarmacia().getNomeFarmacia(),
                     p.getTipoProduto().getTipoProduto(),
                 });

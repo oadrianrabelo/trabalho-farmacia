@@ -5,9 +5,11 @@
  */
 package com.projetofarmacia.interfaces;
 
+import com.projetofarmacia.DAO.FuncionarioDAO;
 import com.projetofarmacia.DAO.ProdutoDAO;
 import com.projetofarmacia.DAO.ReservasDAO;
 import static com.projetofarmacia.interfaces.TelaFarmaceutico.tabelaProdutos;
+import com.projetofarmacia.javabeans.Funcionario;
 import com.projetofarmacia.javabeans.Produto;
 import com.projetofarmacia.javabeans.Reservas;
 import java.text.SimpleDateFormat;
@@ -43,7 +45,7 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
         lblNome = new javax.swing.JLabel();
         ScrollPane = new javax.swing.JScrollPane();
         tabelaConsultaReserva = new javax.swing.JTable();
-        btnProcurar1 = new javax.swing.JButton();
+        btnCarrinho = new javax.swing.JButton();
 
         setClosable(true);
         setResizable(true);
@@ -100,14 +102,14 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "id", "Nome", "Telefone", "Status", "produtos", "Farmacia"
+                "id", "Nome", "Telefone", "Status", "produtos", "Farmacia", "quantidade", "preco", "datavalidade", "func"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false
+                true, false, false, false, false, false, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -123,11 +125,16 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
         tabelaConsultaReserva.getTableHeader().setReorderingAllowed(false);
         ScrollPane.setViewportView(tabelaConsultaReserva);
 
-        btnProcurar1.setBackground(new java.awt.Color(52, 152, 219));
-        btnProcurar1.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
-        btnProcurar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnProcurar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/basket_put.png"))); // NOI18N
-        btnProcurar1.setText("Carrinho");
+        btnCarrinho.setBackground(new java.awt.Color(52, 152, 219));
+        btnCarrinho.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        btnCarrinho.setForeground(new java.awt.Color(255, 255, 255));
+        btnCarrinho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/basket_put.png"))); // NOI18N
+        btnCarrinho.setText("Carrinho");
+        btnCarrinho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarrinhoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painel01Layout = new javax.swing.GroupLayout(painel01);
         painel01.setLayout(painel01Layout);
@@ -146,7 +153,7 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnProcurar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                        .addComponent(btnProcurar1)))
+                        .addComponent(btnCarrinho)))
                 .addContainerGap())
         );
         painel01Layout.setVerticalGroup(
@@ -161,7 +168,7 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
                     .addComponent(campoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnProcurar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnProcurar1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -192,7 +199,7 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
                     r.getIdReserva(),
                     r.getNomeCliente(),
                     r.getTelefone(),
-                    null,
+                    "RESERVADO",
                     r.getProduto().getNomeProduto(),
                     r.getFarmacia().getNomeFarmacia()
                 });
@@ -203,7 +210,7 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
         
     }
     private void campoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisaActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_campoPesquisaActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
@@ -211,11 +218,30 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_formInternalFrameOpened
 
+    private void btnCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarrinhoActionPerformed
+        DefaultTableModel tabelaOrigem = (DefaultTableModel) tabelaProdutos.getModel();
+        DefaultTableModel tabelaDestino = (DefaultTableModel) Carrinho.tabelaCarrinho.getModel();
+        Funcionario f = new Funcionario();
+        FuncionarioDAO dao = new FuncionarioDAO();
+        f.setIdFuncionario(TelaLogin.idFunc);
+        Object[] obj = {
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 0),
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 1),
+            1,
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 4),
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 5),
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 6),
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 8),
+            dao.nomeFuncionario(f)
+        };
+        tabelaDestino.addRow(obj);
+    }//GEN-LAST:event_btnCarrinhoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollPane;
+    private javax.swing.JButton btnCarrinho;
     private javax.swing.JButton btnProcurar;
-    private javax.swing.JButton btnProcurar1;
     private javax.swing.JTextField campoPesquisa;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblReserva;

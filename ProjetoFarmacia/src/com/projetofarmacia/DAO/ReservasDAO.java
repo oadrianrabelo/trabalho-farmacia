@@ -54,7 +54,7 @@ public class ReservasDAO {
             List<Reservas> lista = new ArrayList<>();
 //            String cmdsql = "SELECT id_produto, nome_produto, fornecedor, quantidade, tarja, preco, data_de_validade, data_de_fabricacao, fk_id_farmacia, statusProduto, lote, fk_id_tipo_produto, codigo_de_barras FROM Produto;";
 //            String cmdsql = "select p.id_produto, p.nome_produto, p.fornecedor, p.quantidade, p.tarja, p.preco, p.data_de_validade, p.data_de_fabricacao, p.status_produto, p.lote, p.codigo_de_barras, t.tipo_produto, f.nome_farmacia from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia);";
-            String cmdsql = "select r.*, f.nome_farmacia, p.nome_produto from reservas r inner join farmacia f on (r.fk_id_farmacia = f.id_farmacia) inner join produto p on (r.fk_id_produto = p.id_produto);";
+            String cmdsql = "select r.*, f.nome_farmacia, p.nome_produto, p.`status` from reservas r inner join farmacia f on (r.fk_id_farmacia = f.id_farmacia) inner join produto p on (r.fk_id_produto = p.id_produto);";
             
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             
