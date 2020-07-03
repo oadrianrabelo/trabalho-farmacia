@@ -165,14 +165,22 @@ CREATE TABLE IF NOT EXISTS `bdfarmacia`.`Reservas`(
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bdfarmacia`.`Receita` (
   `id_receita` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45) NOT NULL,
-  `endereço` VARCHAR(45) NULL,
+  `nome_paciente` VARCHAR(45) NOT NULL,
+  `nome_profissional` VARCHAR(45) NOT NULL,
+  `endereco_paciente` VARCHAR(45) NULL,
+  `endereco_profissional` VARCHAR(45) NULL,
   `crm` VARCHAR(45) NULL,
-  `fk_id_venda` INT NOT NULL,
-  INDEX `fk_receita_venda1_idx` (`fk_id_venda` ASC),
+  `cpf` VARCHAR(11) UNIQUE NOT NULL,
+  `fk_id_funcionario` INT NOT NULL,
+  `fk_id_farmacia` INT NOT NULL,
   PRIMARY KEY (`id_receita`),
-  CONSTRAINT `fk_receita_venda1`
-	FOREIGN KEY (`fk_id_venda`)
-    REFERENCES `bdfarmacia`.`venda` (`id_venda`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE);
+  FOREIGN KEY (`fk_id_funcionario`)
+	REFERENCES `bdfarmacia`.`funcionario` (`id_funcionario`)
+    ON DELETE CASCADE 
+    ON UPDATE CASCADE,
+    FOREIGN KEY (`fk_id_farmacia`)
+	REFERENCES `bdfarmacia`.`farmacia` (`id_farmacia`)
+    ON DELETE CASCADE 
+    ON UPDATE CASCADE
+  );
+  
