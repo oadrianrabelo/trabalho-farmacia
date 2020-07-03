@@ -10,6 +10,8 @@ import com.projetofarmacia.DAO.VendaDAO;
 import com.projetofarmacia.interfaces.TelaCaixa;
 import com.projetofarmacia.javabeans.Produto;
 import com.projetofarmacia.javabeans.Venda;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -118,9 +120,8 @@ public class confirmarPagamentoDinheiro extends javax.swing.JDialog {
             obj.setStatus("FINALIZADO");
             pdao.removeQuantidade(p);
             dao.finalizarVenda(obj);
-            
         }
-        
+        limparTabela(TelaCaixa.tabelaProduto);
         
     }//GEN-LAST:event_btnFinalizarActionPerformed
     private void mudaTroco(double troco) {
@@ -139,6 +140,13 @@ public class confirmarPagamentoDinheiro extends javax.swing.JDialog {
             
         System.out.println(troco);
         lblTroco.setText(String.valueOf(troco));
+    }
+    
+    private void limparTabela(JTable table) {
+        DefaultTableModel tabela = (DefaultTableModel) table.getModel();
+        for (int i = tabela.getRowCount() -1; i >= 0 ; i--) {
+            tabela.removeRow(i);
+        }
     }
     /**
      * @param args the command line arguments
