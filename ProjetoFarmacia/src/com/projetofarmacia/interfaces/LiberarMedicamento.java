@@ -5,6 +5,18 @@
  */
 package com.projetofarmacia.interfaces;
 
+import com.projetofarmacia.DAO.FuncionarioDAO;
+import com.projetofarmacia.DAO.ProdutoDAO;
+import com.projetofarmacia.DAO.ReceitaDAO;
+import com.projetofarmacia.dialogs.camposVazios;
+import com.projetofarmacia.dialogs.falhaReceita;
+import com.projetofarmacia.dialogs.receitaSalva;
+import com.projetofarmacia.javabeans.Farmacia;
+import com.projetofarmacia.javabeans.Funcionario;
+import com.projetofarmacia.javabeans.Produto;
+import com.projetofarmacia.javabeans.Receita;
+import com.projetofarmacia.javabeans.TipoProduto;
+import java.text.SimpleDateFormat;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -12,7 +24,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Calendoscopio
  */
 public class LiberarMedicamento extends javax.swing.JInternalFrame {
-    public boolean liberar;
+    private Funcionario f = new Funcionario();
+    private Farmacia far = new Farmacia();
     /**
      * Creates new form liberarMedicamento
      */
@@ -20,6 +33,28 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
         initComponents();
     }
 
+    private void Cadastrar() {
+        try {
+            Receita obj = new Receita();
+            ReceitaDAO dao = new ReceitaDAO();
+            f.setIdFuncionario(TelaLogin.idFunc);
+            far.setIdFarmacia(TelaLogin.idFar);
+            obj.setNomeProfissional(campoNomeProf.getText());
+            obj.setNomePaciente(campoNomePac.getText());
+            obj.setEnderecoProfissional(campoEnderecoProf.getText());
+            obj.setEnderecoPaciente(campoEnderecoPaciente.getText());
+            obj.setCrm(campoCRM.getText());
+            obj.setCpf(campoCPF.getText());
+            obj.setFarmacia(far);
+            obj.setFuncionario(f);
+
+            dao.cadastrarReceita(obj);
+            
+        } catch (Exception e) {
+            new falhaReceita(null, true).setVisible(true);
+            throw new RuntimeException(e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,21 +65,21 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         painel01 = new javax.swing.JPanel();
-        campoCRM01 = new javax.swing.JTextField();
+        campoNomeProf = new javax.swing.JTextField();
         campoCRM = new javax.swing.JTextField();
-        campoEndereco = new javax.swing.JTextField();
+        campoEnderecoProf = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        campoNome = new javax.swing.JTextField();
+        campoNomePac = new javax.swing.JTextField();
         campoCPF = new javax.swing.JFormattedTextField();
         campoEnderecoPaciente = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        btnCaixa = new javax.swing.JButton();
+        brnCarrinho = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
@@ -54,14 +89,14 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
 
         painel01.setBackground(new java.awt.Color(52, 152, 219));
 
-        campoCRM01.setBackground(new java.awt.Color(52, 152, 219));
-        campoCRM01.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        campoCRM01.setForeground(new java.awt.Color(255, 255, 255));
-        campoCRM01.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        campoCRM01.setCaretColor(new java.awt.Color(52, 152, 219));
-        campoCRM01.addActionListener(new java.awt.event.ActionListener() {
+        campoNomeProf.setBackground(new java.awt.Color(52, 152, 219));
+        campoNomeProf.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        campoNomeProf.setForeground(new java.awt.Color(255, 255, 255));
+        campoNomeProf.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        campoNomeProf.setCaretColor(new java.awt.Color(52, 152, 219));
+        campoNomeProf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoCRM01ActionPerformed(evt);
+                campoNomeProfActionPerformed(evt);
             }
         });
 
@@ -76,20 +111,20 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
             }
         });
 
-        campoEndereco.setBackground(new java.awt.Color(52, 152, 219));
-        campoEndereco.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        campoEndereco.setForeground(new java.awt.Color(255, 255, 255));
-        campoEndereco.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        campoEndereco.setCaretColor(new java.awt.Color(52, 152, 219));
-        campoEndereco.addActionListener(new java.awt.event.ActionListener() {
+        campoEnderecoProf.setBackground(new java.awt.Color(52, 152, 219));
+        campoEnderecoProf.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        campoEnderecoProf.setForeground(new java.awt.Color(255, 255, 255));
+        campoEnderecoProf.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        campoEnderecoProf.setCaretColor(new java.awt.Color(52, 152, 219));
+        campoEnderecoProf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoEnderecoActionPerformed(evt);
+                campoEnderecoProfActionPerformed(evt);
             }
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("CRM");
+        jLabel1.setText("Nome");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -99,17 +134,18 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Endereço");
 
-        campoNome.setBackground(new java.awt.Color(52, 152, 219));
-        campoNome.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        campoNome.setForeground(new java.awt.Color(255, 255, 255));
-        campoNome.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        campoNome.setCaretColor(new java.awt.Color(52, 152, 219));
-        campoNome.addActionListener(new java.awt.event.ActionListener() {
+        campoNomePac.setBackground(new java.awt.Color(52, 152, 219));
+        campoNomePac.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        campoNomePac.setForeground(new java.awt.Color(255, 255, 255));
+        campoNomePac.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        campoNomePac.setCaretColor(new java.awt.Color(52, 152, 219));
+        campoNomePac.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoNomeActionPerformed(evt);
+                campoNomePacActionPerformed(evt);
             }
         });
 
+        campoCPF.setBackground(new java.awt.Color(52, 152, 219));
         campoCPF.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         campoCPF.setForeground(new java.awt.Color(255, 255, 255));
         campoCPF.setOpaque(false);
@@ -147,14 +183,14 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("CPF");
 
-        btnCaixa.setBackground(new java.awt.Color(52, 152, 219));
-        btnCaixa.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        btnCaixa.setForeground(new java.awt.Color(255, 255, 255));
-        btnCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/basket-go.png"))); // NOI18N
-        btnCaixa.setText("Caixa");
-        btnCaixa.addActionListener(new java.awt.event.ActionListener() {
+        brnCarrinho.setBackground(new java.awt.Color(52, 152, 219));
+        brnCarrinho.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        brnCarrinho.setForeground(new java.awt.Color(255, 255, 255));
+        brnCarrinho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/projetofarmacia/resources/basket-go.png"))); // NOI18N
+        brnCarrinho.setText("Carrinho");
+        brnCarrinho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCaixaActionPerformed(evt);
+                brnCarrinhoActionPerformed(evt);
             }
         });
 
@@ -181,13 +217,13 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
                     .addGroup(painel01Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnCaixa)
+                            .addComponent(brnCarrinho)
                             .addComponent(campoEnderecoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painel01Layout.createSequentialGroup()
                                 .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel4)
-                                    .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(campoNomePac, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
@@ -196,11 +232,11 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
                         .addGap(20, 20, 20)
                         .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painel01Layout.createSequentialGroup()
-                                .addComponent(campoCRM01, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoNomeProf, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(campoCRM, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(campoEndereco)
+                                .addComponent(campoEnderecoProf)
                                 .addGroup(painel01Layout.createSequentialGroup()
                                     .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel3)
@@ -212,7 +248,7 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
                     .addGroup(painel01Layout.createSequentialGroup()
                         .addGap(146, 146, 146)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel01Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,12 +269,12 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoCRM01, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoNomeProf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoCRM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(campoEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campoEnderecoProf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -251,14 +287,14 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoNomePac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoEnderecoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCaixa)
+                .addComponent(brnCarrinho)
                 .addContainerGap())
         );
 
@@ -280,30 +316,29 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoCRMActionPerformed
 
-    private void campoEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEnderecoActionPerformed
+    private void campoEnderecoProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEnderecoProfActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoEnderecoActionPerformed
+    }//GEN-LAST:event_campoEnderecoProfActionPerformed
 
     private void campoEnderecoPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoEnderecoPacienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoEnderecoPacienteActionPerformed
 
-    private void campoNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomeActionPerformed
+    private void campoNomePacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomePacActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoNomeActionPerformed
+    }//GEN-LAST:event_campoNomePacActionPerformed
 
-    private void campoCRM01ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCRM01ActionPerformed
+    private void campoNomeProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomeProfActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoCRM01ActionPerformed
+    }//GEN-LAST:event_campoNomeProfActionPerformed
 
     private void campoCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCPFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoCPFActionPerformed
-
-    private void btnCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaixaActionPerformed
+    private void enviaCaixa() {
         DefaultTableModel tabelaOrigem = (DefaultTableModel) TelaFarmaceutico.tabelaProdutos.getModel();
         DefaultTableModel tabelaDestino = (DefaultTableModel) Carrinho.tabelaCarrinho.getModel();
-
+        FuncionarioDAO dao = new FuncionarioDAO();
         Object[] obj = {
             tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 0),
             tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 1),
@@ -311,20 +346,33 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
             tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 4),
             tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 5),
             tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 6),
-            tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 8)
+            tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 8),
+            dao.nomeFuncionario(f)
         };
         tabelaDestino.addRow(obj);
-    }//GEN-LAST:event_btnCaixaActionPerformed
+    }
+    private void brnCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnCarrinhoActionPerformed
+        if (campoNomeProf.getText().equals("") || campoNomePac.getText().equals("")
+            || campoCRM.getText().equals("") || campoCPF.getText().equals("")
+            || campoEnderecoProf.getText().equals("") || campoEnderecoPaciente.getText().equals("")) {
+            
+            new camposVazios(null, true).setVisible(true);
+        } else {
+            Cadastrar();
+            new receitaSalva(null, true).setVisible(true);
+            enviaCaixa();
+        }
+    }//GEN-LAST:event_brnCarrinhoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCaixa;
+    private javax.swing.JButton brnCarrinho;
     private javax.swing.JFormattedTextField campoCPF;
     private javax.swing.JTextField campoCRM;
-    private javax.swing.JTextField campoCRM01;
-    private javax.swing.JTextField campoEndereco;
     private javax.swing.JTextField campoEnderecoPaciente;
-    private javax.swing.JTextField campoNome;
+    private javax.swing.JTextField campoEnderecoProf;
+    private javax.swing.JTextField campoNomePac;
+    private javax.swing.JTextField campoNomeProf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

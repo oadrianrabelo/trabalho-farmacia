@@ -7,15 +7,19 @@ package com.projetofarmacia.interfaces;
 
 import com.projetofarmacia.DAO.FuncionarioDAO;
 import com.projetofarmacia.DAO.TipoFuncionarioDAO;
+import com.projetofarmacia.dialogs.camposVazios;
+import com.projetofarmacia.dialogs.dadosAlteradosFalha;
+import com.projetofarmacia.dialogs.dadosAlteradosSucces;
+import com.projetofarmacia.dialogs.dadosCadastradosFalha;
+import com.projetofarmacia.dialogs.dadosCadastradosSucces;
 import com.projetofarmacia.javabeans.Departamento;
 import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Funcionario;
 import com.projetofarmacia.javabeans.TipoFuncionario;
-import java.awt.Color;
-import java.awt.HeadlessException;
+import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -74,6 +78,31 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         setClosable(true);
         setResizable(true);
         setOpaque(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
+            }
+        });
 
         painel01.setBackground(new java.awt.Color(52, 152, 219));
         painel01.setForeground(new java.awt.Color(255, 255, 255));
@@ -107,7 +136,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 
         cbSexo.setBackground(new java.awt.Color(52, 152, 219));
         cbSexo.setForeground(new java.awt.Color(255, 255, 255));
-        cbSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Masculino", "Feminino" }));
+        cbSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Masculino", "Feminino", "N/A" }));
         cbSexo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         cbSexo.setOpaque(false);
 
@@ -194,6 +223,14 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
                 campoSenhaActionPerformed(evt);
             }
         });
+        campoSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoSenhaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoSenhaKeyTyped(evt);
+            }
+        });
 
         btnSalvar.setBackground(new java.awt.Color(52, 152, 219));
         btnSalvar.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
@@ -203,6 +240,14 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
+            }
+        });
+        btnSalvar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvarKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                btnSalvarKeyTyped(evt);
             }
         });
 
@@ -443,7 +488,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setarDados() {
+    private void setarDados() {
         try {
             Funcionario obj = new Funcionario();
             FuncionarioDAO dao = new FuncionarioDAO();
@@ -463,7 +508,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             obj.setLoginFuncionario(campoLogin.getText());
             obj.setSenhaFuncionario(String.valueOf(campoSenha.getPassword()));
             d.setIdDepartamento(cbDepartamento.getSelectedIndex());
-            f.setIdFarmacia(1);
+            f.setIdFarmacia(TelaLogin.idFar);
             t.setIdTipoFuncionario(cbFuncao.getSelectedIndex());
             
             obj.setFarmacia(f);
@@ -473,6 +518,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             dao.alterarFuncionario(obj);
             dao.corrigeId(obj);
         } catch (RuntimeException | ParseException e) {
+            new dadosAlteradosFalha(null, true).setVisible(true);
             throw new RuntimeException(e);
         }
     }
@@ -546,6 +592,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             dao.cadastrarFuncionario(obj);
             dao.corrigeId(obj);
         } catch (Exception e) {
+            new dadosCadastradosFalha(null, true).setVisible(true);
             throw new RuntimeException(e);
         }
     }
@@ -577,16 +624,56 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoNomeActionPerformed
 
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if (edit) {
-            setarDados();
-            edit = false;
-            System.out.println("Alterado");
+    private void alteracaoECadastro() {
+        if (campoNome.getText().equals("") || campoNascimento.getText().equals("")
+            || cbSexo.getSelectedIndex() < 1 || campoRG.getText().equals("")
+            || cbDepartamento.getSelectedIndex() < 1 || campoCPF.getText().equals("")
+            || cbFuncao.getSelectedIndex() < 1 || campoEndereco.getText().equals("")
+            || campoAdmissao.getText().equals("") || campoDesligamento.getText().equals("")
+            || campoLogin.getText().equals("") || String.valueOf(campoSenha.getPassword()).equals("")) {
+            new camposVazios(null, true).setVisible(true);
         } else {
-            Cadastrar();
-            System.out.println("Cadastrado");
+            if (edit) {
+                setarDados();
+                edit = false;
+                new dadosAlteradosSucces(null, true).setVisible(true);
+            } else {
+                Cadastrar();
+                new dadosCadastradosSucces(null, true).setVisible(true);
+            }
         }
+    }
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        alteracaoECadastro();
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        campoFarmacia.setText(String.valueOf(TelaLogin.idFar));
+    }//GEN-LAST:event_formInternalFrameOpened
+
+    private void btnSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalvarKeyPressed
+
+    private void btnSalvarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyTyped
+        
+    }//GEN-LAST:event_btnSalvarKeyTyped
+
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+    }//GEN-LAST:event_formKeyTyped
+
+    private void campoSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoSenhaKeyTyped
+
+    }//GEN-LAST:event_campoSenhaKeyTyped
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+    }//GEN-LAST:event_formKeyPressed
+
+    private void campoSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoSenhaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            alteracaoECadastro();
+        }
+    }//GEN-LAST:event_campoSenhaKeyPressed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

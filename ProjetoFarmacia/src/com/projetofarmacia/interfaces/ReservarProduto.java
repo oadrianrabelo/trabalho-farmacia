@@ -6,12 +6,21 @@
 
 package com.projetofarmacia.interfaces;
 
+import com.projetofarmacia.DAO.FuncionarioDAO;
 import com.projetofarmacia.DAO.ReservasDAO;
+import com.projetofarmacia.dialogs.camposVazios;
+import com.projetofarmacia.dialogs.produtoReservadoFalha;
+import com.projetofarmacia.dialogs.produtoReservadoSucess;
+import com.projetofarmacia.dialogs.selecioneTabela;
+import static com.projetofarmacia.interfaces.TelaFarmaceutico.tabelaProdutos;
 import com.projetofarmacia.javabeans.Farmacia;
+import com.projetofarmacia.javabeans.Funcionario;
 import com.projetofarmacia.javabeans.Produto;
 import com.projetofarmacia.javabeans.Reservas;
 import com.projetofarmacia.javabeans.TipoProduto;
+import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,6 +31,9 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
     /** Creates new form cadastrarProduto */
     public ReservarProduto() {
         initComponents();
+        if (!Carrinho.campoNome.getText().equals("")) {
+            campoNome.setText(Carrinho.campoNome.getText());
+        }
     }
 
     /** This method is called from within the constructor to
@@ -54,6 +66,11 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
         campoTelefone.setBackground(new java.awt.Color(52, 152, 219));
         campoTelefone.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         campoTelefone.setForeground(new java.awt.Color(255, 255, 255));
+        campoTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoTelefoneKeyReleased(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -139,28 +156,54 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
 
     private void Reservar() {
         try {
-            Reservas obj = new Reservas();
-            Farmacia f = new Farmacia();
-            Produto p = new Produto();
-            ReservasDAO dao = new ReservasDAO();
-       
-            obj.setNomeCliente(campoNome.getText());
-            obj.setTelefone(campoTelefone.getText());
-            p.setNomeProduto(Carrinho.tabelaCarrinho.getValueAt(Carrinho.tabelaCarrinho.getSelectedRow(), 1).toString());
-            p.setIdProduto(Integer.parseInt(Carrinho.tabelaCarrinho.getValueAt(Carrinho.tabelaCarrinho.getSelectedRow(), 0).toString()));
-            f.setIdFarmacia(1);
-            obj.setFarmacia(f);
-            obj.setProduto(p);
-            dao.reservarProduto(obj);
-            
-            
+            if (Carrinho.tabelaCarrinho.getSelectedRow() < 0) {
+                new selecioneTabela(null, true).toString();
+            } else {
+                
+                Reservas obj = new Reservas();
+                Farmacia f = new Farmacia();
+                Produto p = new Produto();
+                ReservasDAO dao = new ReservasDAO();
+
+                obj.setNomeCliente(campoNome.getText());
+                obj.setTelefone(campoTelefone.getText());
+                p.setNomeProduto(Carrinho.tabelaCarrinho.getValueAt(Carrinho.tabelaCarrinho.getSelectedRow(), 1).toString());
+                p.setIdProduto(Integer.parseInt(Carrinho.tabelaCarrinho.getValueAt(Carrinho.tabelaCarrinho.getSelectedRow(), 0).toString()));
+                DefaultTableModel tabelaOrigem = (DefaultTableModel) tabelaProdutos.getModel();
+                DefaultTableModel tabelaDestino = (DefaultTableModel) Carrinho.tabelaCarrinho.getModel();
+                f.setIdFarmacia(TelaLogin.idFar);
+                obj.setFarmacia(f);
+                obj.setProduto(p);
+                Object[] obj01 = {
+                    tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 1), // nome produto
+                    1, // quantidade
+                    tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 4), // tarja
+                    tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 5), // preco
+                    tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 6), // validade
+                };
+                tabelaDestino.addRow(obj01);
+                dao.reservarProduto(obj);
+            }
         } catch (Exception e) {
+            new produtoReservadoFalha(null, true).setVisible(true);
             throw new RuntimeException(e);
         }
     }
     private void campoReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoReservarActionPerformed
-        Reservar();
+        if (campoNome.getText().equals("") || campoTelefone.getText().equals("")) {
+            new camposVazios(null, true).setVisible(true);
+        } else {
+            Reservar();
+            new produtoReservadoSucess(null, true).setVisible(true);
+        }
     }//GEN-LAST:event_campoReservarActionPerformed
+
+    private void campoTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTelefoneKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Reservar();
+            new produtoReservadoSucess(null, true).setVisible(true);
+        }
+    }//GEN-LAST:event_campoTelefoneKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

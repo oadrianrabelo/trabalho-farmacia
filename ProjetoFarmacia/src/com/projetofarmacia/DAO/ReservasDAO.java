@@ -15,7 +15,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -54,7 +58,7 @@ public class ReservasDAO {
             List<Reservas> lista = new ArrayList<>();
 //            String cmdsql = "SELECT id_produto, nome_produto, fornecedor, quantidade, tarja, preco, data_de_validade, data_de_fabricacao, fk_id_farmacia, statusProduto, lote, fk_id_tipo_produto, codigo_de_barras FROM Produto;";
 //            String cmdsql = "select p.id_produto, p.nome_produto, p.fornecedor, p.quantidade, p.tarja, p.preco, p.data_de_validade, p.data_de_fabricacao, p.status_produto, p.lote, p.codigo_de_barras, t.tipo_produto, f.nome_farmacia from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia);";
-            String cmdsql = "select r.*, f.nome_farmacia, p.nome_produto, p.`status` from reservas r inner join farmacia f on (r.fk_id_farmacia = f.id_farmacia) inner join produto p on (r.fk_id_produto = p.id_produto);";
+            String cmdsql = "select r.*, f.nome_farmacia, p.tarja, p.preco, p.data_de_validade from reservas r inner join farmacia f on (r.fk_id_farmacia = f.id_farmacia) inner join produto p on (r.fk_id_produto = p.id_produto);";
             
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             
@@ -73,12 +77,15 @@ public class ReservasDAO {
                     f.setIdFarmacia(rs.getInt(5));
                     p.setIdProduto(rs.getInt(6));
                     f.setNomeFarmacia(rs.getString(7));
+                    p.setTarja(rs.getString(8));
+                    p.setPreco(rs.getDouble(9));
+                    p.setDataValidade(converteData(rs.getDate(10)));
                     
                     r.setProduto(p);
                     r.setFarmacia(f);
                     lista.add(r);
                     
-                } catch (NullPointerException e) {
+                } catch (NullPointerException | ParseException e) {
                     
                 }
             } 
@@ -87,5 +94,27 @@ public class ReservasDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public void removeReserva(Reservas obj) {
+        try {
+            String cmdsql = "DELETE FROM Reservas WHERE id_reserva = ?;";
+            try (PreparedStatement stmt = conecta.prepareStatement(cmdsql)) {
+                stmt.setInt(1, obj.getIdReserva());
+                
+                stmt.execute();
+                stmt.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public static java.sql.Date converteData(java.util.Date dataConverte) throws ParseException {
+        String padrao = "dd/MM/yyyy";
+        SimpleDateFormat df = new SimpleDateFormat(padrao);
+        Date data = Calendar.getInstance().getTime();
+        String dataFormatada = df.format(dataConverte);
+        return new java.sql.Date(df.parse(dataFormatada).getTime());
+        
     }
 }

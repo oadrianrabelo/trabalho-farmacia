@@ -6,6 +6,7 @@
 package com.projetofarmacia.interfaces;
 
 import com.projetofarmacia.DAO.ProdutoDAO;
+import com.projetofarmacia.javabeans.Farmacia;
 import java.awt.Color;
 import java.util.List;
 import java.text.SimpleDateFormat;
@@ -49,8 +50,10 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
     }
     public void Listar() {
         try {
+            Farmacia far = new Farmacia();
+            far.setIdFarmacia(TelaLogin.idFar);
             ProdutoDAO dao = new ProdutoDAO();
-            List<Produto> listaDeProdutos = dao.listarProduto();
+            List<Produto> listaDeProdutos = dao.listarProduto(far);
             DefaultTableModel modelo = (DefaultTableModel) tabelaProdutos.getModel();
             modelo.setNumRows(0);
             
@@ -310,7 +313,6 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
                         tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 7).toString(),
                         tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 8).toString(),
                         tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 9).toString(),
-                        tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 10).toString(),
                         tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 11).toString(),
                         Long.parseLong(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 12).toString()),
                         isEditing);
@@ -360,8 +362,10 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
     }
     public void Buscar(String nome) {
         try {
+            Farmacia far = new Farmacia();
+            far.setIdFarmacia(TelaLogin.idFar);
             ProdutoDAO dao = new ProdutoDAO();
-            List<Produto> listaDeProdutos = dao.buscarProduto(nome);
+            List<Produto> listaDeProdutos = dao.buscarProduto(nome, far);
             DefaultTableModel modelo = (DefaultTableModel) tabelaProdutos.getModel();
             modelo.setNumRows(0);
             

@@ -102,7 +102,7 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "id", "Nome", "Telefone", "Status", "produtos", "Farmacia", "quantidade", "preco", "datavalidade", "func"
+                "id", "Nome", "Telefone", "Status", "produtos", "Farmacia", "tarja", "quantidade", "preco", "datavalidade"
             }
         ) {
             Class[] types = new Class [] {
@@ -195,13 +195,18 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
             modelo.setNumRows(0);
             
             for (Reservas r : listaDeProdutos) {
+                DefaultTableModel tabelaOrigem = (DefaultTableModel) TelaFarmaceutico.tabelaProdutos.getModel();
                 modelo.addRow(new Object[] {
                     r.getIdReserva(),
                     r.getNomeCliente(),
                     r.getTelefone(),
                     "RESERVADO",
                     r.getProduto().getNomeProduto(),
-                    r.getFarmacia().getNomeFarmacia()
+                    r.getFarmacia().getNomeFarmacia(),
+                    r.getProduto().getTarja(),
+                    1,
+                    r.getProduto().getPreco(),
+                    new SimpleDateFormat("dd/MM/yyyy").format(r.getProduto().getDataValidade())
                 });
             }
         } catch (Exception e) {
@@ -219,22 +224,27 @@ public class ConsultarReservados extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void btnCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarrinhoActionPerformed
-        DefaultTableModel tabelaOrigem = (DefaultTableModel) tabelaProdutos.getModel();
+        DefaultTableModel tabelaOrigem = (DefaultTableModel) tabelaConsultaReserva.getModel();
         DefaultTableModel tabelaDestino = (DefaultTableModel) Carrinho.tabelaCarrinho.getModel();
         Funcionario f = new Funcionario();
         FuncionarioDAO dao = new FuncionarioDAO();
+        Reservas r = new Reservas();
+        ReservasDAO dao1 = new ReservasDAO();
         f.setIdFuncionario(TelaLogin.idFunc);
         Object[] obj = {
-            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 0),
-            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 1),
+            tabelaOrigem.getValueAt(tabelaConsultaReserva.getSelectedRow(), 0),
+            tabelaOrigem.getValueAt(tabelaConsultaReserva.getSelectedRow(), 4),
             1,
-            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 4),
-            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 5),
-            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 6),
-            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 8),
+            tabelaOrigem.getValueAt(tabelaConsultaReserva.getSelectedRow(), 6),
+            tabelaOrigem.getValueAt(tabelaConsultaReserva.getSelectedRow(), 8),
+            tabelaOrigem.getValueAt(tabelaConsultaReserva.getSelectedRow(), 9),
+            tabelaOrigem.getValueAt(tabelaConsultaReserva.getSelectedRow(), 5),
             dao.nomeFuncionario(f)
         };
         tabelaDestino.addRow(obj);
+        r.setIdReserva(Integer.parseInt(tabelaConsultaReserva.getValueAt(tabelaConsultaReserva.getSelectedRow(), 0).toString()));
+        dao1.removeReserva(r);
+        tabelaOrigem.removeRow(tabelaConsultaReserva.getSelectedRow());
     }//GEN-LAST:event_btnCarrinhoActionPerformed
 
 

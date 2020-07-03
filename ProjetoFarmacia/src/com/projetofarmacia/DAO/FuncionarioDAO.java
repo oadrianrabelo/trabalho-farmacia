@@ -37,7 +37,7 @@ public class FuncionarioDAO {
     public String nomeFuncionario(Funcionario obj) {
         try {
             String nomeFunc = "";
-            String cmdsql = "SELECT nome_funcionario, fk_id_tipo_func FROM Funcionario WHERE id_funcionario = ?;";
+            String cmdsql = "SELECT nome_funcionario FROM Funcionario WHERE id_funcionario = ?;";
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             stmt.setInt(1, obj.getIdFuncionario());
             
@@ -49,7 +49,6 @@ public class FuncionarioDAO {
                     
                     nomeFunc = obj.getNomeFuncionario();
                     
-                    System.out.println(nomeFunc);
                 } catch (NullPointerException e) {
                     throw new RuntimeException(e);
                 }
@@ -65,7 +64,8 @@ public class FuncionarioDAO {
         try {
             Funcionario f = new Funcionario();
             TipoFuncionario tp = new TipoFuncionario();
-            String cmdsql = "SELECT * FROM Funcionario WHERE login = ? and senha = ?;";
+//            String cmdsql = "SELECT * FROM Funcionario WHERE login = ? and senha = ?;";
+            String cmdsql = "SELECT *, farmacia.nome_farmacia FROM Funcionario, farmacia WHERE login = ? and senha = ?;";
             
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             
@@ -76,6 +76,8 @@ public class FuncionarioDAO {
             if (rs.first()) {
                 TelaLogin.idFunc = rs.getInt("id_funcionario");
                 TelaLogin.nomeFunc = rs.getString("nome_funcionario");
+                TelaLogin.nomeFarm = rs.getString("nome_farmacia");
+                TelaLogin.idFar = rs.getInt("fk_id_farmacia");
                 if (rs.getInt("fk_id_tipo_func") == 1) {
                     return 1;
                 } else if (rs.getInt("fk_id_tipo_func") == 2) {
@@ -130,13 +132,13 @@ public class FuncionarioDAO {
         }
     }
     
-    public List<Funcionario> listarFuncionario () {
+    public List<Funcionario> listarFuncionario (Farmacia far) {
         try {
             List<Funcionario> lista = new ArrayList<>();
-            String cmdsql = "select f.id_funcionario, f.nome_funcionario, f.endereco_funcionario, f.rg, f.cpf, f.data_de_nascimento, f.data_de_admissao, f.data_de_desligamento, f.sexo, f.login, f.senha, d.nome_departamento, fa.nome_farmacia, t.tipo_funcionario from funcionario f inner join departamento d on (f.fk_id_departamento = d.id_departamento) inner join farmacia fa on (f.fk_id_farmacia = fa.id_farmacia) inner join tipo_funcionario t on (f.fk_id_tipo_func = t.id_tipo) ORDER BY id_funcionario;";
+            String cmdsql = "select f.id_funcionario, f.nome_funcionario, f.endereco_funcionario, f.rg, f.cpf, f.data_de_nascimento, f.data_de_admissao, f.data_de_desligamento, f.sexo, f.login, f.senha, d.nome_departamento, fa.nome_farmacia, t.tipo_funcionario from funcionario f inner join departamento d on (f.fk_id_departamento = d.id_departamento) inner join farmacia fa on (f.fk_id_farmacia = fa.id_farmacia) inner join tipo_funcionario t on (f.fk_id_tipo_func = t.id_tipo) WHERE fa.id_farmacia = ? ORDER BY id_funcionario;";
             
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
-            
+            stmt.setInt(1, far.getIdFarmacia());
             ResultSet rs = stmt.executeQuery();
             
             while (rs.next()) {
@@ -207,14 +209,14 @@ public class FuncionarioDAO {
         }
     }
     
-    public List<Funcionario> buscarFuncionario(String nome) {
+    public List<Funcionario> buscarFuncionario(String nome, Farmacia far) {
         try {
             List<Funcionario> lista = new ArrayList<>();
-            String cmdsql = "select f.id_funcionario, f.nome_funcionario, f.endereco_funcionario, f.rg, f.cpf, f.data_de_nascimento, f.data_de_admissao, f.data_de_desligamento, f.sexo, f.login, f.senha, d.nome_departamento, fa.nome_farmacia, t.tipo_funcionario from funcionario f inner join departamento d on (f.fk_id_departamento = d.id_departamento) inner join farmacia fa on (f.fk_id_farmacia = fa.id_farmacia) inner join tipo_funcionario t on (f.fk_id_tipo_func = t.id_tipo) WHERE f.nome_funcionario like ? ORDER BY id_funcionario;";
+            String cmdsql = "select f.id_funcionario, f.nome_funcionario, f.endereco_funcionario, f.rg, f.cpf, f.data_de_nascimento, f.data_de_admissao, f.data_de_desligamento, f.sexo, f.login, f.senha, d.nome_departamento, fa.nome_farmacia, t.tipo_funcionario from funcionario f inner join departamento d on (f.fk_id_departamento = d.id_departamento) inner join farmacia fa on (f.fk_id_farmacia = fa.id_farmacia) inner join tipo_funcionario t on (f.fk_id_tipo_func = t.id_tipo) WHERE f.nome_funcionario like ? and fa.id_farmacia = ? ORDER BY id_funcionario;";
             
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             stmt.setString(1, "%" + nome + "%");
-            
+            stmt.setInt(2, far.getIdFarmacia());
             ResultSet rs = stmt.executeQuery();
             
              while (rs.next()) {
@@ -266,23 +268,6 @@ public class FuncionarioDAO {
                 stmt.close();
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    
-    public void pegarNomeFuncionario(Funcionario obj) {
-        try {
-            String cmdsql = "SELECT nome FROM Funcionario WHERE id_funcionario = ?;";
-            try (PreparedStatement stmt = conecta.prepareStatement(cmdsql)) {
-                stmt.setInt(1, obj.getIdFuncionario());
-
-                stmt.execute();
-                stmt.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-            
-        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

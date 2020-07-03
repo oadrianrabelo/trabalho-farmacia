@@ -5,13 +5,11 @@
  */
 package com.projetofarmacia.interfaces;
 
+import com.projetofarmacia.DAO.FarmaciaDAO;
 import com.projetofarmacia.DAO.FuncionarioDAO;
+import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Funcionario;
-import com.projetofarmacia.interfaces.*;
 import java.awt.Image;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.ImageIcon;
 
 /**
@@ -19,9 +17,10 @@ import javax.swing.ImageIcon;
  * @author Calendoscopio
  */
 public class TelaLogin extends javax.swing.JFrame {
-    public static String nomeFarm;
-    public static String nomeFunc;
+    public static String nomeFunc, nomeFarm;
     public static int idFunc;
+    public static int idFar;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Creates new form telaLogin
@@ -191,45 +190,32 @@ public class TelaLogin extends javax.swing.JFrame {
             login = campoUsuario.getText();
             senha = new String(campoSenha.getPassword());
             FuncionarioDAO dao = new FuncionarioDAO();
-            Funcionario f = new Funcionario();
             switch (dao.efetuarLogin(login, senha)) {
                 case 1:
                     TelaPrincipalAdm tpa = new TelaPrincipalAdm();
                     tpa.setVisible(true);
-                    f.setIdFuncionario(idFunc);
-                    dao.nomeFuncionario(f);
                     this.dispose();
-                    
                     break;
                 case 2:
                     TelaFarmaceutico tf = new TelaFarmaceutico();
                     tf.setVisible(true);
-                    f.setIdFuncionario(idFunc);
-                    dao.nomeFuncionario(f);
                     this.dispose();
                     break;
                 case 3:
                     TelaCaixa tc = new TelaCaixa();
                     tc.setVisible(true);
-                    f.setIdFuncionario(idFunc);
-                    dao.nomeFuncionario(f);
                     this.dispose();
                     break;
                 case 4:
                     TelaEstoquista te = new TelaEstoquista();
                     te.setVisible(true);
-                    f.setIdFuncionario(idFunc);
-                    dao.nomeFuncionario(f);
                     this.dispose();
                     break;
                 case 5:
                     TelaCaixa tc1 = new TelaCaixa();
                     tc1.setVisible(true);
-                    f.setIdFuncionario(idFunc);
-                    dao.nomeFuncionario(f);
                     this.dispose();
                     break;
-                    
             } 
         } catch (Exception e) {
             throw new RuntimeException(e);

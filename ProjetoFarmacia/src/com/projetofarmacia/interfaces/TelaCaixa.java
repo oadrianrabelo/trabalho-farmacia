@@ -5,6 +5,7 @@
  */
 package com.projetofarmacia.interfaces;
 
+import com.projetofarmacia.DAO.FarmaciaDAO;
 import com.projetofarmacia.DAO.FuncionarioDAO;
 import com.projetofarmacia.DAO.ProdutoDAO;
 import com.projetofarmacia.DAO.VendaDAO;
@@ -38,6 +39,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     public TelaCaixa() {
         initComponents();
         this.setExtendedState(TelaCaixa.MAXIMIZED_BOTH);
+        
         //this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("logocerto (2).png")).getImage());
        // ImageIcon icon = new ImageIcon("src/recursos/logo_barra.png");
         //barra.setIcon(icon);
@@ -209,6 +211,26 @@ public class TelaCaixa extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tabelaReservados);
+        if (tabelaReservados.getColumnModel().getColumnCount() > 0) {
+            tabelaReservados.getColumnModel().getColumn(1).setMinWidth(0);
+            tabelaReservados.getColumnModel().getColumn(1).setPreferredWidth(0);
+            tabelaReservados.getColumnModel().getColumn(1).setMaxWidth(0);
+            tabelaReservados.getColumnModel().getColumn(2).setMinWidth(0);
+            tabelaReservados.getColumnModel().getColumn(2).setPreferredWidth(0);
+            tabelaReservados.getColumnModel().getColumn(2).setMaxWidth(0);
+            tabelaReservados.getColumnModel().getColumn(3).setMinWidth(0);
+            tabelaReservados.getColumnModel().getColumn(3).setPreferredWidth(0);
+            tabelaReservados.getColumnModel().getColumn(3).setMaxWidth(0);
+            tabelaReservados.getColumnModel().getColumn(4).setMinWidth(0);
+            tabelaReservados.getColumnModel().getColumn(4).setPreferredWidth(0);
+            tabelaReservados.getColumnModel().getColumn(4).setMaxWidth(0);
+            tabelaReservados.getColumnModel().getColumn(5).setMinWidth(0);
+            tabelaReservados.getColumnModel().getColumn(5).setPreferredWidth(0);
+            tabelaReservados.getColumnModel().getColumn(5).setMaxWidth(0);
+            tabelaReservados.getColumnModel().getColumn(6).setMinWidth(0);
+            tabelaReservados.getColumnModel().getColumn(6).setPreferredWidth(0);
+            tabelaReservados.getColumnModel().getColumn(6).setMaxWidth(0);
+        }
 
         campoNome.setBackground(new java.awt.Color(52, 152, 219));
         campoNome.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
@@ -268,7 +290,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nome Produto", "quantidade", "preco", "databenda", "func", "farmacial", "tipo"
+                "ID", "Nome Produto", "quantidade", "Preço", "databenda", "func", "farmacial", "Tipo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -286,9 +308,21 @@ public class TelaCaixa extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tabelaProcurarProduto);
         if (tabelaProcurarProduto.getColumnModel().getColumnCount() > 0) {
-            tabelaProcurarProduto.getColumnModel().getColumn(0).setMinWidth(40);
-            tabelaProcurarProduto.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tabelaProcurarProduto.getColumnModel().getColumn(0).setMaxWidth(40);
+            tabelaProcurarProduto.getColumnModel().getColumn(0).setMinWidth(0);
+            tabelaProcurarProduto.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tabelaProcurarProduto.getColumnModel().getColumn(0).setMaxWidth(0);
+            tabelaProcurarProduto.getColumnModel().getColumn(2).setMinWidth(0);
+            tabelaProcurarProduto.getColumnModel().getColumn(2).setPreferredWidth(0);
+            tabelaProcurarProduto.getColumnModel().getColumn(2).setMaxWidth(0);
+            tabelaProcurarProduto.getColumnModel().getColumn(4).setMinWidth(0);
+            tabelaProcurarProduto.getColumnModel().getColumn(4).setPreferredWidth(0);
+            tabelaProcurarProduto.getColumnModel().getColumn(4).setMaxWidth(0);
+            tabelaProcurarProduto.getColumnModel().getColumn(5).setMinWidth(0);
+            tabelaProcurarProduto.getColumnModel().getColumn(5).setPreferredWidth(0);
+            tabelaProcurarProduto.getColumnModel().getColumn(5).setMaxWidth(0);
+            tabelaProcurarProduto.getColumnModel().getColumn(6).setMinWidth(0);
+            tabelaProcurarProduto.getColumnModel().getColumn(6).setPreferredWidth(0);
+            tabelaProcurarProduto.getColumnModel().getColumn(6).setMaxWidth(0);
         }
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
@@ -398,7 +432,6 @@ public class TelaCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void tabelaProcurarProdutoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProcurarProdutoMousePressed
-        if (!campoNome.getText().equals("")) {
             Point ponteiro = evt.getPoint();
             int cliques = evt.getClickCount();
             if (cliques == 2 && tabelaProcurarProduto.getSelectedRow() != -1) {
@@ -410,9 +443,6 @@ public class TelaCaixa extends javax.swing.JFrame {
                 campoTotal.setText(String.valueOf(total));
                 cadastrarVenda();
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Insira o nome do cliente antes de adicionar mais produtos");
-        }
     }//GEN-LAST:event_tabelaProcurarProdutoMousePressed
 
     private void btnProcurarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarProdutoActionPerformed
@@ -438,6 +468,9 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         ListarAbertos();
+        if (tabelaReservados.getRowCount() > 0) {
+            campoNome.setText(tabelaReservados.getValueAt(0, 0).toString());
+        }
     }//GEN-LAST:event_formWindowActivated
 
     private void tabelaReservadosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaReservadosMousePressed
@@ -477,18 +510,18 @@ public class TelaCaixa extends javax.swing.JFrame {
                 tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), 3),
                 dataComp(),
                 tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), 4),
-                "TESTE",
                 tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), 6),
                 };
                 tabelaDestiny.addRow(obj);
             } else {
+                
                 Object[] obj = {
                 tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), 1),
-                tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), 2),
+                1,
                 tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), 3),
                 tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), 4),
-                null,
                 tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), 5),
+                tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), 6),
                 tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), 0),};
                 tabelaDestiny.addRow(obj);
             }
@@ -515,7 +548,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             obj.setTipo(tabelaProcurarProduto.getValueAt(tabelaProcurarProduto.getSelectedRow(), 7).toString());
             obj.setTotal(0);
             obj.setStatus("NO CAIXA");
-            f.setIdFarmacia(1);
+            f.setIdFarmacia(TelaLogin.idFar);
             fun.setIdFuncionario(TelaLogin.idFunc);
             obj.setProduto(p);
             obj.setFarmacia(f);
@@ -531,7 +564,9 @@ public class TelaCaixa extends javax.swing.JFrame {
     public void ListarAbertos() {
         try {
             VendaDAO dao = new VendaDAO();
-            List<Venda> listaDeProdutos = dao.listarAberto();
+            Farmacia far = new Farmacia();
+            far.setIdFarmacia(TelaLogin.idFar);
+            List<Venda> listaDeProdutos = dao.listarAberto(far);
             DefaultTableModel modelo = (DefaultTableModel) tabelaReservados.getModel();
             modelo.setNumRows(0);
             
@@ -554,8 +589,10 @@ public class TelaCaixa extends javax.swing.JFrame {
     }
     private void ListarProdutos() {
         try {
+            Farmacia far = new Farmacia();
+            far.setIdFarmacia(TelaLogin.idFar);
             ProdutoDAO dao = new ProdutoDAO();
-            List<Produto> listaDeProdutos = dao.listarProduto();
+            List<Produto> listaDeProdutos = dao.listarProduto(far);
             DefaultTableModel modelo = (DefaultTableModel) tabelaProcurarProduto.getModel();
             modelo.setNumRows(0);
             dataComp();
@@ -631,7 +668,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JButton btnDinheiro;
     private javax.swing.JButton btnProcurarProduto;
     private javax.swing.JButton btnProcurarReservados;
-    private javax.swing.JTextField campoNome;
+    public static javax.swing.JTextField campoNome;
     private javax.swing.JFormattedTextField campoTotal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

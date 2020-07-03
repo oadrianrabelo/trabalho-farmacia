@@ -242,13 +242,13 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
         FuncionarioDAO dao = new FuncionarioDAO();
         f.setIdFuncionario(TelaLogin.idFunc);
         Object[] obj = {
-            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 0),
-            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 1),
-            1,
-            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 4),
-            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 5),
-            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 6),
-            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 8),
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 0), // id
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 1), // nome produto
+            1, // quantidade
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 4), // tarja
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 5), // preco
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 6), // validade
+            tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 8), // farmacia
             dao.nomeFuncionario(f)
         };
         tabelaDestino.addRow(obj);

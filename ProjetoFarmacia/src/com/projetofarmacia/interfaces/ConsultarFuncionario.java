@@ -164,6 +164,35 @@ public class ConsultarFuncionario extends javax.swing.JInternalFrame {
         tabelaFuncionario.setSurrendersFocusOnKeystroke(true);
         tabelaFuncionario.getTableHeader().setReorderingAllowed(false);
         ScrollPane.setViewportView(tabelaFuncionario);
+        if (tabelaFuncionario.getColumnModel().getColumnCount() > 0) {
+            tabelaFuncionario.getColumnModel().getColumn(0).setMinWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(0).setMaxWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(5).setMinWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(5).setPreferredWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(5).setMaxWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(6).setMinWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(6).setPreferredWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(6).setMaxWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(7).setMinWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(7).setPreferredWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(7).setMaxWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(8).setMinWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(8).setPreferredWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(8).setMaxWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(9).setMinWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(9).setPreferredWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(9).setMaxWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(10).setMinWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(10).setPreferredWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(10).setMaxWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(12).setMinWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(12).setPreferredWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(12).setMaxWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(13).setMinWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(13).setPreferredWidth(0);
+            tabelaFuncionario.getColumnModel().getColumn(13).setMaxWidth(0);
+        }
 
         btnExcluir.setBackground(new java.awt.Color(52, 152, 219));
         btnExcluir.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
@@ -241,7 +270,9 @@ public class ConsultarFuncionario extends javax.swing.JInternalFrame {
     public void Listar() {
         try {
             FuncionarioDAO dao = new FuncionarioDAO();
-            List<Funcionario> listaDeFuncionarios = dao.listarFuncionario();
+            Farmacia far = new Farmacia();
+            far.setIdFarmacia(TelaLogin.idFar);
+            List<Funcionario> listaDeFuncionarios = dao.listarFuncionario(far);
             DefaultTableModel modelo = (DefaultTableModel) tabelaFuncionario.getModel();
             modelo.setNumRows(0);
             
@@ -272,7 +303,9 @@ public class ConsultarFuncionario extends javax.swing.JInternalFrame {
     public void Buscar(String nome) {
         try {
             FuncionarioDAO dao = new FuncionarioDAO();
-            List<Funcionario> listaDeFuncionarios = dao.buscarFuncionario(nome);
+            Farmacia far = new Farmacia();
+            far.setIdFarmacia(TelaLogin.idFar);
+            List<Funcionario> listaDeFuncionarios = dao.buscarFuncionario(nome, far);
             DefaultTableModel modelo = (DefaultTableModel) tabelaFuncionario.getModel();
             modelo.setNumRows(0);
             

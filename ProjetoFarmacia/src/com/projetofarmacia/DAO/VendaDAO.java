@@ -48,12 +48,12 @@ public class VendaDAO {
         }
     }
     
-    public List<Venda> listarAberto() {
+    public List<Venda> listarAberto(Farmacia far) {
         try {
             List<Venda> lista = new ArrayList<>();
-            String cmdsql = "select v.*, p.preco, p.nome_produto, f.nome_funcionario from venda v inner join produto p on (v.fk_id_produto = p.id_produto) inner join funcionario f on (v.fk_id_funcionario = f.id_funcionario) WHERE `status` like '%em aberto%';";
+            String cmdsql = "select v.*, p.preco, p.nome_produto, f.nome_funcionario from venda v inner join produto p on (v.fk_id_produto = p.id_produto) inner join funcionario f on (v.fk_id_funcionario = f.id_funcionario) WHERE `status` like '%em aberto%' and v.fk_id_farmacia = ?;";
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
-            
+            stmt.setInt(1, far.getIdFarmacia());
             ResultSet rs = stmt.executeQuery();
             
             while (rs.next()) {
@@ -95,7 +95,18 @@ public class VendaDAO {
             throw new RuntimeException(e);
         }
     }
-    
+    public void removeItemVenda(Venda obj) {
+        try {
+            String cmdsql = "DELETE FROM Venda WHERE id_venda = ?;";
+            
+            PreparedStatement stmt = conecta.prepareStatement(cmdsql);
+            stmt.setInt(1, obj.getIdVenda());
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public void finalizarVenda(Venda obj) {
         try {
             String cmdsql = "UPDATE Venda SET `status` = 'finalizado' WHERE `status` like 'EM ABERTO' OR `status` LIKE 'NO CAIXA';";
