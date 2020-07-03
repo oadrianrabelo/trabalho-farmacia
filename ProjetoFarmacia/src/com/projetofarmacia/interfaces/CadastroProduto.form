@@ -60,7 +60,7 @@
                               <Group type="102" attributes="0">
                                   <Component id="campoTipo" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="campoTarja" pref="247" max="32767" attributes="0"/>
+                                  <Component id="campoTarja" pref="210" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
@@ -73,21 +73,16 @@
                                       <Component id="campoFabricacao" alignment="0" min="-2" pref="128" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                                  <Component id="campoValidade" min="-2" pref="128" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="campoValidade" min="-2" pref="128" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                                  <Component id="jLabel10" min="-2" pref="84" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="campoQuantidade" min="-2" pref="62" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
+                                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                                          <Component id="jLabel10" min="-2" pref="84" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="campoReserva" alignment="0" min="-2" pref="128" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="campoQuantidade" min="-2" pref="62" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                               <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -126,77 +121,68 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" pref="35" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jSeparator1" min="-2" pref="260" max="-2" attributes="0"/>
+                          <EmptySpace min="21" pref="160" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jSeparator1" min="-2" pref="260" max="-2" attributes="0"/>
-                                  <EmptySpace min="21" pref="152" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                              <Component id="campoFornecedor" min="-2" max="-2" attributes="0"/>
+                              <Component id="campoNome" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="campoFornecedor" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="campoTipo" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="campoTarja" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="campoFabricacao" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="campoValidade" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="campoQuantidade" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="campoPreco" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="campoReserva" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="campoTipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="campoTarja" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="campoFabricacao" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="campoValidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="campoQuantidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                                          <Component id="campoLote" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="campoCodBar" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="btnSalvar" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                  <Component id="campoPreco" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="208" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Component id="campoLote" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="campoCodBar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="btnSalvar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="93" max="32767" attributes="0"/>
-                          <Component id="campoNome" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="360" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -231,6 +217,12 @@
         </Component>
         <Component class="javax.swing.JComboBox" name="campoTipo">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="db" green="98" red="34" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI Black" size="14" style="0"/>
+            </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="5">
                 <StringItem index="0" value="Selecione"/>
@@ -240,6 +232,7 @@
                 <StringItem index="4" value="Cosm&#xe9;ticos"/>
               </StringArray>
             </Property>
+            <Property name="opaque" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -247,6 +240,9 @@
         </Component>
         <Component class="javax.swing.JComboBox" name="campoTarja">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI Black" size="14" style="0"/>
+            </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="6">
                 <StringItem index="0" value="Selecione"/>
@@ -280,6 +276,9 @@
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
               <Format format="##/##/####" subtype="-1" type="5"/>
             </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI Black" size="14" style="0"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoFabricacaoActionPerformed"/>
@@ -302,6 +301,9 @@
             </Property>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
               <Format format="##/##/####" subtype="-1" type="5"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI Black" size="14" style="0"/>
             </Property>
           </Properties>
           <Events>
@@ -326,24 +328,13 @@
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
               <Format subtype="0" type="0"/>
             </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="campoReserva">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="Selecione"/>
-                <StringItem index="1" value="Dispon&#xed;vel"/>
-                <StringItem index="2" value="Reservado"/>
-              </StringArray>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI Black" size="14" style="0"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoReservaActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoPrecoKeyPressed"/>
           </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="campoFornecedor">
           <Properties>

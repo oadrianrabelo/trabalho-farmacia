@@ -177,10 +177,10 @@
                     <Column editable="false" title="Status" type="java.lang.Object"/>
                     <Column editable="false" title="produtos" type="java.lang.Object"/>
                     <Column editable="false" title="Farmacia" type="java.lang.Object"/>
+                    <Column editable="true" title="tarja" type="java.lang.Object"/>
                     <Column editable="true" title="quantidade" type="java.lang.Object"/>
                     <Column editable="true" title="preco" type="java.lang.Object"/>
                     <Column editable="true" title="datavalidade" type="java.lang.Object"/>
-                    <Column editable="true" title="func" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

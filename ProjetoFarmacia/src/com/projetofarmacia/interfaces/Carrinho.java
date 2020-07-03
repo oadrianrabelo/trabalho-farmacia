@@ -6,6 +6,9 @@
 package com.projetofarmacia.interfaces;
 
 import com.projetofarmacia.DAO.VendaDAO;
+import com.projetofarmacia.dialogs.camposVazios;
+import com.projetofarmacia.dialogs.dadosEnviadosCaixaFalha;
+import com.projetofarmacia.dialogs.dadosEnviadosCaixaSucess;
 import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Funcionario;
 import com.projetofarmacia.javabeans.Produto;
@@ -203,7 +206,7 @@ public class Carrinho extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void enviarCaixa() {
+    private void enviarCaixa() {
         try {
             VendaDAO dao = new VendaDAO();
             Venda obj = new Venda();
@@ -232,6 +235,7 @@ public class Carrinho extends javax.swing.JInternalFrame {
                 dao.insereVenda(obj);
             }
         } catch (ParseException e) {
+            new dadosEnviadosCaixaFalha(null, true).setVisible(true);
             throw new RuntimeException(e);
         }
                 
@@ -256,7 +260,12 @@ public class Carrinho extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnReservarActionPerformed
 
     private void btnCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaixaActionPerformed
-        enviarCaixa();
+        if (campoNome.getText().equals("")) {
+            new camposVazios(null, true).setVisible(true);
+        } else {
+            enviarCaixa();
+            new dadosEnviadosCaixaSucess(null, true).setVisible(true);
+        }
     }//GEN-LAST:event_btnCaixaActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
@@ -272,7 +281,7 @@ public class Carrinho extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCaixa;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnReservar;
-    private javax.swing.JTextField campoNome;
+    public static javax.swing.JTextField campoNome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

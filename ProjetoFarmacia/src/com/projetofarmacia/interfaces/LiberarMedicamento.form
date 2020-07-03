@@ -51,13 +51,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="btnCaixa" min="-2" max="-2" attributes="0"/>
+                              <Component id="brnCarrinho" min="-2" max="-2" attributes="0"/>
                               <Component id="campoEnderecoPaciente" alignment="1" min="-2" pref="496" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="campoNome" min="-2" pref="309" max="-2" attributes="0"/>
+                                      <Component id="campoNomePac" min="-2" pref="309" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -71,12 +71,12 @@
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="campoCRM01" min="-2" pref="163" max="-2" attributes="0"/>
+                                  <Component id="campoNomeProf" min="-2" pref="163" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="campoCRM" min="-2" pref="322" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="campoEndereco" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="campoEnderecoProf" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -96,7 +96,7 @@
                           <Component id="jSeparator2" min="-2" pref="250" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="19" max="32767" attributes="0"/>
+                  <EmptySpace pref="11" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -121,13 +121,13 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="campoCRM01" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="campoNomeProf" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="campoCRM" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="campoEndereco" min="-2" max="-2" attributes="0"/>
+                  <Component id="campoEnderecoProf" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -141,7 +141,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="campoNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="campoNomePac" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="campoCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -149,14 +149,14 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="campoEnderecoPaciente" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnCaixa" min="-2" max="-2" attributes="0"/>
+                  <Component id="brnCarrinho" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="campoCRM01">
+        <Component class="javax.swing.JTextField" name="campoNomeProf">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="db" green="98" red="34" type="rgb"/>
@@ -179,7 +179,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoCRM01ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoNomeProfActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoCRM">
@@ -208,7 +208,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoCRMActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="campoEndereco">
+        <Component class="javax.swing.JTextField" name="campoEnderecoProf">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="db" green="98" red="34" type="rgb"/>
@@ -231,7 +231,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoEnderecoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoEnderecoProfActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
@@ -244,7 +244,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="CRM"/>
+            <Property name="text" type="java.lang.String" value="Nome"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -269,7 +269,7 @@
             <Property name="text" type="java.lang.String" value="Endere&#xe7;o"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="campoNome">
+        <Component class="javax.swing.JTextField" name="campoNomePac">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="db" green="98" red="34" type="rgb"/>
@@ -292,11 +292,14 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoNomeActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoNomePacActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="campoCPF">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="db" green="98" red="34" type="rgb"/>
+            </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
                 <MatteColorBorder bottom="2" left="0" right="0" top="0">
@@ -384,7 +387,7 @@
             <Property name="text" type="java.lang.String" value="CPF"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnCaixa">
+        <Component class="javax.swing.JButton" name="brnCarrinho">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="db" green="98" red="34" type="rgb"/>
@@ -398,10 +401,10 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/projetofarmacia/resources/basket-go.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Caixa"/>
+            <Property name="text" type="java.lang.String" value="Carrinho"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCaixaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="brnCarrinhoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">

@@ -9,6 +9,11 @@
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="internalFrameOpened" listener="javax.swing.event.InternalFrameListener" parameters="javax.swing.event.InternalFrameEvent" handler="formInternalFrameOpened"/>
+    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="formKeyPressed"/>
+    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="formKeyTyped"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -311,10 +316,11 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
+              <StringArray count="4">
                 <StringItem index="0" value="Selecione"/>
                 <StringItem index="1" value="Masculino"/>
                 <StringItem index="2" value="Feminino"/>
+                <StringItem index="3" value="N/A"/>
               </StringArray>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -553,6 +559,8 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoSenhaActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoSenhaKeyPressed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoSenhaKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnSalvar">
@@ -573,6 +581,8 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnSalvarKeyPressed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnSalvarKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
