@@ -122,6 +122,7 @@ public class confirmarPagamentoDinheiro extends javax.swing.JDialog {
             dao.finalizarVenda(obj);
         }
         limparTabela(TelaCaixa.tabelaProduto);
+        this.dispose();
         
     }//GEN-LAST:event_btnFinalizarActionPerformed
     private void mudaTroco(double troco) {

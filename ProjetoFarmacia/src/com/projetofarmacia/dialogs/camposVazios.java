@@ -5,6 +5,8 @@
  */
 package com.projetofarmacia.dialogs;
 
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author Ádrian Rabelo
@@ -17,6 +19,8 @@ public class camposVazios extends javax.swing.JDialog {
     public camposVazios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        jButton1.setSelected(true);
+        this.requestFocus();
     }
 
     /**
@@ -47,6 +51,11 @@ public class camposVazios extends javax.swing.JDialog {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
             }
         });
 
@@ -89,6 +98,9 @@ public class camposVazios extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+    }//GEN-LAST:event_jButton1KeyPressed
 
     /**
      * @param args the command line arguments

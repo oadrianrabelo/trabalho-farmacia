@@ -17,6 +17,7 @@ public class receitaSalva extends javax.swing.JDialog {
     public receitaSalva(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        jButton1.setSelected(true);
     }
 
     /**

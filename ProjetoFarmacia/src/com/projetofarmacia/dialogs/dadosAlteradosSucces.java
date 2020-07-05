@@ -17,6 +17,7 @@ public class dadosAlteradosSucces extends javax.swing.JDialog {
     public dadosAlteradosSucces(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        jButton1.setSelected(true);
     }
 
     /**

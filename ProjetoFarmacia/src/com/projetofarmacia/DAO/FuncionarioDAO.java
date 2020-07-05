@@ -5,6 +5,7 @@
  */
 package com.projetofarmacia.DAO;
 
+import com.projetofarmacia.interfaces.TelaCaixa;
 import com.projetofarmacia.interfaces.TelaLogin;
 import com.projetofarmacia.jdbc.ConnectionFactory;
 import com.projetofarmacia.javabeans.Funcionario;

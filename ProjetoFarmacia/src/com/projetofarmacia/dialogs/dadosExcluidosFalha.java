@@ -9,12 +9,12 @@ package com.projetofarmacia.dialogs;
  *
  * @author Ádrian Rabelo
  */
-public class dadosEnviadosCaixaFalha extends javax.swing.JDialog {
+public class dadosExcluidosFalha extends javax.swing.JDialog {
 
     /**
      * Creates new form dadosCadastradosSucces
      */
-    public dadosEnviadosCaixaFalha(java.awt.Frame parent, boolean modal) {
+    public dadosExcluidosFalha(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         jButton1.setSelected(true);
@@ -39,7 +39,7 @@ public class dadosEnviadosCaixaFalha extends javax.swing.JDialog {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("FALHA AO ENVIAR DADOS PARA O CAIXA");
+        jLabel1.setText("FALHA AO EXCLUIR DADOS");
 
         jButton1.setBackground(new java.awt.Color(52, 152, 219));
         jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
@@ -108,18 +108,14 @@ public class dadosEnviadosCaixaFalha extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(dadosEnviadosCaixaFalha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(dadosExcluidosFalha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(dadosEnviadosCaixaFalha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(dadosExcluidosFalha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(dadosEnviadosCaixaFalha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(dadosExcluidosFalha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(dadosEnviadosCaixaFalha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(dadosExcluidosFalha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -128,7 +124,7 @@ public class dadosEnviadosCaixaFalha extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                dadosEnviadosCaixaFalha dialog = new dadosEnviadosCaixaFalha(new javax.swing.JFrame(), true);
+                dadosExcluidosFalha dialog = new dadosExcluidosFalha(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

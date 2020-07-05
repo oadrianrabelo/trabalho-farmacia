@@ -17,6 +17,7 @@ public class produtoReservadoSucess extends javax.swing.JDialog {
     public produtoReservadoSucess(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        jButton1.setSelected(true);
     }
 
     /**

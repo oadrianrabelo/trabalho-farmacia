@@ -152,6 +152,7 @@ public class confirmarPagamentoCartao extends javax.swing.JDialog {
                 dao.finalizarVenda(obj);
             }
             limparTabela(TelaCaixa.tabelaProduto);
+            this.dispose();
         }
         
         

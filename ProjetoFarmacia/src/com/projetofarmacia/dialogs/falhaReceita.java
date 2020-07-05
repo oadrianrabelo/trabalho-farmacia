@@ -17,6 +17,7 @@ public class falhaReceita extends javax.swing.JDialog {
     public falhaReceita(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        jButton1.setSelected(true);
     }
 
     /**

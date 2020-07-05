@@ -17,6 +17,7 @@ public class dadosEnviadosCaixaSucess extends javax.swing.JDialog {
     public dadosEnviadosCaixaSucess(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        jButton1.setSelected(true);
     }
 
     /**

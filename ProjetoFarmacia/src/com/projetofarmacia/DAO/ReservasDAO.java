@@ -5,11 +5,10 @@
  */
 package com.projetofarmacia.DAO;
 
-import com.projetofarmacia.interfaces.ReservarProduto;
 import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Produto;
 import com.projetofarmacia.javabeans.Reservas;
-import com.projetofarmacia.javabeans.TipoProduto;
+
 import com.projetofarmacia.jdbc.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -53,6 +52,33 @@ public class ReservasDAO {
             throw new RuntimeException(e);
         }
     }
+    public List<Reservas> buscarReservas(String nome, Farmacia far) {
+        try {
+            List<Reservas> lista = new ArrayList<>();
+            String cmdsql = "SELECT nome FROM reservas where nome_cliente like ? and fk_id_farmacia = ? ;";
+            PreparedStatement stmt = conecta.prepareStatement(cmdsql);
+            stmt.setString(1, "%" + nome + "%");
+            stmt.setInt(2, far.getIdFarmacia());
+            ResultSet rs = stmt.executeQuery();
+            
+             while (rs.next()) {
+                try {
+                    Farmacia fa = new Farmacia();
+                    Reservas r = new Reservas();
+                    r.setNomeCliente(rs.getString(1));
+                    lista.add(r);
+                    
+                } catch (NullPointerException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            return lista;
+            
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
     public List<Reservas> listarReservados() {
         try {
             List<Reservas> lista = new ArrayList<>();
