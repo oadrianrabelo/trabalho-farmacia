@@ -17,6 +17,7 @@ import com.projetofarmacia.javabeans.Produto;
 import com.projetofarmacia.javabeans.TipoProduto;
 import java.awt.Color;
 import java.awt.HeadlessException;
+import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -35,6 +36,18 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         campoTarja.setBackground(Color.WHITE);
     }
 
+    private void limparCampos() {
+        campoNome.setText("");
+        campoFornecedor.setText("");
+        campoLote.setText("");
+        campoPreco.setText("");
+        campoQuantidade.setText("");
+        campoCodBar.setText("");
+        campoValidade.setText("");
+        campoFabricacao.setText("");
+        campoTipo.setSelectedIndex(0);
+        campoTarja.setSelectedIndex(0);
+    }
     private void Cadastrar() {
         try {
             Produto obj = new Produto();
@@ -61,6 +74,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             obj.setFarmacia(f);
             obj.setTipoProduto(tipo);
             dao.cadastrarProduto(obj);
+            limparCampos();
             
             
         } catch (Exception e) {
@@ -167,6 +181,9 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         campoPreco.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 campoPrecoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoPrecoKeyReleased(evt);
             }
         });
 
@@ -424,8 +441,13 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formMouseEntered
 
     private void campoPrecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPrecoKeyPressed
-        alteracaoECadastro();
     }//GEN-LAST:event_campoPrecoKeyPressed
+
+    private void campoPrecoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPrecoKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            alteracaoECadastro();
+        }
+    }//GEN-LAST:event_campoPrecoKeyReleased
     private void setarDados() {
         try {
             TipoProduto tp = new TipoProduto();

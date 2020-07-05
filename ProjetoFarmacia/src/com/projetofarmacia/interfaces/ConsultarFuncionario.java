@@ -6,6 +6,8 @@
 package com.projetofarmacia.interfaces;
 
 import com.projetofarmacia.DAO.FuncionarioDAO;
+import com.projetofarmacia.dialogs.confirmarExclusaoFunc;
+import com.projetofarmacia.dialogs.selecioneTabela;
 import com.projetofarmacia.javabeans.*;
 import java.util.List;
 import java.text.SimpleDateFormat;
@@ -332,10 +334,10 @@ public class ConsultarFuncionario extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
     }
-    private void excluirFuncionario() {
+    public static void excluirFuncionario() {
         try {
             Funcionario obj = new Funcionario();
-            obj.setIdFuncionario(Integer.parseInt(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 0).toString()));
+            obj.setIdFuncionario(Integer.parseInt(ConsultarFuncionario.tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 0).toString()));
             FuncionarioDAO dao = new FuncionarioDAO();
             
             dao.excluirFuncionario(obj);
@@ -353,6 +355,7 @@ public class ConsultarFuncionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        Listar();
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -394,18 +397,11 @@ public class ConsultarFuncionario extends javax.swing.JInternalFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (tabelaFuncionario.getSelectedRow() == -1) {
-            System.out.println("ERRRRO");
+            new selecioneTabela(null, true).setVisible(true);
         } else {
-            String[] opcoes = { "Sim", "Não" };
-            int x = JOptionPane.showOptionDialog(null, "Realmente deseja excluir este funcionário?", "Clique", JOptionPane.DEFAULT_OPTION, 
-                    JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[1]);
-            if (x == 0) {
-                excluirFuncionario();
-                Listar();
-            } else {
-                JOptionPane.showMessageDialog(null, "Exclusão cancelada");
-            }
-            System.out.println("Excluido");
+            confirmarExclusaoFunc ce = new confirmarExclusaoFunc(null, true);
+            ce.setVisible(true);
+            Listar();
             
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
@@ -426,6 +422,6 @@ public class ConsultarFuncionario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel painell01;
-    private javax.swing.JTable tabelaFuncionario;
+    private static javax.swing.JTable tabelaFuncionario;
     // End of variables declaration//GEN-END:variables
 }

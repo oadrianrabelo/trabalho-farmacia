@@ -9,6 +9,7 @@ import com.projetofarmacia.DAO.VendaDAO;
 import com.projetofarmacia.dialogs.camposVazios;
 import com.projetofarmacia.dialogs.dadosEnviadosCaixaFalha;
 import com.projetofarmacia.dialogs.dadosEnviadosCaixaSucess;
+import static com.projetofarmacia.interfaces.TelaFarmaceutico.tabelaProdutos;
 import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Funcionario;
 import com.projetofarmacia.javabeans.Produto;
@@ -264,6 +265,8 @@ public class Carrinho extends javax.swing.JInternalFrame {
             new camposVazios(null, true).setVisible(true);
         } else {
             enviarCaixa();
+            campoNome.setText("");
+            TelaFarmaceutico.limparTabela(tabelaCarrinho);
             new dadosEnviadosCaixaSucess(null, true).setVisible(true);
         }
     }//GEN-LAST:event_btnCaixaActionPerformed

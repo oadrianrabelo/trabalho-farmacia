@@ -8,14 +8,18 @@ package com.projetofarmacia.interfaces;
 import com.projetofarmacia.DAO.FarmaciaDAO;
 import com.projetofarmacia.DAO.FuncionarioDAO;
 import com.projetofarmacia.DAO.ProdutoDAO;
+import com.projetofarmacia.DAO.ReservasDAO;
 import com.projetofarmacia.DAO.VendaDAO;
 import com.projetofarmacia.dialogs.confirmarPagamentoCartao;
 import com.projetofarmacia.dialogs.confirmarPagamentoDinheiro;
+import static com.projetofarmacia.interfaces.ConsultarProduto.tabelaProdutos;
 import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Funcionario;
 import com.projetofarmacia.javabeans.Produto;
+import com.projetofarmacia.javabeans.Reservas;
 import com.projetofarmacia.javabeans.Venda;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -71,7 +75,7 @@ public class TelaCaixa extends javax.swing.JFrame {
         btnProcurarReservados = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        campoPesquisa = new javax.swing.JTextField();
         btnProcurarProduto = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -242,6 +246,11 @@ public class TelaCaixa extends javax.swing.JFrame {
                 campoNomeActionPerformed(evt);
             }
         });
+        campoNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoNomeKeyReleased(evt);
+            }
+        });
 
         btnProcurarReservados.setBackground(new java.awt.Color(52, 152, 219));
         btnProcurarReservados.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
@@ -255,16 +264,21 @@ public class TelaCaixa extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Codigo de barras");
+        jLabel4.setText("Nome");
 
-        jTextField2.setBackground(new java.awt.Color(52, 152, 219));
-        jTextField2.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jTextField2.setCaretColor(new java.awt.Color(52, 152, 219));
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        campoPesquisa.setBackground(new java.awt.Color(52, 152, 219));
+        campoPesquisa.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        campoPesquisa.setForeground(new java.awt.Color(255, 255, 255));
+        campoPesquisa.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        campoPesquisa.setCaretColor(new java.awt.Color(52, 152, 219));
+        campoPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                campoPesquisaActionPerformed(evt);
+            }
+        });
+        campoPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoPesquisaKeyReleased(evt);
             }
         });
 
@@ -345,7 +359,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                             .addGroup(painel01Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                                .addComponent(campoPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnProcurarProduto))
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -384,7 +398,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                         .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnProcurarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
@@ -413,9 +427,9 @@ public class TelaCaixa extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void campoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_campoPesquisaActionPerformed
 
     private void campoNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomeActionPerformed
         // TODO add your handling code here:
@@ -492,6 +506,69 @@ public class TelaCaixa extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnDinheiroActionPerformed
 
+    private void campoPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPesquisaKeyReleased
+        if (evt.getKeyCode() != KeyEvent.VK_ALPHANUMERIC) {
+            Buscar(campoPesquisa.getText());
+        }
+
+    }//GEN-LAST:event_campoPesquisaKeyReleased
+
+    private void campoNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoNomeKeyReleased
+        if (evt.getKeyCode() != KeyEvent.VK_ALPHANUMERIC) {
+            Buscar(campoPesquisa.getText());
+        }
+    }//GEN-LAST:event_campoNomeKeyReleased
+
+     public void Buscar(String nome) {
+        try {
+            Farmacia far = new Farmacia();
+            far.setIdFarmacia(TelaLogin.idFar);
+            ProdutoDAO dao = new ProdutoDAO();
+            List<Produto> listaDeProdutos = dao.buscarProduto(nome, far);
+            DefaultTableModel modelo = (DefaultTableModel) tabelaProcurarProduto.getModel();
+            modelo.setNumRows(0);
+            Funcionario f = new Funcionario();
+            FuncionarioDAO daof = new FuncionarioDAO();
+            f.setIdFuncionario(TelaLogin.idFunc);
+            for (Produto p: listaDeProdutos) {
+                modelo.addRow(new Object[] {
+                    p.getIdProduto(),
+                    p.getNomeProduto(),
+                    p.getQuantidade(),
+                    p.getPreco(),
+                    new SimpleDateFormat("dd/MM/yyyy").format(p.getDataValidade()),
+                    daof.nomeFuncionario(f),
+                    p.getFarmacia().getNomeFarmacia(),
+                    p.getTipoProduto().getTipoProduto(),
+                });
+            }
+        } catch (Exception e) {
+            System.out.println("erro" + e);
+            e.printStackTrace();
+        }
+    }
+     
+    public void BuscarReserva(String nome) {
+        try {
+            Farmacia far = new Farmacia();
+            far.setIdFarmacia(TelaLogin.idFar);
+            ReservasDAO dao = new ReservasDAO();
+            List<Reservas> listaDeReserva = dao.buscarReservas(nome, far);
+            DefaultTableModel modelo = (DefaultTableModel) tabelaReservados.getModel();
+            modelo.setNumRows(0);
+            Funcionario f = new Funcionario();
+            FuncionarioDAO daof = new FuncionarioDAO();
+            f.setIdFuncionario(TelaLogin.idFunc);
+            for (Reservas r : listaDeReserva) {
+                modelo.addRow(new Object[] {
+                    r.getNomeCliente(),
+                });
+            }
+        } catch (Exception e) {
+            System.out.println("erro" + e);
+            e.printStackTrace();
+        }
+    }
     private void removeItens(JTable tabela) {
         if (tabela.getSelectedRowCount() != 0) {
             DefaultTableModel tabel = (DefaultTableModel) tabela.getModel();
@@ -669,6 +746,7 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JButton btnProcurarProduto;
     private javax.swing.JButton btnProcurarReservados;
     public static javax.swing.JTextField campoNome;
+    private javax.swing.JTextField campoPesquisa;
     private javax.swing.JFormattedTextField campoTotal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -680,7 +758,6 @@ public class TelaCaixa extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField2;
     public static javax.swing.JPanel painel01;
     private javax.swing.JTable tabelaProcurarProduto;
     public static javax.swing.JTable tabelaProduto;

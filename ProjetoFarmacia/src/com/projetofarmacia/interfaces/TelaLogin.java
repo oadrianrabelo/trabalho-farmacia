@@ -5,11 +5,11 @@
  */
 package com.projetofarmacia.interfaces;
 
-import com.projetofarmacia.DAO.FarmaciaDAO;
 import com.projetofarmacia.DAO.FuncionarioDAO;
-import com.projetofarmacia.javabeans.Farmacia;
-import com.projetofarmacia.javabeans.Funcionario;
+import com.projetofarmacia.dialogs.camposVazios;
+import com.projetofarmacia.dialogs.usuarioInvalido;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 
 /**
@@ -70,10 +70,19 @@ public class TelaLogin extends javax.swing.JFrame {
         });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(52, 152, 219)));
 
         campoUsuario.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         campoUsuario.setForeground(new java.awt.Color(52, 152, 219));
         campoUsuario.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(52, 152, 219)));
+        campoUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoUsuarioKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoUsuarioKeyTyped(evt);
+            }
+        });
 
         campoSenha.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         campoSenha.setForeground(new java.awt.Color(52, 152, 219));
@@ -81,6 +90,17 @@ public class TelaLogin extends javax.swing.JFrame {
         campoSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoSenhaActionPerformed(evt);
+            }
+        });
+        campoSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoSenhaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoSenhaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoSenhaKeyTyped(evt);
             }
         });
 
@@ -94,6 +114,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(52, 152, 219));
         jLabel2.setText("Senha");
 
+        btnEntrar.setBackground(new java.awt.Color(52, 152, 219));
         btnEntrar.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
         btnEntrar.setText("Entrar");
@@ -185,40 +206,48 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logar() {
-        try {
-            String login, senha;
-            login = campoUsuario.getText();
-            senha = new String(campoSenha.getPassword());
-            FuncionarioDAO dao = new FuncionarioDAO();
-            switch (dao.efetuarLogin(login, senha)) {
-                case 1:
-                    TelaPrincipalAdm tpa = new TelaPrincipalAdm();
-                    tpa.setVisible(true);
-                    this.dispose();
-                    break;
-                case 2:
-                    TelaFarmaceutico tf = new TelaFarmaceutico();
-                    tf.setVisible(true);
-                    this.dispose();
-                    break;
-                case 3:
-                    TelaCaixa tc = new TelaCaixa();
-                    tc.setVisible(true);
-                    this.dispose();
-                    break;
-                case 4:
-                    TelaEstoquista te = new TelaEstoquista();
-                    te.setVisible(true);
-                    this.dispose();
-                    break;
-                case 5:
-                    TelaCaixa tc1 = new TelaCaixa();
-                    tc1.setVisible(true);
-                    this.dispose();
-                    break;
-            } 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if (campoUsuario.getText().equals("") || campoSenha.getPassword().equals("")) {
+            new camposVazios(null, true).setVisible(true);
+        } else {
+            try {
+                String login, senha;
+                login = campoUsuario.getText();
+                senha = new String(campoSenha.getPassword());
+                FuncionarioDAO dao = new FuncionarioDAO();
+                switch (dao.efetuarLogin(login, senha)) {
+                    case 1:
+                        TelaPrincipalAdm tpa = new TelaPrincipalAdm();
+                        tpa.setVisible(true);
+                        this.dispose();
+                        break;
+                    case 2:
+                        TelaFarmaceutico tf = new TelaFarmaceutico();
+                        tf.setVisible(true);
+                        this.dispose();
+                        break;
+                    case 3:
+                        TelaCaixa tc = new TelaCaixa();
+                        tc.setVisible(true);
+                        this.dispose();
+                        break;
+                    case 4:
+                        TelaEstoquista te = new TelaEstoquista();
+                        te.setVisible(true);
+                        this.dispose();
+                        break;
+                    case 5:
+                        TelaCaixa tc1 = new TelaCaixa();
+                        tc1.setVisible(true);
+                        this.dispose();
+                        break;
+                        default:
+                            new usuarioInvalido(this, true).setVisible(true);
+                            break;
+                } 
+            } catch (Exception e) {
+                new usuarioInvalido(this, true).setVisible(true);
+                throw new RuntimeException(e);
+            }
         }
     }
     private void campoSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoSenhaActionPerformed
@@ -230,8 +259,36 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         logar();
-        System.out.println("clicou logar");
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void campoUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoUsuarioKeyTyped
+    }//GEN-LAST:event_campoUsuarioKeyTyped
+
+    private void campoUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoUsuarioKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+             campoSenha.requestFocus();
+        }  
+    }//GEN-LAST:event_campoUsuarioKeyReleased
+
+    private void campoSenhaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoSenhaKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                if (campoUsuario.getText().equals("") || campoSenha.getPassword().equals("")) {
+                    new camposVazios(null, true).setVisible(true);
+                } else {
+                    logar();
+                } 
+        } else {
+            System.out.println("não é enter");
+        }
+    }//GEN-LAST:event_campoSenhaKeyReleased
+
+    private void campoSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoSenhaKeyTyped
+        
+    }//GEN-LAST:event_campoSenhaKeyTyped
+
+    private void campoSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoSenhaKeyPressed
+        
+    }//GEN-LAST:event_campoSenhaKeyPressed
 
     /**
      * @param args the command line arguments

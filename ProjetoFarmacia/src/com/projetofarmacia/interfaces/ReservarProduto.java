@@ -174,15 +174,16 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
                 f.setIdFarmacia(TelaLogin.idFar);
                 obj.setFarmacia(f);
                 obj.setProduto(p);
-                Object[] obj01 = {
-                    tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 1), // nome produto
-                    1, // quantidade
-                    tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 4), // tarja
-                    tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 5), // preco
-                    tabelaOrigem.getValueAt(tabelaProdutos.getSelectedRow(), 6), // validade
-                };
-                tabelaDestino.addRow(obj01);
+//                Object[] obj01 = {
+//                    tabelaOrigem.getValueAt(Carrinho.tabelaCarrinho.getSelectedRow(), 1), // nome produto
+//                    1, // quantidade
+//                    tabelaOrigem.getValueAt(Carrinho.tabelaCarrinho.getSelectedRow(), 4), // tarja
+//                    tabelaOrigem.getValueAt(Carrinho.tabelaCarrinho.getSelectedRow(), 5), // preco
+//                    tabelaOrigem.getValueAt(Carrinho.tabelaCarrinho.getSelectedRow(), 6), // validade
+//                };
+//                tabelaDestino.addRow(obj01);
                 dao.reservarProduto(obj);
+               
             }
         } catch (Exception e) {
             new produtoReservadoFalha(null, true).setVisible(true);
@@ -195,13 +196,17 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
         } else {
             Reservar();
             new produtoReservadoSucess(null, true).setVisible(true);
+            TelaFarmaceutico.limparTabela(Carrinho.tabelaCarrinho);
+            this.dispose();
         }
     }//GEN-LAST:event_campoReservarActionPerformed
 
     private void campoTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTelefoneKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             Reservar();
+            TelaFarmaceutico.limparTabela(Carrinho.tabelaCarrinho);
             new produtoReservadoSucess(null, true).setVisible(true);
+            dispose();
         }
     }//GEN-LAST:event_campoTelefoneKeyReleased
 

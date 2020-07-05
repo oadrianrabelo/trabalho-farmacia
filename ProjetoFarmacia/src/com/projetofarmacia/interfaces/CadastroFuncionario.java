@@ -5,6 +5,7 @@
  */
 package com.projetofarmacia.interfaces;
 
+import com.projetofarmacia.DAO.FarmaciaDAO;
 import com.projetofarmacia.DAO.FuncionarioDAO;
 import com.projetofarmacia.DAO.TipoFuncionarioDAO;
 import com.projetofarmacia.dialogs.camposVazios;
@@ -31,6 +32,10 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
 
     public CadastroFuncionario() {
         initComponents();
+        FarmaciaDAO daof = new FarmaciaDAO();
+        Farmacia f = new Farmacia();
+        f.setIdFarmacia(TelaLogin.idFar);
+        campoFarmacia.setText(daof.nomeFarmacia(f));
     }
 
     /**
@@ -488,6 +493,21 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void limparCampos() {
+        campoId.setText("");
+        campoNome.setText("");
+        campoEndereco.setText("");
+        campoRG.setText("");
+        campoCPF.setText("");
+        campoNascimento.setText("");
+        campoAdmissao.setText("");
+        campoDesligamento.setText("");
+        cbSexo.setSelectedIndex(0);
+        campoLogin.setText("");
+        campoSenha.setText("");
+        cbDepartamento.setSelectedIndex(0);
+        cbFuncao.setSelectedIndex(0);
+    }
     private void setarDados() {
         try {
             Funcionario obj = new Funcionario();
@@ -495,7 +515,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             Farmacia f = new Farmacia();
             Departamento d = new Departamento();
             TipoFuncionario t = new TipoFuncionario();
-            
+            System.out.println("");
             obj.setIdFuncionario(Integer.parseInt(campoId.getText()));
             obj.setNomeFuncionario(campoNome.getText());
             obj.setEnderecoFuncionario(campoEndereco.getText());
@@ -517,6 +537,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             
             dao.alterarFuncionario(obj);
             dao.corrigeId(obj);
+            this.dispose();
         } catch (RuntimeException | ParseException e) {
             new dadosAlteradosFalha(null, true).setVisible(true);
             throw new RuntimeException(e);
@@ -576,6 +597,10 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             
             obj.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(campoNascimento.getText()));
             obj.setDataAdmissao(new SimpleDateFormat("dd/MM/yyyy").parse(campoAdmissao.getText()));
+            if (campoDesligamento.getText().equals("  /  /    ")) {
+                obj.setDataDesligamento(new SimpleDateFormat("dd/MM/yyyy").parse("  /  /    "));
+                
+            }
             obj.setDataDesligamento(new SimpleDateFormat("dd/MM/yyyy").parse(campoDesligamento.getText()));
             
             obj.setSexo(cbSexo.getSelectedItem().toString());
@@ -591,6 +616,8 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             
             dao.cadastrarFuncionario(obj);
             dao.corrigeId(obj);
+            
+            limparCampos();
         } catch (Exception e) {
             new dadosCadastradosFalha(null, true).setVisible(true);
             throw new RuntimeException(e);
@@ -629,8 +656,8 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             || cbSexo.getSelectedIndex() < 1 || campoRG.getText().equals("")
             || cbDepartamento.getSelectedIndex() < 1 || campoCPF.getText().equals("")
             || cbFuncao.getSelectedIndex() < 1 || campoEndereco.getText().equals("")
-            || campoAdmissao.getText().equals("") || campoDesligamento.getText().equals("")
-            || campoLogin.getText().equals("") || String.valueOf(campoSenha.getPassword()).equals("")) {
+            || campoAdmissao.getText().equals("") || campoLogin.getText().equals("") 
+            || String.valueOf(campoSenha.getPassword()).equals("")) {
             new camposVazios(null, true).setVisible(true);
         } else {
             if (edit) {
@@ -648,7 +675,6 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        campoFarmacia.setText(String.valueOf(TelaLogin.idFar));
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void btnSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyPressed

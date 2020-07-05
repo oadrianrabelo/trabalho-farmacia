@@ -335,7 +335,7 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
     private void campoCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCPFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoCPFActionPerformed
-    private void enviaCaixa() {
+    private void enviaCarrinho() {
         DefaultTableModel tabelaOrigem = (DefaultTableModel) TelaFarmaceutico.tabelaProdutos.getModel();
         DefaultTableModel tabelaDestino = (DefaultTableModel) Carrinho.tabelaCarrinho.getModel();
         FuncionarioDAO dao = new FuncionarioDAO();
@@ -360,7 +360,9 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
         } else {
             Cadastrar();
             new receitaSalva(null, true).setVisible(true);
-            enviaCaixa();
+            enviaCarrinho();
+            this.dispose();
+            
         }
     }//GEN-LAST:event_brnCarrinhoActionPerformed
 

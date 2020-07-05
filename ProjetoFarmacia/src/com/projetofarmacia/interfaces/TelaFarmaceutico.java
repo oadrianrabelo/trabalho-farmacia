@@ -7,10 +7,14 @@ package com.projetofarmacia.interfaces;
 
 import com.projetofarmacia.DAO.FuncionarioDAO;
 import com.projetofarmacia.DAO.ProdutoDAO;
+import com.projetofarmacia.dialogs.nenhumaLinha;
+import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Funcionario;
 import com.projetofarmacia.javabeans.Produto;
+import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -89,6 +93,11 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
                 campoNomeActionPerformed(evt);
             }
         });
+        campoNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoNomeKeyReleased(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -127,6 +136,11 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
         tabelaProdutos.getTableHeader().setResizingAllowed(false);
         tabelaProdutos.getTableHeader().setReorderingAllowed(false);
         ScrollPane.setViewportView(tabelaProdutos);
+        if (tabelaProdutos.getColumnModel().getColumnCount() > 0) {
+            tabelaProdutos.getColumnModel().getColumn(0).setMinWidth(0);
+            tabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tabelaProdutos.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         btnCarrinho02.setBackground(new java.awt.Color(52, 152, 219));
         btnCarrinho02.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
@@ -312,14 +326,56 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
                
             } else {
                 adicionarCarrinho();
+                
             }
         } else {
-            System.out.println("NENHUMA LINHAA");
+            new nenhumaLinha(null, true).setVisible(true);
         }
     }//GEN-LAST:event_btnCarrinhoActionPerformed
 
+     public void Buscar(String nome) {
+        try {
+            Farmacia far = new Farmacia();
+            far.setIdFarmacia(TelaLogin.idFar);
+            ProdutoDAO dao = new ProdutoDAO();
+            List<Produto> listaDeProdutos = dao.buscarProduto(nome, far);
+            DefaultTableModel modelo = (DefaultTableModel) tabelaProdutos.getModel();
+            modelo.setNumRows(0);
+            Funcionario f = new Funcionario();
+            FuncionarioDAO daof = new FuncionarioDAO();
+            f.setIdFuncionario(TelaLogin.idFunc);
+            for (Produto p: listaDeProdutos) {
+                modelo.addRow(new Object[] {
+                    p.getIdProduto(),
+                    p.getNomeProduto(),
+                    p.getFornecedor(),
+                    p.getQuantidade(),
+                    p.getTarja(),
+                    p.getPreco(),
+                    new SimpleDateFormat("dd/MM/yyyy").format(p.getDataValidade()),
+                    new SimpleDateFormat("dd/MM/yyyy").format(p.getDataFabricacao()),
+                    p.getFarmacia().getNomeFarmacia(),
+                });
+            }
+        } catch (Exception e) {
+            System.out.println("erro" + e);
+            e.printStackTrace();
+        }
+    }
+    public static void limparTabela(JTable table) {
+        DefaultTableModel tabela = (DefaultTableModel) table.getModel();
+        for (int i = tabela.getRowCount() -1; i >= 0 ; i--) {
+            tabela.removeRow(i);
+        }
+    }
     private void btnProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarActionPerformed
     }//GEN-LAST:event_btnProcurarActionPerformed
+
+    private void campoNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoNomeKeyReleased
+        if (evt.getKeyCode() != KeyEvent.VK_ALPHANUMERIC) {
+            Buscar(campoNome.getText());
+        }
+    }//GEN-LAST:event_campoNomeKeyReleased
 
     /**
      * @param args the command line arguments

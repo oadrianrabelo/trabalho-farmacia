@@ -6,6 +6,10 @@
 package com.projetofarmacia.interfaces;
 
 import com.projetofarmacia.DAO.ProdutoDAO;
+import com.projetofarmacia.dialogs.confirmarExclusaoFunc;
+import com.projetofarmacia.dialogs.confirmarExclusaoProd;
+import com.projetofarmacia.dialogs.consultaProduto;
+import com.projetofarmacia.dialogs.selecioneTabela;
 import com.projetofarmacia.javabeans.Farmacia;
 import java.awt.Color;
 import java.util.List;
@@ -33,6 +37,10 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
      */
     public ConsultarProduto() {
         initComponents();
+        if (TelaLogin.idFunc == 1) {
+            btnEditar.setEnabled(false);
+            btnEditar.setVisible(false);
+        }
        //  -----------------------------------------------------
             ScrollPane.setOpaque(false);
             ScrollPane.getViewport().setOpaque(false);
@@ -340,21 +348,20 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
         Point ponteiro = evt.getPoint();
         int linha = tabelaProdutos.rowAtPoint(ponteiro);
         if (evt.getClickCount() == 2 && tabelaProdutos.getSelectedRow() != -1) {
-            JOptionPane.showMessageDialog(null, "Clicou duas vezes");
+            new consultaProduto(null, true).setVisible(true);
         }
 
     }//GEN-LAST:event_tabelaProdutosMousePressed
 
-    public void excluirProduto() {
+    public static void excluirProduto() {
         try {
             Produto obj = new Produto();
-            obj.setIdProduto(Integer.parseInt(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0).toString()));
+            obj.setIdProduto(Integer.parseInt(ConsultarProduto.tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 0).toString()));
             ProdutoDAO dao = new ProdutoDAO();
             
             dao.excluirProduto(obj);
             dao.corrigeId();
             
-            this.Listar();
 //            this.dispose();
         } catch (NumberFormatException | HeadlessException e) {
             System.out.println(e);
@@ -399,7 +406,14 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_campoNomeKeyReleased
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        excluirProduto();
+        if (tabelaProdutos.getSelectedRow() == -1) {
+            new selecioneTabela(null, true).setVisible(true);
+        } else {
+            confirmarExclusaoProd ce = new confirmarExclusaoProd(null, true);
+            ce.setVisible(true);
+            Listar();
+            
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
 
@@ -412,6 +426,6 @@ public class ConsultarProduto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTable tabelaProdutos;
+    public static javax.swing.JTable tabelaProdutos;
     // End of variables declaration//GEN-END:variables
 }
