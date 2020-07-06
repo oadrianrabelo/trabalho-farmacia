@@ -9,7 +9,7 @@ public class ConnectionFactory {
     
     public Connection conecta() {
         try {
-            return DriverManager.getConnection("jdbc:mysql://localhost/bdfarmacia", "root", "");
+            return DriverManager.getConnection("jdbc:mysql://localhost/bdfarmacia?zeroDateTime=convertToNull", "root", "");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

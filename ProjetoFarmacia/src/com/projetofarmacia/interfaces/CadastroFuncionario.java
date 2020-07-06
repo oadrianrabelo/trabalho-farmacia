@@ -20,7 +20,6 @@ import com.projetofarmacia.javabeans.TipoFuncionario;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -148,6 +147,11 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         campoRG.setBackground(new java.awt.Color(52, 152, 219));
         campoRG.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         campoRG.setForeground(new java.awt.Color(255, 255, 255));
+        try {
+            campoRG.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#######-#")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         campoRG.setOpaque(false);
         campoRG.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,6 +162,11 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         campoCPF.setBackground(new java.awt.Color(52, 152, 219));
         campoCPF.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         campoCPF.setForeground(new java.awt.Color(255, 255, 255));
+        try {
+            campoCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         campoCPF.setOpaque(false);
         campoCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -598,7 +607,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             obj.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(campoNascimento.getText()));
             obj.setDataAdmissao(new SimpleDateFormat("dd/MM/yyyy").parse(campoAdmissao.getText()));
             if (campoDesligamento.getText().equals("  /  /    ")) {
-                obj.setDataDesligamento(new SimpleDateFormat("dd/MM/yyyy").parse("00/00/0000"));
+                obj.setDataDesligamento(null);
                 
             } else {
                 obj.setDataDesligamento(new SimpleDateFormat("dd/MM/yyyy").parse(campoDesligamento.getText()));

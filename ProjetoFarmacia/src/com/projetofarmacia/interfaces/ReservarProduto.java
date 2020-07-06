@@ -6,20 +6,16 @@
 
 package com.projetofarmacia.interfaces;
 
-import com.projetofarmacia.DAO.FuncionarioDAO;
 import com.projetofarmacia.DAO.ReservasDAO;
 import com.projetofarmacia.dialogs.camposVazios;
 import com.projetofarmacia.dialogs.produtoReservadoFalha;
 import com.projetofarmacia.dialogs.produtoReservadoSucess;
 import com.projetofarmacia.dialogs.selecioneTabela;
-import static com.projetofarmacia.interfaces.TelaFarmaceutico.tabelaProdutos;
 import com.projetofarmacia.javabeans.Farmacia;
-import com.projetofarmacia.javabeans.Funcionario;
 import com.projetofarmacia.javabeans.Produto;
 import com.projetofarmacia.javabeans.Reservas;
-import com.projetofarmacia.javabeans.TipoProduto;
 import java.awt.event.KeyEvent;
-import java.text.SimpleDateFormat;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -33,6 +29,8 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
         initComponents();
         if (!Carrinho.campoNome.getText().equals("")) {
             campoNome.setText(Carrinho.campoNome.getText());
+        } else {
+            campoNome.setText("");
         }
     }
 
@@ -154,7 +152,7 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Reservar() {
+    private void Reservar(JTable tabela) {
         try {
 
                 Reservas obj = new Reservas();
@@ -164,10 +162,15 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
 
                 obj.setNomeCliente(campoNome.getText());
                 obj.setTelefone(campoTelefone.getText());
-                p.setNomeProduto(Carrinho.tabelaCarrinho.getValueAt(Carrinho.tabelaCarrinho.getSelectedRow(), 1).toString());
-                p.setIdProduto(Integer.parseInt(Carrinho.tabelaCarrinho.getValueAt(Carrinho.tabelaCarrinho.getSelectedRow(), 0).toString()));
-                DefaultTableModel tabelaOrigem = (DefaultTableModel) tabelaProdutos.getModel();
-                DefaultTableModel tabelaDestino = (DefaultTableModel) Carrinho.tabelaCarrinho.getModel();
+                if (tabela == ConsultarFarmacias.tabelaFarmacias) {
+                    p.setNomeProduto(ConsultarFarmacias.tabelaFarmacias.getValueAt(ConsultarFarmacias.tabelaFarmacias.getSelectedRow(), 1).toString());
+                    p.setIdProduto(Integer.parseInt(ConsultarFarmacias.tabelaFarmacias.getValueAt(ConsultarFarmacias.tabelaFarmacias.getSelectedRow(), 0).toString()));
+                     
+                } else {
+                    p.setNomeProduto(Carrinho.tabelaCarrinho.getValueAt(Carrinho.tabelaCarrinho.getSelectedRow(), 1).toString());
+                    p.setIdProduto(Integer.parseInt(Carrinho.tabelaCarrinho.getValueAt(Carrinho.tabelaCarrinho.getSelectedRow(), 0).toString()));
+                    
+                }
                 f.setIdFarmacia(TelaLogin.idFar);
                 obj.setFarmacia(f);
                 obj.setProduto(p);
@@ -192,13 +195,20 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
             new camposVazios(null, true).setVisible(true);
         } else {
             if (Carrinho.tabelaCarrinho.getSelectedRow() != -1) {
-                Reservar();
+                Reservar(Carrinho.tabelaCarrinho);
                 DefaultTableModel tabela = (DefaultTableModel) Carrinho.tabelaCarrinho.getModel();
                 tabela.removeRow(Carrinho.tabelaCarrinho.getSelectedRow());
                 new produtoReservadoSucess(null, true).setVisible(true);
                 this.dispose();
+            } else if (ConsultarFarmacias.tabelaFarmacias.getSelectedRow() != -1){
+                Reservar(ConsultarFarmacias.tabelaFarmacias);
+                DefaultTableModel tabela = (DefaultTableModel) ConsultarFarmacias.tabelaFarmacias.getModel();
+                tabela.removeRow(ConsultarFarmacias.tabelaFarmacias.getSelectedRow());
+                new produtoReservadoSucess(null, true).setVisible(true);
+                this.dispose();
             } else {
                 new selecioneTabela(null, true).setVisible(true);
+                
             }
         }
     }//GEN-LAST:event_campoReservarActionPerformed
@@ -208,8 +218,8 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
             if (campoNome.getText().equals("") || campoTelefone.getText().equals("")) {
                 new camposVazios(null, true).setVisible(true);
             } else {
-                if (Carrinho.tabelaCarrinho.getSelectedRow() != -1 ) {
-                    Reservar();
+                if (Carrinho.tabelaCarrinho.getSelectedRow() != -1 || ConsultarFarmacias.tabelaFarmacias.getSelectedRow() != -1) {
+//                    Reservar();
                     DefaultTableModel tabela = (DefaultTableModel) Carrinho.tabelaCarrinho.getModel();
                     tabela.removeRow(Carrinho.tabelaCarrinho.getSelectedRow());
                     new produtoReservadoSucess(null, true).setVisible(true);

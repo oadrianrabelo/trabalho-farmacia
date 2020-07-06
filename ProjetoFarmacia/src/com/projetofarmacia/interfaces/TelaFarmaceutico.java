@@ -176,7 +176,7 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(ScrollPane)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 854, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnProcurar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -270,7 +270,9 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
     public void Listar() {
         try {
             ProdutoDAO dao = new ProdutoDAO();
-            List<Produto> listaDeProdutos = dao.listarMedicamentos();
+            Farmacia far = new Farmacia();
+            far.setIdFarmacia(TelaLogin.idFar);
+            List<Produto> listaDeProdutos = dao.listarMedicamentos(far);
             DefaultTableModel modelo = (DefaultTableModel) tabelaProdutos.getModel();
             modelo.setNumRows(0);
             
@@ -292,10 +294,6 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
         }
         
     }
-    private void campoNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoNomeActionPerformed
-
     private void menuReservadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuReservadosActionPerformed
         
     }//GEN-LAST:event_menuReservadosActionPerformed
@@ -305,11 +303,6 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
         pane.add(cr1);
         cr1.setVisible(true);
     }//GEN-LAST:event_menuReservadosMouseClicked
-
-    private void btnCarrinho02ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarrinho02ActionPerformed
-        pane.add(car);
-        car.setVisible(true);
-    }//GEN-LAST:event_btnCarrinho02ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         Listar();
@@ -322,16 +315,36 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
                 LiberarMedicamento lm = new LiberarMedicamento();
                 pane.add(lm);
                 lm.setVisible(true);
-                
-               
+
             } else {
                 adicionarCarrinho();
-                
+
             }
         } else {
             new nenhumaLinha(null, true).setVisible(true);
         }
     }//GEN-LAST:event_btnCarrinhoActionPerformed
+
+    private void btnCarrinho02ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarrinho02ActionPerformed
+        pane.add(car);
+        car.setVisible(true);
+    }//GEN-LAST:event_btnCarrinho02ActionPerformed
+
+    private void campoNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoNomeKeyReleased
+        if (evt.getKeyCode() != KeyEvent.VK_ALPHANUMERIC) {
+            Buscar(campoNome.getText());
+        }
+    }//GEN-LAST:event_campoNomeKeyReleased
+
+    private void campoNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoNomeActionPerformed
+
+    private void btnProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarActionPerformed
+        ConsultarFarmacias cf = new ConsultarFarmacias();
+        pane.add(cf);
+        cf.setVisible(true);
+    }//GEN-LAST:event_btnProcurarActionPerformed
 
      public void Buscar(String nome) {
         try {
@@ -368,15 +381,6 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
             tabela.removeRow(i);
         }
     }
-    private void btnProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarActionPerformed
-    }//GEN-LAST:event_btnProcurarActionPerformed
-
-    private void campoNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoNomeKeyReleased
-        if (evt.getKeyCode() != KeyEvent.VK_ALPHANUMERIC) {
-            Buscar(campoNome.getText());
-        }
-    }//GEN-LAST:event_campoNomeKeyReleased
-
     /**
      * @param args the command line arguments
      */

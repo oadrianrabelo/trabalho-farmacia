@@ -14,7 +14,6 @@ import java.text.SimpleDateFormat;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -279,6 +278,12 @@ public class ConsultarFuncionario extends javax.swing.JInternalFrame {
             modelo.setNumRows(0);
             
             for (Funcionario f: listaDeFuncionarios) {
+                String data = "";
+                if (f.getDataDesligamento() == null) {
+                    data = "null";
+                } else {
+                    data = new SimpleDateFormat("dd/MM/yyyy").format(f.getDataDesligamento());
+                }
                 modelo.addRow(new Object[] {
                     f.getIdFuncionario(),
                     f.getNomeFuncionario(),
@@ -293,7 +298,7 @@ public class ConsultarFuncionario extends javax.swing.JInternalFrame {
                     f.getSenhaFuncionario(),
                     f.getFarmacia().getNomeFarmacia(),
                     new SimpleDateFormat("dd/MM/yyyy").format(f.getDataAdmissao()),
-                    new SimpleDateFormat("dd/MM/yyyy").format(f.getDataDesligamento())
+                    data
                 });
             }
         } catch (Exception e) {
@@ -351,7 +356,7 @@ public class ConsultarFuncionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_campoNomeActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-        Listar();
+         Listar();
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened

@@ -6,11 +6,8 @@
 package com.projetofarmacia.interfaces;
 
 import com.projetofarmacia.DAO.FuncionarioDAO;
-import com.projetofarmacia.DAO.ProdutoDAO;
 import com.projetofarmacia.DAO.ReservasDAO;
-import static com.projetofarmacia.interfaces.TelaFarmaceutico.tabelaProdutos;
 import com.projetofarmacia.javabeans.Funcionario;
-import com.projetofarmacia.javabeans.Produto;
 import com.projetofarmacia.javabeans.Reservas;
 import java.text.SimpleDateFormat;
 import java.util.List;

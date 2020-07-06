@@ -6,7 +6,6 @@
 package com.projetofarmacia.interfaces;
 
 import com.projetofarmacia.DAO.ProdutoDAO;
-import com.projetofarmacia.dialogs.confirmarExclusaoFunc;
 import com.projetofarmacia.dialogs.confirmarExclusaoProd;
 import com.projetofarmacia.dialogs.consultaProduto;
 import com.projetofarmacia.dialogs.selecioneTabela;
@@ -15,13 +14,9 @@ import java.awt.Color;
 import java.util.List;
 import java.text.SimpleDateFormat;
 import com.projetofarmacia.javabeans.Produto;
-import com.projetofarmacia.javabeans.Venda;
 import java.awt.HeadlessException;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**

@@ -1,5 +1,5 @@
 -- MySQL Workbench Forward Engineering
--- drop database bdfarmacia;
+
 -- -----------------------------------------------------
 -- Schema farmacia
 -- -----------------------------------------------------
@@ -41,16 +41,16 @@ CREATE TABLE IF NOT EXISTS `bdfarmacia`.`funcionario` (
   `nome_funcionario` VARCHAR(45) NOT NULL,
   `endereco_funcionario` VARCHAR(45) NOT NULL,
   `rg` VARCHAR(14) NULL,
-  `cpf` CHAR(11) NOT NULL,
+  `cpf` CHAR(11) UNIQUE NOT NULL,
   `data_de_nascimento` DATE NOT NULL,
   `data_de_admissao` DATE NOT NULL,
   `sexo` ENUM('Masculino', 'Feminino', 'N/A') NOT NULL,
-  `login` VARCHAR(20) NOT NULL,
+  `login` VARCHAR(20) UNIQUE NOT NULL,
   `senha` VARCHAR(45) NOT NULL,
   `fk_id_departamento` INT NOT NULL,
   `fk_id_farmacia` INT NOT NULL,
   `fk_id_tipo_func` INT NOT NULL,
-  `data_de_desligamento` DATE NOT NULL,
+  `data_de_desligamento` DATE,
   PRIMARY KEY (`id_funcionario`),
   UNIQUE INDEX `CPF_UNIQUE` (`CPF` ASC),
   INDEX `fk_id_departamento1_idx` (`fk_id_departamento` ASC),
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `bdfarmacia`.`Produto` (
   `codigo_de_barras` DOUBLE NOT NULL,
   `quantidade` INT NOT NULL,
   `tarja` VARCHAR(45) NULL,
-  `preco` DECIMAL NULL,
+  `preco` DECIMAL(5,2) NULL,
   `fk_id_farmacia` INT NOT NULL,
   `status_produto` ENUM('RESERVADO', 'DISPONÍVEL') NULL,
   `fk_id_tipo_produto` INT NOT NULL,

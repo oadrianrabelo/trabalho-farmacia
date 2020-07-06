@@ -174,8 +174,6 @@ public class ProdutoDAO {
         }
     }
     
-//    public List<Produto> listarReservados() {
-//    }
     public void excluirProduto(Produto obj) {
         try {
             String cmdsql = "DELETE FROM Produto WHERE id_produto = ?;";
@@ -221,15 +219,15 @@ public class ProdutoDAO {
             throw new RuntimeException(e);
         } 
     }
-        public List<Produto> listarMedicamentos() {
+        public List<Produto> listarMedicamentos(Farmacia obj) {
         try {
             List<Produto> lista = new ArrayList<>();
 //            String cmdsql = "SELECT id_produto, nome_produto, fornecedor, quantidade, tarja, preco, data_de_validade, data_de_fabricacao, fk_id_farmacia, statusProduto, lote, fk_id_tipo_produto, codigo_de_barras FROM Produto;";
 //            String cmdsql = "select p.id_produto, p.nome_produto, p.fornecedor, p.quantidade, p.tarja, p.preco, p.data_de_validade, p.data_de_fabricacao, p.status_produto, p.lote, p.codigo_de_barras, t.tipo_produto, f.nome_farmacia from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia);";
-            String cmdsql = "select p.*, f.nome_farmacia, t.tipo_produto from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia) where t.tipo_produto like 'medicamento';";
+            String cmdsql = "select p.*, f.nome_farmacia, t.tipo_produto from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia) where t.tipo_produto like 'medicamento' and fk_id_farmacia = ?;";
             
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
-            
+            stmt.setInt(1, obj.getIdFarmacia());
             ResultSet rs = stmt.executeQuery();
             
             
@@ -267,7 +265,94 @@ public class ProdutoDAO {
             throw new RuntimeException(e);
         }
     }
-        
+    
+
+    public List<Produto> listarTodosProdutos() {
+        try {
+            List<Produto> lista = new ArrayList<>();
+//            String cmdsql = "SELECT id_produto, nome_produto, fornecedor, quantidade, tarja, preco, data_de_validade, data_de_fabricacao, fk_id_farmacia, statusProduto, lote, fk_id_tipo_produto, codigo_de_barras FROM Produto;";
+//            String cmdsql = "select p.id_produto, p.nome_produto, p.fornecedor, p.quantidade, p.tarja, p.preco, p.data_de_validade, p.data_de_fabricacao, p.status_produto, p.lote, p.codigo_de_barras, t.tipo_produto, f.nome_farmacia from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia);";
+//            String cmdsql = "select p.*, f.nome_farmacia, t.tipo_produto from produto p inner join tipo_produto t on (p.fk_id_tipo_;produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia) where f.id_farmacia = ? order by id_produto;";
+            String cmdsql = "select p.*, f.nome_farmacia, t.tipo_produto from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia) WHERE fk_id_tipo_produto = 1 order by id_produto;";
+            PreparedStatement stmt = conecta.prepareStatement(cmdsql);
+            ResultSet rs = stmt.executeQuery();
+            
+            
+            
+            while (rs.next()) {
+                try {
+                    Produto p = new Produto();
+                    Farmacia f = new Farmacia();
+                    TipoProduto tp = new TipoProduto();
+                    p.setIdProduto(rs.getInt(1));
+                    p.setNomeProduto(rs.getString(2));
+                    p.setFornecedor(rs.getString(3));
+                    p.setLote(rs.getString(4));
+                    p.setDataFabricacao(rs.getDate(5));
+                    p.setDataValidade(rs.getDate(6));
+                    p.setCodigoBarras(rs.getLong(7));
+                    p.setQuantidade(rs.getInt(8));
+                    p.setTarja(rs.getString(9));
+                    p.setPreco(rs.getDouble(10));
+                    f.setIdFarmacia(rs.getInt(11));
+                    p.setStatus(rs.getString(12));
+                    tp.setIdTipoProduto(rs.getInt(13));
+                    f.setNomeFarmacia(rs.getString(14));
+                    tp.setTipoProduto(rs.getString(15));
+                    p.setTipoProduto(tp);
+                    p.setFarmacia(f);
+                    lista.add(p);
+                    
+                } catch (NullPointerException e) {
+                    
+                }
+                
+            } 
+            
+            return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }    
+    
+    public List<Produto> buscarTodosProdutos(String nome) {
+        try {
+            List<Produto> lista = new ArrayList<>();
+            
+            String cmdsql = "select p.id_produto, p.nome_produto, p.fornecedor, p.quantidade, p.tarja, p.preco, p.data_de_validade, p.data_de_fabricacao, p.status_produto, p.lote, p.codigo_de_barras, t.tipo_produto, f.nome_farmacia from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia) where p.nome_produto like ? and fk_id_tipo_produto = 1;";
+            
+            PreparedStatement stmt = conecta.prepareStatement(cmdsql);
+            stmt.setString(1, "%" + nome + "%");
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                Produto p = new Produto();
+                    Farmacia f = new Farmacia();
+                    TipoProduto tp = new TipoProduto();
+                    p.setIdProduto(rs.getInt(1));
+                    p.setNomeProduto(rs.getString(2));
+                    p.setFornecedor(rs.getString(3));
+                    p.setQuantidade(rs.getInt(4));
+                    p.setTarja(rs.getString(5));
+                    p.setPreco(rs.getDouble(6));
+                    p.setDataValidade(rs.getDate(7));
+                    p.setDataFabricacao(rs.getDate(8));
+                    p.setStatus(rs.getString(9));
+                    p.setLote(rs.getString(10));
+                    p.setCodigoBarras(rs.getLong(11));
+                    tp.setTipoProduto(rs.getString(12));
+                    f.setNomeFarmacia(rs.getString(13));
+                    p.setTipoProduto(tp);
+                    p.setFarmacia(f);
+                    
+                    lista.add(p);
+                    
+                } 
+            return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static java.sql.Date converteData(java.util.Date dataConverte) throws ParseException {
         String padrao = "dd/MM/yyyy";
         SimpleDateFormat df = new SimpleDateFormat(padrao);

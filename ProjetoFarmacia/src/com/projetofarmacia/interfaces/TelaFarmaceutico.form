@@ -106,7 +106,7 @@
                           </Group>
                           <Component id="ScrollPane" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="campoNome" min="-2" pref="850" max="-2" attributes="0"/>
+                              <Component id="campoNome" min="-2" pref="854" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnProcurar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>

@@ -5,7 +5,6 @@
  */
 package com.projetofarmacia.interfaces;
 
-import java.beans.PropertyVetoException;
 
 
 /**

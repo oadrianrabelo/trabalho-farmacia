@@ -6,17 +6,13 @@
 package com.projetofarmacia.interfaces;
 
 import com.projetofarmacia.DAO.FuncionarioDAO;
-import com.projetofarmacia.DAO.ProdutoDAO;
 import com.projetofarmacia.DAO.ReceitaDAO;
 import com.projetofarmacia.dialogs.camposVazios;
 import com.projetofarmacia.dialogs.falhaReceita;
 import com.projetofarmacia.dialogs.receitaSalva;
 import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Funcionario;
-import com.projetofarmacia.javabeans.Produto;
 import com.projetofarmacia.javabeans.Receita;
-import com.projetofarmacia.javabeans.TipoProduto;
-import java.text.SimpleDateFormat;
 import javax.swing.table.DefaultTableModel;
 
 /**
