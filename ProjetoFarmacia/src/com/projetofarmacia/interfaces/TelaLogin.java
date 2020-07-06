@@ -277,8 +277,6 @@ public class TelaLogin extends javax.swing.JFrame {
                 } else {
                     logar();
                 } 
-        } else {
-            System.out.println("não é enter");
         }
     }//GEN-LAST:event_campoSenhaKeyReleased
 

@@ -8,6 +8,8 @@ package com.projetofarmacia.dialogs;
 import com.projetofarmacia.DAO.ProdutoDAO;
 import com.projetofarmacia.DAO.VendaDAO;
 import com.projetofarmacia.interfaces.TelaCaixa;
+import com.projetofarmacia.interfaces.TelaLogin;
+import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Produto;
 import com.projetofarmacia.javabeans.Venda;
 import javax.swing.JTable;
@@ -146,11 +148,19 @@ public class confirmarPagamentoCartao extends javax.swing.JDialog {
             VendaDAO dao = new VendaDAO();
             Produto p = new Produto();
             ProdutoDAO pdao = new ProdutoDAO();
+            Farmacia f = new Farmacia();
+            f.setIdFarmacia(TelaLogin.idFar);
+            obj.setFarmacia(f);
             for (int i = 0; i < TelaCaixa.tabelaProduto.getRowCount(); i++) {
+                p.setIdProduto(Integer.parseInt(TelaCaixa.tabelaProduto.getValueAt(i, 6).toString()));
+                obj.setTotal(Double.parseDouble(TelaCaixa.campoTotal.getText()));
+                obj.setIdVenda(Integer.parseInt(TelaCaixa.tabelaProduto.getValueAt(i, 7).toString()));
                 obj.setStatus("FINALIZADO");
                 pdao.removeQuantidade(p);
                 dao.finalizarVenda(obj);
             }
+            TelaCaixa.total = 0;
+            TelaCaixa.campoTotal.setText("");
             limparTabela(TelaCaixa.tabelaProduto);
             this.dispose();
         }

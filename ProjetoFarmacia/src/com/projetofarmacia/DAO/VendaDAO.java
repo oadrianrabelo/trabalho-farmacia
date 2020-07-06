@@ -4,6 +4,7 @@ import com.projetofarmacia.tests.*;
 import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Funcionario;
 import com.projetofarmacia.javabeans.Produto;
+import com.projetofarmacia.javabeans.Reservas;
 import com.projetofarmacia.jdbc.ConnectionFactory;
 import com.projetofarmacia.javabeans.Venda;
 import java.sql.Connection;
@@ -51,7 +52,7 @@ public class VendaDAO {
     public List<Venda> listarAberto(Farmacia far) {
         try {
             List<Venda> lista = new ArrayList<>();
-            String cmdsql = "select v.*, p.preco, p.nome_produto, f.nome_funcionario from venda v inner join produto p on (v.fk_id_produto = p.id_produto) inner join funcionario f on (v.fk_id_funcionario = f.id_funcionario) WHERE `status` like '%em aberto%' and v.fk_id_farmacia = ?;";
+            String cmdsql = "select v.*, p.preco, p.nome_produto, f.nome_funcionario from venda v inner join produto p on (v.fk_id_produto = p.id_produto) inner join funcionario f on (v.fk_id_funcionario = f.id_funcionario) WHERE `status` like '%em aberto%' and v.fk_id_farmacia = ? ORDER BY id_venda;";
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             stmt.setInt(1, far.getIdFarmacia());
             ResultSet rs = stmt.executeQuery();
@@ -99,20 +100,38 @@ public class VendaDAO {
         try {
             String cmdsql = "DELETE FROM Venda WHERE id_venda = ?;";
             
-            PreparedStatement stmt = conecta.prepareStatement(cmdsql);
-            stmt.setInt(1, obj.getIdVenda());
-            stmt.executeUpdate();
-            stmt.close();
+            try (PreparedStatement stmt = conecta.prepareStatement(cmdsql)) {
+                stmt.setInt(1, obj.getIdVenda());
+                stmt.executeUpdate();
+                stmt.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void alterarStatus(Venda obj) {
+        try {
+            String cmdsql = "UPDATE Venda SET `status`= 'NO CAIXA' WHERE id_venda = ?;";
+            try (PreparedStatement stmt = conecta.prepareStatement(cmdsql)) {
+                stmt.setInt(1, obj.getIdVenda());
+                
+                stmt.executeUpdate();
+                stmt.close();
+            } 
+            
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
     public void finalizarVenda(Venda obj) {
         try {
-            String cmdsql = "UPDATE Venda SET `status` = 'finalizado' WHERE `status` like 'EM ABERTO' OR `status` LIKE 'NO CAIXA';";
+//            String cmdsql = "UPDATE Venda SET `status` = 'finalizado' WHERE `status` LIKE 'NO CAIXA';";
+            String cmdsql = "UPDATE Venda SET total = ?, `status` = 'FINALIZADO' WHERE `status`LIKE 'NO CAIXA' and id_venda = ? and fk_id_farmacia = ?;";
             
             try (PreparedStatement stmt = conecta.prepareStatement(cmdsql)) {
-                
+                stmt.setDouble(1, obj.getTotal());
+                stmt.setInt(2, obj.getIdVenda());
+                stmt.setInt(3, obj.getFarmacia().getIdFarmacia());
                 stmt.executeUpdate();
                 stmt.close();
             } catch (SQLException e) {
@@ -122,8 +141,60 @@ public class VendaDAO {
             throw new RuntimeException(e);
         }
     }
-
     
+    public List<Venda> buscarCarrinho(String nome, Farmacia far) {
+        try {
+            List<Venda> lista = new ArrayList<>();
+            String cmdsql = "SELECT nome FROM Venda where `status` like 'EM ABERTO' and nome like ? and fk_id_farmacia = ?;";
+            PreparedStatement stmt = conecta.prepareStatement(cmdsql);
+            stmt.setString(1, "%" + nome + "%");
+            stmt.setInt(2, far.getIdFarmacia());
+            ResultSet rs = stmt.executeQuery();
+            
+             while (rs.next()) {
+                try {
+                    Farmacia fa = new Farmacia();
+                    Venda v = new Venda();
+                    v.setNome(rs.getString(1));
+                    lista.add(v);
+                    
+                } catch (NullPointerException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            return lista;
+            
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public List<Venda> listarIds(Farmacia far) {
+        try {
+            List<Venda> lista = new ArrayList<>();
+            String cmdsql = "select id_venda from venda where `status`like 'no caixa' and fk_id_farmacia = ?;";
+            PreparedStatement stmt = conecta.prepareStatement(cmdsql);
+            stmt.setInt(1, far.getIdFarmacia());
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                try {
+                    Produto p = new Produto();
+                    Venda v = new Venda();
+                    v.setIdVenda(rs.getInt(1));
+                    
+                    lista.add(v);
+                    
+                } catch (NullPointerException e) {
+                    
+                }
+            } 
+            
+            return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     
     public static java.sql.Date converteData(java.util.Date dataConverte) throws ParseException {
         String padrao = "dd/MM/yyyy";

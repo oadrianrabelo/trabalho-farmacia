@@ -156,10 +156,7 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
 
     private void Reservar() {
         try {
-            if (Carrinho.tabelaCarrinho.getSelectedRow() < 0) {
-                new selecioneTabela(null, true).toString();
-            } else {
-                
+
                 Reservas obj = new Reservas();
                 Farmacia f = new Farmacia();
                 Produto p = new Produto();
@@ -183,30 +180,44 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
 //                };
 //                tabelaDestino.addRow(obj01);
                 dao.reservarProduto(obj);
-               
-            }
+
         } catch (Exception e) {
             new produtoReservadoFalha(null, true).setVisible(true);
             throw new RuntimeException(e);
         }
+            
     }
     private void campoReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoReservarActionPerformed
         if (campoNome.getText().equals("") || campoTelefone.getText().equals("")) {
             new camposVazios(null, true).setVisible(true);
         } else {
-            Reservar();
-            new produtoReservadoSucess(null, true).setVisible(true);
-            TelaFarmaceutico.limparTabela(Carrinho.tabelaCarrinho);
-            this.dispose();
+            if (Carrinho.tabelaCarrinho.getSelectedRow() != -1) {
+                Reservar();
+                DefaultTableModel tabela = (DefaultTableModel) Carrinho.tabelaCarrinho.getModel();
+                tabela.removeRow(Carrinho.tabelaCarrinho.getSelectedRow());
+                new produtoReservadoSucess(null, true).setVisible(true);
+                this.dispose();
+            } else {
+                new selecioneTabela(null, true).setVisible(true);
+            }
         }
     }//GEN-LAST:event_campoReservarActionPerformed
 
     private void campoTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTelefoneKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            Reservar();
-            TelaFarmaceutico.limparTabela(Carrinho.tabelaCarrinho);
-            new produtoReservadoSucess(null, true).setVisible(true);
-            dispose();
+            if (campoNome.getText().equals("") || campoTelefone.getText().equals("")) {
+                new camposVazios(null, true).setVisible(true);
+            } else {
+                if (Carrinho.tabelaCarrinho.getSelectedRow() != -1 ) {
+                    Reservar();
+                    DefaultTableModel tabela = (DefaultTableModel) Carrinho.tabelaCarrinho.getModel();
+                    tabela.removeRow(Carrinho.tabelaCarrinho.getSelectedRow());
+                    new produtoReservadoSucess(null, true).setVisible(true);
+                    dispose();
+                } else {
+                    new selecioneTabela(null, true).setVisible(true);
+                }
+            }
         }
     }//GEN-LAST:event_campoTelefoneKeyReleased
 

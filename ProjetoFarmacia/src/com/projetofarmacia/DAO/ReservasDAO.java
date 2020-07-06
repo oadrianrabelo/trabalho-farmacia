@@ -55,7 +55,7 @@ public class ReservasDAO {
     public List<Reservas> buscarReservas(String nome, Farmacia far) {
         try {
             List<Reservas> lista = new ArrayList<>();
-            String cmdsql = "SELECT nome FROM reservas where nome_cliente like ? and fk_id_farmacia = ? ;";
+            String cmdsql = "SELECT nome_cliente FROM reservas where nome_cliente like ? and fk_id_farmacia = ?;";
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             stmt.setString(1, "%" + nome + "%");
             stmt.setInt(2, far.getIdFarmacia());

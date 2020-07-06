@@ -342,7 +342,7 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
         Object[] obj = {
             tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 0),
             tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 1),
-            tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 3),
+            1,
             tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 4),
             tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 5),
             tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 6),

@@ -8,6 +8,8 @@ package com.projetofarmacia.dialogs;
 import com.projetofarmacia.DAO.ProdutoDAO;
 import com.projetofarmacia.DAO.VendaDAO;
 import com.projetofarmacia.interfaces.TelaCaixa;
+import com.projetofarmacia.interfaces.TelaLogin;
+import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Produto;
 import com.projetofarmacia.javabeans.Venda;
 import javax.swing.JTable;
@@ -18,129 +20,130 @@ import javax.swing.table.DefaultTableModel;
  * @author Ádrian Rabelo
  */
 public class confirmarPagamentoDinheiro extends javax.swing.JDialog {
-
+    
     /**
      * Creates new form confirmarPagamentoDinheiro
      */
     public confirmarPagamentoDinheiro(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        lblInsuficiente.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         btnFinalizar = new javax.swing.JButton();
-        campoTroco = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        campoTroco1 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         lblTroco = new javax.swing.JLabel();
+        lblInsuficiente = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(52, 152, 219));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnFinalizar.setBackground(new java.awt.Color(52, 152, 219));
+        btnFinalizar.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        btnFinalizar.setForeground(new java.awt.Color(255, 255, 255));
         btnFinalizar.setText("Finalizar");
         btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFinalizarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnFinalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, -1, -1));
 
-        campoTroco.addKeyListener(new java.awt.event.KeyAdapter() {
+        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Troco R$:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 109, -1, -1));
+
+        campoTroco1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        campoTroco1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                campoTrocoKeyReleased(evt);
+                campoTroco1KeyReleased(evt);
             }
         });
+        jPanel1.add(campoTroco1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 187, -1));
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Valor dado pelo cliente:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 29, -1, -1));
 
-        jLabel2.setText("Troco R$:");
-
+        lblTroco.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lblTroco.setForeground(new java.awt.Color(255, 255, 255));
         lblTroco.setText("0.00");
+        jPanel1.add(lblTroco, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 109, -1, -1));
+
+        lblInsuficiente.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        lblInsuficiente.setForeground(new java.awt.Color(204, 0, 0));
+        lblInsuficiente.setText("Valor insuficiente");
+        jPanel1.add(lblInsuficiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 141, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnFinalizar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lblTroco)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(campoTroco, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(170, 170, 170)))
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(69, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(campoTroco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(lblTroco))
-                .addGap(132, 132, 132)
-                .addComponent(btnFinalizar)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void campoTrocoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTrocoKeyReleased
-        if (!campoTroco.getText().equals("")) {
-            mudaTroco(Double.parseDouble(campoTroco.getText().replaceAll(" ", "")));
+    private void campoTroco1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTroco1KeyReleased
+        if (!campoTroco1.getText().equals("")) {
+            mudaTroco(Double.parseDouble(campoTroco1.getText().replaceAll(" ", "")), TelaCaixa.total);
+//            mudaTroco(Double.parseDouble(campoTroco.getText().replaceAll(" ", "")));
         } else {
-            mudaTroco(0);
+            mudaTroco(0, 15);
         }
-    }//GEN-LAST:event_campoTrocoKeyReleased
+    }//GEN-LAST:event_campoTroco1KeyReleased
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
         Venda obj = new Venda();
         VendaDAO dao = new VendaDAO();
         Produto p = new Produto();
         ProdutoDAO pdao = new ProdutoDAO();
+        Farmacia f = new Farmacia();
+        f.setIdFarmacia(TelaLogin.idFar);
+        obj.setFarmacia(f);
         for (int i = 0; i < TelaCaixa.tabelaProduto.getRowCount(); i++) {
+            p.setIdProduto(Integer.parseInt(TelaCaixa.tabelaProduto.getValueAt(i, 6).toString()));
+            obj.setIdVenda(Integer.parseInt(TelaCaixa.tabelaProduto.getValueAt(i, 7).toString()));
+            obj.setTotal(Double.parseDouble(TelaCaixa.campoTotal.getText()));
             obj.setStatus("FINALIZADO");
             pdao.removeQuantidade(p);
             dao.finalizarVenda(obj);
         }
+        TelaCaixa.total = 0;
+        TelaCaixa.campoTotal.setText("");
         limparTabela(TelaCaixa.tabelaProduto);
         this.dispose();
         
     }//GEN-LAST:event_btnFinalizarActionPerformed
-    private void mudaTroco(double troco) {
-        if (Double.parseDouble(lblTroco.getText()) < 0) {
-            lblTroco.setText("0");
-            troco = 0;
+    private void mudaTroco(double dinheiro, double preco) {
+        double troco = dinheiro - preco;
+        if (troco > 0 || troco >= TelaCaixa.total) {
+            lblInsuficiente.setVisible(false);
+            lblTroco.setText(String.valueOf(troco));
+            btnFinalizar.setEnabled(true);
         } else {
-            if (troco > 0) {
-                troco = troco - TelaCaixa.total;
-            } else if (troco < 0){
-                lblTroco.setText("0");
-                troco = 0;
-            }
-            
+            lblTroco.setText("0.00");
+            lblInsuficiente.setVisible(true);
+            btnFinalizar.setEnabled(false);
         }
-            
-        System.out.println(troco);
-        lblTroco.setText(String.valueOf(troco));
     }
     
     private void limparTabela(JTable table) {
@@ -193,9 +196,11 @@ public class confirmarPagamentoDinheiro extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnFinalizar;
-    private javax.swing.JTextField campoTroco;
+    private javax.swing.JTextField campoTroco1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblInsuficiente;
     private javax.swing.JLabel lblTroco;
     // End of variables declaration//GEN-END:variables
 }

@@ -292,11 +292,16 @@ public class FuncionarioDAO {
     }
     
     public static java.sql.Date converteData(java.util.Date dataConverte) throws ParseException {
-        String padrao = "dd/MM/yyyy";
-        SimpleDateFormat df = new SimpleDateFormat(padrao);
-        Date data = Calendar.getInstance().getTime();
-        String dataFormatada = df.format(dataConverte);
-        return new java.sql.Date(df.parse(dataFormatada).getTime());
+        if (dataConverte == null) {
+            return null;
+        } else {
+            String padrao = "dd/MM/yyyy";
+            SimpleDateFormat df = new SimpleDateFormat(padrao);
+            Date data = Calendar.getInstance().getTime();
+            String dataFormatada = df.format(dataConverte);
+            return new java.sql.Date(df.parse(dataFormatada).getTime());
+            
+        }
         
     }
 }

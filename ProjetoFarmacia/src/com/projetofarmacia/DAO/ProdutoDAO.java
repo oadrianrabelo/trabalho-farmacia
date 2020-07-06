@@ -192,11 +192,9 @@ public class ProdutoDAO {
         try {
             String cmsql = "update produto set quantidade = quantidade - 1 where id_produto = ?;";
             try (PreparedStatement stmt = conecta.prepareStatement(cmsql)) {
-//                stmt.setInt(1, obj.getQuantidade());
                 stmt.setInt(1, obj.getIdProduto());
                 stmt.executeUpdate();
                 stmt.close();
-                System.out.println("removeuDAO");
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

@@ -18,8 +18,13 @@ import com.projetofarmacia.javabeans.TipoProduto;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 
 /**
  *
@@ -34,6 +39,12 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         initComponents();
         campoTipo.setBackground(Color.WHITE);
         campoTarja.setBackground(Color.WHITE);
+        DecimalFormat decimal = new DecimalFormat("#,##0.00");
+        NumberFormatter numFormatter = new NumberFormatter(decimal);
+        numFormatter.setFormat(decimal);
+        numFormatter.setAllowsInvalid(false);
+        DefaultFormatterFactory dfFactory = new DefaultFormatterFactory(numFormatter);
+        campoPreco.setFormatterFactory(dfFactory);
     }
 
     private void limparCampos() {
@@ -58,7 +69,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             obj.setNomeProduto(campoNome.getText());
             obj.setFornecedor(campoFornecedor.getText());
             obj.setLote(campoLote.getText());
-            obj.setPreco(Double.parseDouble(campoPreco.getText()));
+            obj.setPreco(Double.parseDouble(campoPreco.getText().replace(",", ".")));
             obj.setQuantidade(Integer.parseInt(campoQuantidade.getText()));
             obj.setCodigoBarras(Long.parseLong(campoCodBar.getText()));
             obj.setDataValidade(new SimpleDateFormat("dd/MM/yyyy").parse(campoValidade.getText()));
@@ -176,7 +187,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         campoPreco.setBackground(new java.awt.Color(52, 152, 219));
         campoPreco.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         campoPreco.setForeground(new java.awt.Color(255, 255, 255));
-        campoPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         campoPreco.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         campoPreco.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -339,7 +349,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                 .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painel01Layout.createSequentialGroup()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 160, Short.MAX_VALUE))
+                        .addGap(21, 164, Short.MAX_VALUE))
                     .addGroup(painel01Layout.createSequentialGroup()
                         .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -440,14 +450,15 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_formMouseEntered
 
-    private void campoPrecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPrecoKeyPressed
-    }//GEN-LAST:event_campoPrecoKeyPressed
-
     private void campoPrecoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPrecoKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             alteracaoECadastro();
         }
     }//GEN-LAST:event_campoPrecoKeyReleased
+
+    private void campoPrecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPrecoKeyPressed
+
+    }//GEN-LAST:event_campoPrecoKeyPressed
     private void setarDados() {
         try {
             TipoProduto tp = new TipoProduto();

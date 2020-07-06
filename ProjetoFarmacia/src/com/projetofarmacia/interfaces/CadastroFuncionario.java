@@ -598,10 +598,12 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             obj.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(campoNascimento.getText()));
             obj.setDataAdmissao(new SimpleDateFormat("dd/MM/yyyy").parse(campoAdmissao.getText()));
             if (campoDesligamento.getText().equals("  /  /    ")) {
-                obj.setDataDesligamento(new SimpleDateFormat("dd/MM/yyyy").parse("  /  /    "));
+                obj.setDataDesligamento(new SimpleDateFormat("dd/MM/yyyy").parse("00/00/0000"));
+                
+            } else {
+                obj.setDataDesligamento(new SimpleDateFormat("dd/MM/yyyy").parse(campoDesligamento.getText()));
                 
             }
-            obj.setDataDesligamento(new SimpleDateFormat("dd/MM/yyyy").parse(campoDesligamento.getText()));
             
             obj.setSexo(cbSexo.getSelectedItem().toString());
             obj.setLoginFuncionario(campoLogin.getText());

@@ -268,6 +268,7 @@ public class Carrinho extends javax.swing.JInternalFrame {
             campoNome.setText("");
             TelaFarmaceutico.limparTabela(tabelaCarrinho);
             new dadosEnviadosCaixaSucess(null, true).setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_btnCaixaActionPerformed
 
