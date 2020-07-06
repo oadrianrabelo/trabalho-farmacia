@@ -20,9 +20,11 @@ import javax.swing.table.DefaultTableModel;
  * @author Ádrian Rabelo
  */
 public class confirmarPagamentoDinheiro extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
     
     /**
      * Creates new form confirmarPagamentoDinheiro
+     * @param parent
      */
     public confirmarPagamentoDinheiro(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -37,7 +39,7 @@ public class confirmarPagamentoDinheiro extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         btnFinalizar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        campoTroco1 = new javax.swing.JTextField();
+        campoTroco = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         lblTroco = new javax.swing.JLabel();
         lblInsuficiente = new javax.swing.JLabel();
@@ -63,13 +65,13 @@ public class confirmarPagamentoDinheiro extends javax.swing.JDialog {
         jLabel2.setText("Troco R$:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 109, -1, -1));
 
-        campoTroco1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        campoTroco1.addKeyListener(new java.awt.event.KeyAdapter() {
+        campoTroco.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        campoTroco.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                campoTroco1KeyReleased(evt);
+                campoTrocoKeyReleased(evt);
             }
         });
-        jPanel1.add(campoTroco1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 187, -1));
+        jPanel1.add(campoTroco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 187, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -102,14 +104,14 @@ public class confirmarPagamentoDinheiro extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void campoTroco1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTroco1KeyReleased
-        if (!campoTroco1.getText().equals("")) {
-            mudaTroco(Double.parseDouble(campoTroco1.getText().replaceAll(" ", "")), TelaCaixa.total);
+    private void campoTrocoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTrocoKeyReleased
+        if (!campoTroco.getText().equals("")) {
+            mudaTroco(Double.parseDouble(campoTroco.getText().replaceAll(" ", "")), TelaCaixa.total);
 //            mudaTroco(Double.parseDouble(campoTroco.getText().replaceAll(" ", "")));
         } else {
             mudaTroco(0, 15);
         }
-    }//GEN-LAST:event_campoTroco1KeyReleased
+    }//GEN-LAST:event_campoTrocoKeyReleased
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
         Venda obj = new Venda();
@@ -196,7 +198,7 @@ public class confirmarPagamentoDinheiro extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnFinalizar;
-    private javax.swing.JTextField campoTroco1;
+    private javax.swing.JTextField campoTroco;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
