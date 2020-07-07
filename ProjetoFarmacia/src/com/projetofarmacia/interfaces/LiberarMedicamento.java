@@ -14,6 +14,7 @@ import com.projetofarmacia.dialogs.selecioneTabela;
 import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Funcionario;
 import com.projetofarmacia.javabeans.Receita;
+import javax.swing.JDesktopPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 public class LiberarMedicamento extends javax.swing.JInternalFrame {
     private Funcionario f = new Funcionario();
     private Farmacia far = new Farmacia();
+    public static boolean isReserva = false;
     /**
      * Creates new form liberarMedicamento
      */
@@ -70,7 +72,6 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         campoNomePac = new javax.swing.JTextField();
-        campoCPF = new javax.swing.JFormattedTextField();
         campoEnderecoPaciente = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -81,6 +82,7 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        campoCPF = new javax.swing.JFormattedTextField();
 
         setClosable(true);
 
@@ -142,16 +144,6 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
             }
         });
 
-        campoCPF.setBackground(new java.awt.Color(52, 152, 219));
-        campoCPF.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        campoCPF.setForeground(new java.awt.Color(255, 255, 255));
-        campoCPF.setOpaque(false);
-        campoCPF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoCPFActionPerformed(evt);
-            }
-        });
-
         campoEnderecoPaciente.setBackground(new java.awt.Color(52, 152, 219));
         campoEnderecoPaciente.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         campoEnderecoPaciente.setForeground(new java.awt.Color(255, 255, 255));
@@ -201,6 +193,16 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Paciente");
 
+        campoCPF.setBackground(new java.awt.Color(52, 152, 219));
+        campoCPF.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        campoCPF.setForeground(new java.awt.Color(255, 255, 255));
+        try {
+            campoCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        campoCPF.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout painel01Layout = new javax.swing.GroupLayout(painel01);
         painel01.setLayout(painel01Layout);
         painel01Layout.setHorizontalGroup(
@@ -222,9 +224,11 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel4)
                                     .addComponent(campoNomePac, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(campoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(painel01Layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(151, 151, 151))
+                                    .addComponent(campoCPF)))))
                     .addGroup(painel01Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,10 +332,6 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
     private void campoNomeProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNomeProfActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoNomeProfActionPerformed
-
-    private void campoCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCPFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoCPFActionPerformed
     private void enviaCarrinho() {
         DefaultTableModel tabelaOrigem = (DefaultTableModel) TelaFarmaceutico.tabelaProdutos.getModel();
         DefaultTableModel tabelaDestino = (DefaultTableModel) Carrinho.tabelaCarrinho.getModel();
@@ -349,12 +349,22 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
         };
         tabelaDestino.addRow(obj);
     }
+    
     private void brnCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnCarrinhoActionPerformed
         if (campoNomeProf.getText().equals("") || campoNomePac.getText().equals("")
             || campoCRM.getText().equals("") || campoCPF.getText().equals("")
             || campoEnderecoProf.getText().equals("") || campoEnderecoPaciente.getText().equals("")) {
             
             new camposVazios(null, true).setVisible(true);
+        } else if (isReserva) {
+//            Cadastrar();
+            System.out.println("cadastrou");
+            ReservarProduto rp = new ReservarProduto();
+            rp.campoNome.setText(campoNomePac.getText());
+            JDesktopPane desktopPane = getDesktopPane();
+            desktopPane.add(rp);
+            rp.setVisible(true);
+            isReserva = false;
         } else if (TelaFarmaceutico.tabelaProdutos.getSelectedRow() != -1) {
             enviaCarrinho();
             Cadastrar();

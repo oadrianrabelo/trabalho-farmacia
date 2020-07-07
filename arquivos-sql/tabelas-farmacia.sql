@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `bdfarmacia`.`Reservas`(
 	`id_reserva`INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	`nome_cliente` VARCHAR(45) NOT NULL,
     `nome_produto` VARCHAR(45) NOT NULL,
-    `telefone`VARCHAR(11) NOT NULL,
+    `telefone`VARCHAR(15) NOT NULL,
     `fk_id_farmacia` INT NOT NULL,
     `fk_id_produto` INT NOT NULL,
     CONSTRAINT `fk_id_produto1`
@@ -169,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `bdfarmacia`.`Receita` (
   `endereco_paciente` VARCHAR(45) NULL,
   `endereco_profissional` VARCHAR(45) NULL,
   `crm` VARCHAR(45) NULL,
-  `cpf` VARCHAR(11) UNIQUE NOT NULL,
+  `cpf` VARCHAR(11) NOT NULL,
   `fk_id_funcionario` INT NOT NULL,
   `fk_id_farmacia` INT NOT NULL,
   PRIMARY KEY (`id_receita`),

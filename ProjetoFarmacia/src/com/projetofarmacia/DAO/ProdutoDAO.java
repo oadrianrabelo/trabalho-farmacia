@@ -224,7 +224,7 @@ public class ProdutoDAO {
             List<Produto> lista = new ArrayList<>();
 //            String cmdsql = "SELECT id_produto, nome_produto, fornecedor, quantidade, tarja, preco, data_de_validade, data_de_fabricacao, fk_id_farmacia, statusProduto, lote, fk_id_tipo_produto, codigo_de_barras FROM Produto;";
 //            String cmdsql = "select p.id_produto, p.nome_produto, p.fornecedor, p.quantidade, p.tarja, p.preco, p.data_de_validade, p.data_de_fabricacao, p.status_produto, p.lote, p.codigo_de_barras, t.tipo_produto, f.nome_farmacia from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia);";
-            String cmdsql = "select p.*, f.nome_farmacia, t.tipo_produto from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia) where t.tipo_produto like 'medicamento' and fk_id_farmacia = ?;";
+            String cmdsql = "select p.*, f.nome_farmacia, t.tipo_produto from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia) where p.quantidade > 0 and t.tipo_produto like 'medicamento' and fk_id_farmacia = ?;";
             
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             stmt.setInt(1, obj.getIdFarmacia());
@@ -273,7 +273,7 @@ public class ProdutoDAO {
 //            String cmdsql = "SELECT id_produto, nome_produto, fornecedor, quantidade, tarja, preco, data_de_validade, data_de_fabricacao, fk_id_farmacia, statusProduto, lote, fk_id_tipo_produto, codigo_de_barras FROM Produto;";
 //            String cmdsql = "select p.id_produto, p.nome_produto, p.fornecedor, p.quantidade, p.tarja, p.preco, p.data_de_validade, p.data_de_fabricacao, p.status_produto, p.lote, p.codigo_de_barras, t.tipo_produto, f.nome_farmacia from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia);";
 //            String cmdsql = "select p.*, f.nome_farmacia, t.tipo_produto from produto p inner join tipo_produto t on (p.fk_id_tipo_;produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia) where f.id_farmacia = ? order by id_produto;";
-            String cmdsql = "select p.*, f.nome_farmacia, t.tipo_produto from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia) WHERE fk_id_tipo_produto = 1 order by id_produto;";
+            String cmdsql = "select p.*, f.nome_farmacia, t.tipo_produto from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia) WHERE p.quantidade > 1 and fk_id_tipo_produto = 1 order by id_produto;";
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             ResultSet rs = stmt.executeQuery();
             
@@ -319,7 +319,7 @@ public class ProdutoDAO {
         try {
             List<Produto> lista = new ArrayList<>();
             
-            String cmdsql = "select p.id_produto, p.nome_produto, p.fornecedor, p.quantidade, p.tarja, p.preco, p.data_de_validade, p.data_de_fabricacao, p.status_produto, p.lote, p.codigo_de_barras, t.tipo_produto, f.nome_farmacia from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia) where p.nome_produto like ? and fk_id_tipo_produto = 1;";
+            String cmdsql = "select p.id_produto, p.nome_produto, p.fornecedor, p.quantidade, p.tarja, p.preco, p.data_de_validade, p.data_de_fabricacao, p.status_produto, p.lote, p.codigo_de_barras, t.tipo_produto, f.nome_farmacia from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia) where p.nome_produto like ? and fk_id_tipo_produto = 1 and quantidade > 1;";
             
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             stmt.setString(1, "%" + nome + "%");
@@ -359,7 +359,7 @@ public class ProdutoDAO {
             List<Produto> lista = new ArrayList<>();
 //            String cmdsql = "SELECT id_produto, nome_produto, fornecedor, quantidade, tarja, preco, data_de_validade, data_de_fabricacao, fk_id_farmacia, statusProduto, lote, fk_id_tipo_produto, codigo_de_barras FROM Produto;";
 //            String cmdsql = "select p.id_produto, p.nome_produto, p.fornecedor, p.quantidade, p.tarja, p.preco, p.data_de_validade, p.data_de_fabricacao, p.status_produto, p.lote, p.codigo_de_barras, t.tipo_produto, f.nome_farmacia from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia);";
-            String cmdsql = "select p.*, f.nome_farmacia, t.tipo_produto from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia) where f.id_farmacia = ? and tarja like 'Sem tarja' order by id_produto;";
+            String cmdsql = "select p.*, f.nome_farmacia, t.tipo_produto from produto p inner join tipo_produto t on (p.fk_id_tipo_produto = t.id_tipo_produto) inner join farmacia f on (p.fk_id_farmacia = f.id_farmacia) where p.quantidade > 0 and f.id_farmacia = ? and tarja like 'Sem tarja' order by id_produto;";
             
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             stmt.setInt(1, far.getIdFarmacia());

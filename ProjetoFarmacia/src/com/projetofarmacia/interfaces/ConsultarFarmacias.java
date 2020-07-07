@@ -205,10 +205,19 @@ public class ConsultarFarmacias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_campoPesquisarKeyReleased
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
-        ReservarProduto rp1 = new ReservarProduto();
-        JDesktopPane desktopPane = getDesktopPane();
-        desktopPane.add(rp1);
-        rp1.setVisible(true);
+        String tarja = String.valueOf(tabelaFarmacias.getValueAt(tabelaFarmacias.getSelectedRow(), 4).toString());
+        if (tarja.equals("Tarja preta") || tarja.equals("Tarja vermelha (com retenção da receita)") || tarja.equals("Tarja vermelha (sem retenção da receita)") || tarja.equals("Tarja amarela")) {
+            LiberarMedicamento lm = new LiberarMedicamento();
+            JDesktopPane desktopPane = getDesktopPane();
+            desktopPane.add(lm);
+            lm.isReserva = true;
+            lm.setVisible(true);
+        }
+//        ReservarProduto rp1 = new ReservarProduto();
+//        JDesktopPane desktopPane = getDesktopPane();
+//        desktopPane.add(rp1);
+//        rp1.setVisible(true);
+        
     }//GEN-LAST:event_btnReservarActionPerformed
 
     private void tabelaFarmaciasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaFarmaciasKeyReleased

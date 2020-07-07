@@ -480,18 +480,18 @@ public class TelaCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProcurarProdutoActionPerformed
 
     private void tabelaProdutoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutoMousePressed
-        Point ponteiro = evt.getPoint();
-        int cliques = evt.getClickCount();
-        if (cliques == 2 && tabelaProduto.getSelectedRow() != -1) {
-            double subtotal;
-            subtotal = Double.parseDouble(tabelaProduto.getValueAt(tabelaProduto.getSelectedRow(), 2).toString());
-//            total -= subtotal;
-            if (total <=0) {
-                total = 0;
-            }
-            removeItens(tabelaProduto);
-            campoTotal.setText(String.valueOf(total));
-        } 
+//        Point ponteiro = evt.getPoint();
+//        int cliques = evt.getClickCount();
+//        if (cliques == 2 && tabelaProduto.getSelectedRow() != -1) {
+//            double subtotal;
+//            subtotal = Double.parseDouble(tabelaProduto.getValueAt(tabelaProduto.getSelectedRow(), 2).toString());
+////            total -= subtotal;
+//            if (total <=0) {
+//                total = 0;
+//            }
+//            removeItens(tabelaProduto);
+//            campoTotal.setText(String.valueOf(total));
+//        } 
     }//GEN-LAST:event_tabelaProdutoMousePressed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -613,7 +613,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                 tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), 4),
                 daof.nomeFarmacia(f),
                 tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), 6),
-                Listarids()
+                tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), 7)
                 };
                 tabelaDestiny.addRow(obj);
             } else {
@@ -677,7 +677,9 @@ public class TelaCaixa extends javax.swing.JFrame {
             for(Venda v : listaDeVenda) {
                 id = v.getIdVenda();
             }
+            
             return id+1;
+                
         } catch (Exception e) {
            throw new RuntimeException(e);
         }
@@ -744,12 +746,15 @@ public class TelaCaixa extends javax.swing.JFrame {
         Venda obj = new Venda();
         VendaDAO dao = new VendaDAO();
         Produto p = new Produto();
+        
         ProdutoDAO pdao = new ProdutoDAO();
         Farmacia f = new Farmacia();
         for (int i = 0; i < TelaCaixa.tabelaProduto.getRowCount(); i++) {
             f.setIdFarmacia(TelaLogin.idFar);
             obj.setNome("CANCELADO");
+            obj.setFarmacia(f);
             obj.setStatus("FINALIZADO");
+            obj.setTotal(0);
             dao.finalizarVenda(obj);
         }
         TelaCaixa.total = 0;

@@ -8,13 +8,17 @@ package com.projetofarmacia.interfaces;
 
 import com.projetofarmacia.DAO.ReservasDAO;
 import com.projetofarmacia.dialogs.camposVazios;
+import com.projetofarmacia.dialogs.nenhumaLinha;
 import com.projetofarmacia.dialogs.produtoReservadoFalha;
 import com.projetofarmacia.dialogs.produtoReservadoSucess;
 import com.projetofarmacia.dialogs.selecioneTabela;
+import static com.projetofarmacia.interfaces.TelaFarmaceutico.pane;
+import static com.projetofarmacia.interfaces.TelaFarmaceutico.tabelaProdutos;
 import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Produto;
 import com.projetofarmacia.javabeans.Reservas;
 import java.awt.event.KeyEvent;
+import javax.swing.JDesktopPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -45,10 +49,10 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
 
         painel01 = new javax.swing.JPanel();
         campoNome = new javax.swing.JTextField();
-        campoTelefone = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        campoTelefone = new javax.swing.JFormattedTextField();
         campoReservar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(52, 152, 219));
@@ -61,15 +65,6 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
         campoNome.setForeground(new java.awt.Color(255, 255, 255));
         campoNome.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
 
-        campoTelefone.setBackground(new java.awt.Color(52, 152, 219));
-        campoTelefone.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        campoTelefone.setForeground(new java.awt.Color(255, 255, 255));
-        campoTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                campoTelefoneKeyReleased(evt);
-            }
-        });
-
         jLabel6.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Telefone");
@@ -81,6 +76,16 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Nome");
+
+        campoTelefone.setBackground(new java.awt.Color(52, 152, 219));
+        campoTelefone.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        campoTelefone.setForeground(new java.awt.Color(255, 255, 255));
+        try {
+            campoTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        campoTelefone.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout painel01Layout = new javax.swing.GroupLayout(painel01);
         painel01.setLayout(painel01Layout);
@@ -100,9 +105,9 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel6))))
                     .addGroup(painel01Layout.createSequentialGroup()
                         .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(campoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         painel01Layout.setVerticalGroup(
             painel01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,43 +202,24 @@ public class ReservarProduto extends javax.swing.JInternalFrame {
             if (Carrinho.tabelaCarrinho.getSelectedRow() != -1) {
                 Reservar(Carrinho.tabelaCarrinho);
                 DefaultTableModel tabela = (DefaultTableModel) Carrinho.tabelaCarrinho.getModel();
-                tabela.removeRow(Carrinho.tabelaCarrinho.getSelectedRow());
                 new produtoReservadoSucess(null, true).setVisible(true);
+                tabela.removeRow(Carrinho.tabelaCarrinho.getSelectedRow());
                 this.dispose();
             } else if (ConsultarFarmacias.tabelaFarmacias.getSelectedRow() != -1){
                 Reservar(ConsultarFarmacias.tabelaFarmacias);
                 DefaultTableModel tabela = (DefaultTableModel) ConsultarFarmacias.tabelaFarmacias.getModel();
-                tabela.removeRow(ConsultarFarmacias.tabelaFarmacias.getSelectedRow());
                 new produtoReservadoSucess(null, true).setVisible(true);
                 this.dispose();
             } else {
                 new selecioneTabela(null, true).setVisible(true);
-                
+
             }
         }
     }//GEN-LAST:event_campoReservarActionPerformed
 
-    private void campoTelefoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTelefoneKeyReleased
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (campoNome.getText().equals("") || campoTelefone.getText().equals("")) {
-                new camposVazios(null, true).setVisible(true);
-            } else {
-                if (Carrinho.tabelaCarrinho.getSelectedRow() != -1 || ConsultarFarmacias.tabelaFarmacias.getSelectedRow() != -1) {
-//                    Reservar();
-                    DefaultTableModel tabela = (DefaultTableModel) Carrinho.tabelaCarrinho.getModel();
-                    tabela.removeRow(Carrinho.tabelaCarrinho.getSelectedRow());
-                    new produtoReservadoSucess(null, true).setVisible(true);
-                    dispose();
-                } else {
-                    new selecioneTabela(null, true).setVisible(true);
-                }
-            }
-        }
-    }//GEN-LAST:event_campoTelefoneKeyReleased
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField campoNome;
+    public static javax.swing.JTextField campoNome;
     private javax.swing.JButton campoReservar;
     private javax.swing.JFormattedTextField campoTelefone;
     private javax.swing.JLabel jLabel10;
