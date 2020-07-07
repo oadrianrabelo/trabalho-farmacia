@@ -172,7 +172,7 @@ public class VendaDAO {
     public List<Venda> listarIds(Farmacia far) {
         try {
             List<Venda> lista = new ArrayList<>();
-            String cmdsql = "select id_venda from venda where `status`like 'no caixa' and fk_id_farmacia = ?;";
+            String cmdsql = "select id_venda from venda where `status` like 'no caixa' or `status` like 'em aberto' and fk_id_farmacia = ?;";
             PreparedStatement stmt = conecta.prepareStatement(cmdsql);
             stmt.setInt(1, far.getIdFarmacia());
             ResultSet rs = stmt.executeQuery();

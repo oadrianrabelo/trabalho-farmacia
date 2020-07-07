@@ -135,6 +135,11 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
         tabelaProdutos.setSurrendersFocusOnKeystroke(true);
         tabelaProdutos.getTableHeader().setResizingAllowed(false);
         tabelaProdutos.getTableHeader().setReorderingAllowed(false);
+        tabelaProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaProdutosMouseClicked(evt);
+            }
+        });
         ScrollPane.setViewportView(tabelaProdutos);
         if (tabelaProdutos.getColumnModel().getColumnCount() > 0) {
             tabelaProdutos.getColumnModel().getColumn(0).setMinWidth(0);
@@ -311,7 +316,7 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
     private void btnCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarrinhoActionPerformed
         if (tabelaProdutos.getSelectedRowCount() != 0) {
             String tarja = String.valueOf(tabelaProdutos.getValueAt(tabelaProdutos.getSelectedRow(), 4).toString());
-            if (tarja.equals("Tarja preta") || tarja.equals("Tarja vermelha (com retenção da receita)")) {
+            if (tarja.equals("Tarja preta") || tarja.equals("Tarja vermelha (com retenção da receita)") || tarja.equals("Tarja vermelha (sem retenção da receita)") || tarja.equals("Tarja amarela")) {
                 LiberarMedicamento lm = new LiberarMedicamento();
                 pane.add(lm);
                 lm.setVisible(true);
@@ -345,6 +350,9 @@ public class TelaFarmaceutico extends javax.swing.JFrame {
         pane.add(cf);
         cf.setVisible(true);
     }//GEN-LAST:event_btnProcurarActionPerformed
+
+    private void tabelaProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProdutosMouseClicked
+    }//GEN-LAST:event_tabelaProdutosMouseClicked
 
      public void Buscar(String nome) {
         try {

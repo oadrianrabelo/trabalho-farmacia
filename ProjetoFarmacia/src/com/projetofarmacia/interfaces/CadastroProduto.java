@@ -18,11 +18,8 @@ import com.projetofarmacia.javabeans.TipoProduto;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.NumberFormatter;
 
 /**
  *
@@ -37,12 +34,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         initComponents();
         campoTipo.setBackground(Color.WHITE);
         campoTarja.setBackground(Color.WHITE);
-        DecimalFormat decimal = new DecimalFormat("#,##0.00");
-        NumberFormatter numFormatter = new NumberFormatter(decimal);
-        numFormatter.setFormat(decimal);
-        numFormatter.setAllowsInvalid(false);
-        DefaultFormatterFactory dfFactory = new DefaultFormatterFactory(numFormatter);
-        campoPreco.setFormatterFactory(dfFactory);
     }
 
     private void limparCampos() {
@@ -430,6 +421,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                 setarDados();
                 edit = false;
                 new dadosAlteradosSucces(null, true).setVisible(true);
+                this.dispose();
             } else {
                 Cadastrar();
                 new dadosCadastradosSucces(null, true).setVisible(true);
@@ -470,7 +462,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             obj.setLote(campoLote.getText());
             obj.setCodigoBarras(Long.parseLong(campoCodBar.getText()));
 //            obj.setStatus(String.valueOf(campoReserva.getSelectedItem()));
-            obj.setPreco(Double.parseDouble(campoPreco.getText()));
+            obj.setPreco(Double.parseDouble(campoPreco.getText().replaceAll(",", ".")));
             if (!campoTipo.getSelectedItem().equals("Medicamento")) {
                 obj.setTarja("Sem tarja");
             } else {
@@ -512,7 +504,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         campoFabricacao.setText(String.valueOf(dataFab));
         campoValidade.setText(String.valueOf(dataVal));
         campoLote.setText(lote);
-        dao.listarTipoProduto(campoTipo);
         campoTipo.setSelectedItem(tipo);
         campoCodBar.setText(String.valueOf(codBars));
         edit = isedit;

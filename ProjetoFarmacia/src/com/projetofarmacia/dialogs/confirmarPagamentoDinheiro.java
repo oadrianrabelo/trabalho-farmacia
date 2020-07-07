@@ -102,6 +102,7 @@ public class confirmarPagamentoDinheiro extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoTrocoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTrocoKeyReleased

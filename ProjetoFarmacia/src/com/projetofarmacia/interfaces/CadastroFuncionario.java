@@ -546,7 +546,6 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
             
             dao.alterarFuncionario(obj);
             dao.corrigeId(obj);
-            this.dispose();
         } catch (RuntimeException | ParseException e) {
             new dadosAlteradosFalha(null, true).setVisible(true);
             throw new RuntimeException(e);
@@ -592,7 +591,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
         };
         return obj;
     }
-    private void Cadastrar() {
+    private void Cadastrar(){
         try {
             Funcionario obj = new Funcionario();
             FuncionarioDAO dao = new FuncionarioDAO();
@@ -675,6 +674,7 @@ public class CadastroFuncionario extends javax.swing.JInternalFrame {
                 setarDados();
                 edit = false;
                 new dadosAlteradosSucces(null, true).setVisible(true);
+                this.dispose();
             } else {
                 Cadastrar();
                 new dadosCadastradosSucces(null, true).setVisible(true);

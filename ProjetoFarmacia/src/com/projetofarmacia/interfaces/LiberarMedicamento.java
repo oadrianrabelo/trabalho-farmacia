@@ -10,6 +10,7 @@ import com.projetofarmacia.DAO.ReceitaDAO;
 import com.projetofarmacia.dialogs.camposVazios;
 import com.projetofarmacia.dialogs.falhaReceita;
 import com.projetofarmacia.dialogs.receitaSalva;
+import com.projetofarmacia.dialogs.selecioneTabela;
 import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Funcionario;
 import com.projetofarmacia.javabeans.Receita;
@@ -335,6 +336,7 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
         DefaultTableModel tabelaOrigem = (DefaultTableModel) TelaFarmaceutico.tabelaProdutos.getModel();
         DefaultTableModel tabelaDestino = (DefaultTableModel) Carrinho.tabelaCarrinho.getModel();
         FuncionarioDAO dao = new FuncionarioDAO();
+        f.setIdFuncionario(TelaLogin.idFunc);
         Object[] obj = {
             tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 0),
             tabelaOrigem.getValueAt(TelaFarmaceutico.tabelaProdutos.getSelectedRow(), 1),
@@ -353,13 +355,14 @@ public class LiberarMedicamento extends javax.swing.JInternalFrame {
             || campoEnderecoProf.getText().equals("") || campoEnderecoPaciente.getText().equals("")) {
             
             new camposVazios(null, true).setVisible(true);
-        } else {
+        } else if (TelaFarmaceutico.tabelaProdutos.getSelectedRow() != -1) {
+            enviaCarrinho();
             Cadastrar();
             new receitaSalva(null, true).setVisible(true);
-            enviaCarrinho();
             this.dispose();
-            
-        }
+        } else {
+            new selecioneTabela(null, true).setVisible(true);
+    }
     }//GEN-LAST:event_brnCarrinhoActionPerformed
 
 

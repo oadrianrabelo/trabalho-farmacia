@@ -457,6 +457,7 @@ public class TelaCaixa extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         ListarProdutos();
+        ListarAbertos();
     }//GEN-LAST:event_formWindowOpened
 
     private void tabelaProcurarProdutoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProcurarProdutoMousePressed
@@ -494,10 +495,6 @@ public class TelaCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaProdutoMousePressed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        ListarAbertos();
-        if (tabelaReservados.getRowCount() > 0) {
-            campoNome.setText(tabelaReservados.getValueAt(0, 0).toString());
-        }
     }//GEN-LAST:event_formWindowActivated
 
     private void tabelaReservadosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaReservadosMousePressed
@@ -547,7 +544,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             Farmacia far = new Farmacia();
             far.setIdFarmacia(TelaLogin.idFar);
             ProdutoDAO dao = new ProdutoDAO();
-            List<Produto> listaDeProdutos = dao.buscarProduto(nome, far);
+            List<Produto> listaDeProdutos = dao.buscarProdutoCaixa(nome, far);
             DefaultTableModel modelo = (DefaultTableModel) tabelaProcurarProduto.getModel();
             modelo.setNumRows(0);
             Funcionario f = new Funcionario();
@@ -616,7 +613,7 @@ public class TelaCaixa extends javax.swing.JFrame {
                 tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), 4),
                 daof.nomeFarmacia(f),
                 tabelaOrigem.getValueAt(tabelaOrigem.getSelectedRow(), 6),
-                
+                Listarids()
                 };
                 tabelaDestiny.addRow(obj);
             } else {
@@ -718,7 +715,7 @@ public class TelaCaixa extends javax.swing.JFrame {
             Farmacia far = new Farmacia();
             far.setIdFarmacia(TelaLogin.idFar);
             ProdutoDAO dao = new ProdutoDAO();
-            List<Produto> listaDeProdutos = dao.listarProduto(far);
+            List<Produto> listaDeProdutos = dao.listarTodosProdutosCaixa(far);
             DefaultTableModel modelo = (DefaultTableModel) tabelaProcurarProduto.getModel();
             modelo.setNumRows(0);
             dataComp();
@@ -748,7 +745,9 @@ public class TelaCaixa extends javax.swing.JFrame {
         VendaDAO dao = new VendaDAO();
         Produto p = new Produto();
         ProdutoDAO pdao = new ProdutoDAO();
+        Farmacia f = new Farmacia();
         for (int i = 0; i < TelaCaixa.tabelaProduto.getRowCount(); i++) {
+            f.setIdFarmacia(TelaLogin.idFar);
             obj.setNome("CANCELADO");
             obj.setStatus("FINALIZADO");
             dao.finalizarVenda(obj);
