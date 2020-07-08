@@ -212,11 +212,12 @@ public class ConsultarFarmacias extends javax.swing.JInternalFrame {
             desktopPane.add(lm);
             lm.isReserva = true;
             lm.setVisible(true);
+        } else {
+            ReservarProduto rp1 = new ReservarProduto();
+            JDesktopPane desktopPane = getDesktopPane();
+            desktopPane.add(rp1);
+            rp1.setVisible(true);
         }
-//        ReservarProduto rp1 = new ReservarProduto();
-//        JDesktopPane desktopPane = getDesktopPane();
-//        desktopPane.add(rp1);
-//        rp1.setVisible(true);
         
     }//GEN-LAST:event_btnReservarActionPerformed
 

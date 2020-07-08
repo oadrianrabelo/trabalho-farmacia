@@ -12,6 +12,7 @@ import com.projetofarmacia.interfaces.TelaLogin;
 import com.projetofarmacia.javabeans.Farmacia;
 import com.projetofarmacia.javabeans.Produto;
 import com.projetofarmacia.javabeans.Venda;
+import java.text.DecimalFormat;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -107,10 +108,10 @@ public class confirmarPagamentoDinheiro extends javax.swing.JDialog {
 
     private void campoTrocoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTrocoKeyReleased
         if (!campoTroco.getText().equals("")) {
-            mudaTroco(Double.parseDouble(campoTroco.getText().replaceAll(" ", "")), TelaCaixa.total);
+            mudaTroco(Double.parseDouble(campoTroco.getText().replaceAll(" ", "").replaceAll(",", ".")), TelaCaixa.total);
 //            mudaTroco(Double.parseDouble(campoTroco.getText().replaceAll(" ", "")));
         } else {
-            mudaTroco(0, 15);
+            mudaTroco(0, 0);
         }
     }//GEN-LAST:event_campoTrocoKeyReleased
 
@@ -140,7 +141,8 @@ public class confirmarPagamentoDinheiro extends javax.swing.JDialog {
         double troco = dinheiro - preco;
         if (troco > 0 || troco >= TelaCaixa.total) {
             lblInsuficiente.setVisible(false);
-            lblTroco.setText(String.valueOf(troco));
+//            lblTroco.setText(String.valueOf(troco));
+            lblTroco.setText(String.valueOf(new DecimalFormat("###,######0.00").format(troco)));
             btnFinalizar.setEnabled(true);
         } else {
             lblTroco.setText("0.00");
